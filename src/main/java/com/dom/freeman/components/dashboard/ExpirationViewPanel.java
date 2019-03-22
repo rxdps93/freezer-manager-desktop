@@ -11,11 +11,9 @@ import com.dom.freeman.components.InventoryTable;
 import com.dom.freeman.obj.ExpirationTableCellRenderer;
 import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.gui2.Borders;
-import com.googlecode.lanterna.gui2.GridLayout;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.Window;
-import com.googlecode.lanterna.gui2.GridLayout.Alignment;
 import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
@@ -82,7 +80,7 @@ public class ExpirationViewPanel extends Panel {
 				if (remain != 0)
 					info.append(String.format("%d days until expiration.", remain));
 				else
-					info.append("This item expires today!");
+					info.append("That is today!");
 
 				new MessageDialogBuilder().setTitle("ITEM EXPIRATION SUMMARY").setText(info.toString())
 				.addButton(MessageDialogButton.Close)
@@ -92,11 +90,6 @@ public class ExpirationViewPanel extends Panel {
 		});
 
 		panel.addComponent(expirations.setEscapeByArrowKey(false));
-		panel.setLayoutData(GridLayout.createLayoutData(
-				Alignment.CENTER,
-				Alignment.BEGINNING,
-				true,
-				false));
 
 		this.addComponent(panel.withBorder(Borders.singleLine("ITEMS EXPIRING WITHIN 90 DAYS")));
 	}

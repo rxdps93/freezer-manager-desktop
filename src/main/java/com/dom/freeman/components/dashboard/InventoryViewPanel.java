@@ -10,11 +10,9 @@ import java.util.List;
 import com.dom.freeman.components.InventoryTable;
 import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.gui2.Borders;
-import com.googlecode.lanterna.gui2.GridLayout;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.Window;
-import com.googlecode.lanterna.gui2.GridLayout.Alignment;
 import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
@@ -22,6 +20,7 @@ import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 public class InventoryViewPanel extends Panel {
 
 	private Window parent;
+	private InventoryTable<String> inventory;
 
 	public InventoryViewPanel(List<Item> items, Window parent) {
 		super();
@@ -38,6 +37,7 @@ public class InventoryViewPanel extends Panel {
 	private void configureContent(List<Item> items) {
 
 		Panel panel = new Panel();
+		
 		InventoryTable<String> inventory = new InventoryTable<>("ITEM TYPE", "QUANTITY", "ADDED DATE", "EXPIRATION DATE");
 		inventory.setVisibleRows(60);
 		inventory.setResetSelectOnTab(true);
@@ -89,12 +89,12 @@ public class InventoryViewPanel extends Panel {
 		});
 
 		panel.addComponent(inventory.setEscapeByArrowKey(false));
-		panel.setLayoutData(GridLayout.createLayoutData(
-				Alignment.CENTER,
-				Alignment.BEGINNING,
-				true,
-				false));
+		this.inventory = inventory;
 
 		this.addComponent(panel.withBorder(Borders.singleLine("INVENTORY ITEMS ALPHABETICAL")));
+	}
+	
+	public InventoryTable<String> getInteractable() {
+		return this.inventory;
 	}
 }

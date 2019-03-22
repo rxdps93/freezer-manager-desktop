@@ -61,6 +61,7 @@ My intent is to develop a system comprised of four major components:
 - [ ] Edit item
 - [ ] Remove item
 - [ ] Data updates from CSV each time an action happens
+- [ ] Properly document code to a respectable and responsible standard
 #### Near
 - [ ] Add tag
 - [ ] Edit tag

@@ -1,6 +1,7 @@
 package com.dom.freeman.components.users;
 
 import com.dom.freeman.components.ViewPanel;
+import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.LinearLayout;
@@ -9,6 +10,8 @@ import com.googlecode.lanterna.input.KeyType;
 
 public class UserPanel extends ViewPanel {
 
+	private Interactable interactable;
+	
 	public UserPanel() {
 		super(KeyType.F5);
 		configureContent();
@@ -24,5 +27,10 @@ public class UserPanel extends ViewPanel {
 		Label content = new Label("User Management Panel");
 		content.setLayoutData(LinearLayout.createLayoutData(Alignment.Center));
 		this.addComponent(content);
+	}
+
+	@Override
+	public Interactable getPrimaryInteractable() {
+		return this.interactable;
 	}
 }

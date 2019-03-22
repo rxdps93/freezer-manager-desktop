@@ -2,6 +2,7 @@ package com.dom.freeman.components;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor.ANSI;
 import com.googlecode.lanterna.gui2.BorderLayout;
@@ -87,10 +88,10 @@ public class MainPanel extends Panel {
 
 	private void configureActionsPanel(int activeView) {
 
-		this.actionPanel = new Panel(new LinearLayout(Direction.HORIZONTAL));
+		this.actionPanel = new Panel(new LinearLayout());
 		this.actionPanel.setLayoutData(BorderLayout.Location.BOTTOM);
 		
-//		StringBuilder actionMessage = new StringBuilder();
+		Panel labelPanel = new Panel(new LinearLayout(Direction.HORIZONTAL));
 
 		Label actionLabel;
 		for (int i = 0; i < this.actions.length; i++) {
@@ -98,17 +99,15 @@ public class MainPanel extends Panel {
 			actionLabel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
 			
 			if (i == activeView) {
-				actionLabel.setBackgroundColor(ANSI.YELLOW);
+				actionLabel.setForegroundColor(ANSI.WHITE);
+				actionLabel.setBackgroundColor(ANSI.BLUE);
+				actionLabel.addStyle(SGR.BOLD);
 			}
 			
-			actionPanel.addComponent(actionLabel);
+			labelPanel.addComponent(actionLabel);
 		}
-
-//		Label actionLabel = new Label(actionMessage.toString());
-
-//		this.actionPanel.setLayoutData(BorderLayout.Location.BOTTOM);
-//		actionLabel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
-//		this.actionPanel.addComponent(actionLabel);
+		labelPanel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
+		this.actionPanel.addComponent(labelPanel);
 	}
 	
 	public void setView(ViewPanel component, int activeView) {

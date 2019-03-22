@@ -9,11 +9,9 @@ import java.util.Map.Entry;
 import com.dom.freeman.components.InventoryTable;
 import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.gui2.Borders;
-import com.googlecode.lanterna.gui2.GridLayout;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.Window;
-import com.googlecode.lanterna.gui2.GridLayout.Alignment;
 import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
@@ -97,11 +95,6 @@ public class TypeCountViewPanel extends Panel{
 		});
 
 		panel.addComponent(typeCount.setEscapeByArrowKey(false));
-		panel.setLayoutData(GridLayout.createLayoutData(
-				Alignment.CENTER,
-				Alignment.BEGINNING,
-				true,
-				false));
 
 		this.addComponent(panel.withBorder(Borders.singleLine("TYPE COUNT VIEW")));
 	}

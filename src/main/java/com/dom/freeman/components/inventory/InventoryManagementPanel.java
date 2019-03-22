@@ -1,0 +1,70 @@
+package com.dom.freeman.components.inventory;
+
+import java.util.Arrays;
+import java.util.List;
+
+import com.dom.freeman.components.InventoryTable;
+import com.dom.freeman.obj.Item;
+import com.googlecode.lanterna.gui2.Borders;
+import com.googlecode.lanterna.gui2.LayoutManager;
+import com.googlecode.lanterna.gui2.Panel;
+import com.googlecode.lanterna.gui2.Window;
+import com.googlecode.lanterna.gui2.Window.Hint;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
+
+public class InventoryManagementPanel extends Panel {
+
+	private Window parent;
+	private List<Item> items;
+	private InventoryTable<String> inventory;
+	
+	public InventoryManagementPanel(List<Item> items, Window parent) {
+		super();
+		this.parent = parent;
+		this.items = items;
+		configureContent();
+	}
+	
+	public InventoryManagementPanel(LayoutManager layoutManager, List<Item> items, Window parent) {
+		super(layoutManager);
+		this.parent = parent;
+		this.items = items;
+		configureContent();
+	}
+	
+	private void configureContent() {
+		
+		Panel panel = new Panel();
+		InventoryTable<String> inventory = new InventoryTable<>("ITEM TYPE", "QUANTITY", "ADDED DATE", "EXPIRATION DATE");
+		inventory.setVisibleRows(60);
+		inventory.setResetSelectOnTab(true);
+		
+		for (Item item : items) {
+			inventory.getTableModel().addRow(
+					item.getType(),
+					String.format("%3d %s", item.getQuantity(), item.getUnit()),
+					item.getAdded().toString(),
+					item.getExpires().toString());
+		}
+		
+		inventory.setSelectAction(new Runnable() {
+			@Override
+			public void run() {
+				new MessageDialogBuilder().setTitle("DETAILED ITEM VIEW").setText("WORK IN PROGRESS")
+				.addButton(MessageDialogButton.Close)
+				.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+				.build().showDialog(parent.getTextGUI());
+				
+			}
+		});
+		
+		panel.addComponent(inventory.setEscapeByArrowKey(false));
+		this.inventory = inventory;
+		this.addComponent(panel.withBorder(Borders.singleLine("INVENTORY MANAGEMENT")));
+	}
+	
+	public InventoryTable<String> getInteractable() {
+		return this.inventory;
+	}
+}

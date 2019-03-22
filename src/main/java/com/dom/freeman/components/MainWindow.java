@@ -59,7 +59,7 @@ public class MainWindow extends BasicWindow {
 	private void configureContent() {
 
 		this.dashboardPanel = new DashboardPanel(new GridLayout(3), this.items, this.types, this);
-		this.inventoryPanel = new InventoryPanel(new LinearLayout());
+		this.inventoryPanel = new InventoryPanel(new GridLayout(2), this.items, this);
 		this.tagPanel = new TagPanel(new LinearLayout());
 		this.typePanel = new TypePanel(new LinearLayout());
 		this.userPanel = new UserPanel(new LinearLayout());
@@ -78,31 +78,37 @@ public class MainWindow extends BasicWindow {
 				case F1:
 					if (!getMainComponent().getCurrentComponent().getTrigger().equals(KeyType.F1)) {
 						getMainComponent().setView(dashboardPanel, 0);
+						setFocusedInteractable(dashboardPanel.getPrimaryInteractable());
 					}
 					break;
 				case F2:
 					if (!getMainComponent().getCurrentComponent().getTrigger().equals(KeyType.F2)) {
 						getMainComponent().setView(inventoryPanel, 1);
+						setFocusedInteractable(inventoryPanel.getPrimaryInteractable());
 					}
 					break;
 				case F3:
 					if (!getMainComponent().getCurrentComponent().getTrigger().equals(KeyType.F3)) {
 						getMainComponent().setView(tagPanel, 2);
+						setFocusedInteractable(tagPanel.getPrimaryInteractable());
 					}
 					break;
 				case F4:
 					if (!getMainComponent().getCurrentComponent().getTrigger().equals(KeyType.F4)) {
 						getMainComponent().setView(typePanel, 3);
+						setFocusedInteractable(typePanel.getPrimaryInteractable());
 					}
 					break;
 				case F5:
 					if (!getMainComponent().getCurrentComponent().getTrigger().equals(KeyType.F5)) {
 						getMainComponent().setView(userPanel, 4);
+						setFocusedInteractable(userPanel.getPrimaryInteractable());
 					}
 					break;
 				case F6:
 					if (!getMainComponent().getCurrentComponent().getTrigger().equals(KeyType.F6)) {
 						getMainComponent().setView(transactionPanel, 5);
+						setFocusedInteractable(transactionPanel.getPrimaryInteractable());
 					}
 					break;
 				default:

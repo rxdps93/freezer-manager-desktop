@@ -1,10 +1,11 @@
 package com.dom.freeman.components;
 
+import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.input.KeyType;
 
-public class ViewPanel extends Panel {
+public abstract class ViewPanel extends Panel {
 
 	private final KeyType trigger;
 	
@@ -21,4 +22,6 @@ public class ViewPanel extends Panel {
 	public KeyType getTrigger() {
 		return this.trigger;
 	}
+	
+	public abstract Interactable getPrimaryInteractable();
 }
