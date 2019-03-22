@@ -1,6 +1,7 @@
 package com.dom.freeman.components.inventory;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.dom.freeman.components.InventoryTable;
@@ -12,6 +13,7 @@ import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
+import com.googlecode.lanterna.gui2.table.TableModel;
 
 public class InventoryManagementPanel extends Panel {
 
@@ -40,13 +42,7 @@ public class InventoryManagementPanel extends Panel {
 		inventory.setVisibleRows(60);
 		inventory.setResetSelectOnTab(true);
 		
-		for (Item item : items) {
-			inventory.getTableModel().addRow(
-					item.getType(),
-					String.format("%3d %s", item.getQuantity(), item.getUnit()),
-					item.getAdded().toString(),
-					item.getExpires().toString());
-		}
+		inventory.setTableModel(this.configureTableModel(this.items));
 		
 		inventory.setSelectAction(new Runnable() {
 			@Override
@@ -59,9 +55,30 @@ public class InventoryManagementPanel extends Panel {
 			}
 		});
 		
+		// TODO: Temporary until the InventoryManagementControlPanel is ready
+		
 		panel.addComponent(inventory.setEscapeByArrowKey(false));
 		this.inventory = inventory;
 		this.addComponent(panel.withBorder(Borders.singleLine("INVENTORY MANAGEMENT")));
+	}
+	
+	private TableModel<String> configureTableModel(List<Item> items) {
+		TableModel<String> model = new TableModel<>("ITEM TYPE", "QUANTITY", "ADDED DATE", "EXPIRATION DATE");
+		
+		for (Item item : items) {
+			model.addRow(item.getType(),
+					String.format("%3d %s",  item.getQuantity(), item.getUnit()),
+					item.getAdded().toString(),
+					item.getExpires().toString());
+		}
+		
+		return model;
+	}
+	
+	public void sortTable(InventorySortMode sortMode) {
+
+		Collections.sort(this.items, sortMode.getSortMethod());
+		this.inventory.setTableModel(configureTableModel(this.items));
 	}
 	
 	public InventoryTable<String> getInteractable() {
