@@ -7,11 +7,17 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.dom.freeman.components.dashboard.DashboardPanel;
 import com.dom.freeman.components.inventory.InventoryPanel;
+import com.dom.freeman.components.tags.TagPanel;
+import com.dom.freeman.components.transactions.TransactionPanel;
+import com.dom.freeman.components.types.TypePanel;
+import com.dom.freeman.components.users.UserPanel;
 import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.BasicWindow;
+import com.googlecode.lanterna.gui2.BorderLayout;
 import com.googlecode.lanterna.gui2.GridLayout;
+import com.googlecode.lanterna.gui2.LinearLayout;
 import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.WindowListener;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -25,6 +31,10 @@ public class MainWindow extends BasicWindow {
 	
 	private ViewPanel dashboardPanel;
 	private ViewPanel inventoryPanel;
+	private ViewPanel tagPanel;
+	private ViewPanel typePanel;
+	private ViewPanel userPanel;
+	private ViewPanel transactionPanel;
 
 	public MainWindow(String header, List<Item> items, Map<String, Integer> types) {
 		super();
@@ -49,9 +59,13 @@ public class MainWindow extends BasicWindow {
 	private void configureContent() {
 
 		this.dashboardPanel = new DashboardPanel(new GridLayout(3), this.items, this.types, this);
-		this.inventoryPanel = new InventoryPanel();
+		this.inventoryPanel = new InventoryPanel(new LinearLayout());
+		this.tagPanel = new TagPanel(new LinearLayout());
+		this.typePanel = new TypePanel(new LinearLayout());
+		this.userPanel = new UserPanel(new LinearLayout());
+		this.transactionPanel = new TransactionPanel(new LinearLayout());
 		
-		this.setComponent(new MainPanel(new GridLayout(1), this.dashboardPanel, this.header));
+		this.setComponent(new MainPanel(new BorderLayout(), this.dashboardPanel, this.header));
 		this.setHints(Arrays.asList(Hint.EXPANDED, Hint.FIXED_POSITION));
 		this.setPosition(new TerminalPosition(1, 2));
 
@@ -62,24 +76,34 @@ public class MainWindow extends BasicWindow {
 
 				switch (keyStroke.getKeyType()) {
 				case F1:
-					if (!getMainComponent().getCurrentComponent().getTrigger().equals(KeyType.F1))
-						getMainComponent().setView(dashboardPanel);
+					if (!getMainComponent().getCurrentComponent().getTrigger().equals(KeyType.F1)) {
+						getMainComponent().setView(dashboardPanel, 0);
+					}
 					break;
 				case F2:
-					if (!getMainComponent().getCurrentComponent().getTrigger().equals(KeyType.F2))
-						getMainComponent().setView(inventoryPanel);
+					if (!getMainComponent().getCurrentComponent().getTrigger().equals(KeyType.F2)) {
+						getMainComponent().setView(inventoryPanel, 1);
+					}
 					break;
 				case F3:
-					System.out.println("Manage Tags");
+					if (!getMainComponent().getCurrentComponent().getTrigger().equals(KeyType.F3)) {
+						getMainComponent().setView(tagPanel, 2);
+					}
 					break;
 				case F4:
-					System.out.println("Manage Types");
+					if (!getMainComponent().getCurrentComponent().getTrigger().equals(KeyType.F4)) {
+						getMainComponent().setView(typePanel, 3);
+					}
 					break;
 				case F5:
-					System.out.println("Manage Users");
+					if (!getMainComponent().getCurrentComponent().getTrigger().equals(KeyType.F5)) {
+						getMainComponent().setView(userPanel, 4);
+					}
 					break;
 				case F6:
-					System.out.println("Transaction Logs");
+					if (!getMainComponent().getCurrentComponent().getTrigger().equals(KeyType.F6)) {
+						getMainComponent().setView(transactionPanel, 5);
+					}
 					break;
 				default:
 					break;

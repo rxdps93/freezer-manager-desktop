@@ -2,18 +2,24 @@ package com.dom.freeman.components;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.googlecode.lanterna.gui2.GridLayout;
-import com.googlecode.lanterna.gui2.GridLayout.Alignment;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor.ANSI;
+import com.googlecode.lanterna.gui2.BorderLayout;
+import com.googlecode.lanterna.gui2.Borders;
+import com.googlecode.lanterna.gui2.Direction;
+import com.googlecode.lanterna.gui2.EmptySpace;
 import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.LayoutManager;
+import com.googlecode.lanterna.gui2.LinearLayout;
 import com.googlecode.lanterna.gui2.Panel;
 
 public class MainPanel extends Panel {
 	
 	private final String header;
 	
-	private Label headerLabel;
-	private Label actionLabel;
+	private Panel headerPanel;
+	private Panel componentPanel;
+	private Panel actionPanel;
 	
 	private ViewPanel currentComponent;
 
@@ -49,58 +55,77 @@ public class MainPanel extends Panel {
 	
 	private void initialConfiguration(ViewPanel initialComponent) {
 		
-		this.configureHeaderLabel();
-		this.configureActionsLabel();
+		this.configureHeaderPanel();
+		this.configureComponentPanel(initialComponent);
+		this.configureActionsPanel(0);
 		
-		this.setView(initialComponent);
+		this.addComponent(this.headerPanel);
+		this.addComponent(this.componentPanel);
+		this.addComponent(this.actionPanel.withBorder(Borders.singleLine()));
 	}
 	
-	private void configureHeaderLabel() {
+	private void configureComponentPanel(ViewPanel initialComponent) {
+		
+		this.componentPanel = new Panel(new LinearLayout());
+		this.componentPanel.setLayoutData(BorderLayout.Location.CENTER);
+		initialComponent.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
+		this.componentPanel.addComponent(initialComponent);
+		
+		this.currentComponent = initialComponent;
+	}
+	
+	private void configureHeaderPanel() {
 
 		Label headerLabel = new Label(this.header);
 
-		headerLabel.setLayoutData(GridLayout.createLayoutData(
-				Alignment.CENTER,
-				Alignment.CENTER,
-				true,
-				true,
-				1,
-				1));
-
-		this.headerLabel = headerLabel;
+		this.headerPanel = new Panel(new LinearLayout());
+		this.headerPanel.setLayoutData(BorderLayout.Location.TOP);
+		headerLabel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
+		this.headerPanel.addComponent(headerLabel);
+		this.headerPanel.addComponent(new EmptySpace(new TerminalSize(1, 2)));
 	}
 
-	private void configureActionsLabel() {
+	private void configureActionsPanel(int activeView) {
 
-		StringBuilder actionMessage = new StringBuilder();
+		this.actionPanel = new Panel(new LinearLayout(Direction.HORIZONTAL));
+		this.actionPanel.setLayoutData(BorderLayout.Location.BOTTOM);
+		
+//		StringBuilder actionMessage = new StringBuilder();
 
+		Label actionLabel;
 		for (int i = 0; i < this.actions.length; i++) {
-			actionMessage.append(StringUtils.center(String.format("[%s=%s]", this.buttons[i], this.actions[i]), 25));
+			actionLabel = new Label(StringUtils.center(String.format("[%s=%s]", this.buttons[i], this.actions[i]), 25));
+			actionLabel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
+			
+			if (i == activeView) {
+				actionLabel.setBackgroundColor(ANSI.YELLOW);
+			}
+			
+			actionPanel.addComponent(actionLabel);
 		}
 
-		Label actionLabel = new Label(actionMessage.toString());
-		actionLabel.setLayoutData(GridLayout.createLayoutData(
-				GridLayout.Alignment.CENTER,
-				GridLayout.Alignment.CENTER,
-				true,
-				true,
-				1,
-				1));
+//		Label actionLabel = new Label(actionMessage.toString());
 
-		this.actionLabel = actionLabel;
+//		this.actionPanel.setLayoutData(BorderLayout.Location.BOTTOM);
+//		actionLabel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
+//		this.actionPanel.addComponent(actionLabel);
 	}
 	
-	public void setView(ViewPanel component) {
-		this.removeAllComponents();
-		this.addComponent(this.headerLabel);
+	public void setView(ViewPanel component, int activeView) {
 		
-		component.setLayoutData(GridLayout.createLayoutData(
-				GridLayout.Alignment.CENTER,
-				GridLayout.Alignment.CENTER));
-		this.addComponent(component);
+		this.removeAllComponents();
+		
+		configureActionsPanel(activeView);
+		this.addComponent(this.headerPanel);
+		
+		component.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
+		this.componentPanel.removeAllComponents();
+		this.componentPanel.addComponent(component);
+		this.addComponent(this.componentPanel);
+		
 		this.currentComponent = component;
 		
-		this.addComponent(this.actionLabel);
+		this.addComponent(this.actionPanel.withBorder(Borders.singleLine()));
 	}
 	
 	public ViewPanel getCurrentComponent() {

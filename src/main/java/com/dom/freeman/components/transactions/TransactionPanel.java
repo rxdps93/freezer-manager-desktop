@@ -1,4 +1,4 @@
-package com.dom.freeman.components.inventory;
+package com.dom.freeman.components.transactions;
 
 import com.dom.freeman.components.ViewPanel;
 import com.googlecode.lanterna.gui2.Label;
@@ -7,21 +7,21 @@ import com.googlecode.lanterna.gui2.LinearLayout;
 import com.googlecode.lanterna.gui2.LinearLayout.Alignment;
 import com.googlecode.lanterna.input.KeyType;
 
-public class InventoryPanel extends ViewPanel {
+public class TransactionPanel extends ViewPanel {
 	
-	public InventoryPanel() {
-		super(KeyType.F2);
+	public TransactionPanel() {
+		super(KeyType.F6);
 		configureContent();
 	}
 	
-	public InventoryPanel(LayoutManager layoutManager) {
-		super(layoutManager, KeyType.F2);
+	public TransactionPanel(LayoutManager layoutManager) {
+		super(layoutManager, KeyType.F6);
 		configureContent();
 	}
 	
 	private void configureContent() {
 		
-		Label content = new Label("Inventory Management Panel");
+		Label content = new Label("Transaction Management Panel");
 		content.setLayoutData(LinearLayout.createLayoutData(Alignment.Center));
 		this.addComponent(content);
 	}
