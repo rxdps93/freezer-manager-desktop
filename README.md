@@ -57,7 +57,7 @@ My intent is to develop a system comprised of four major components:
 - [x] Inventory "at-a-glance" Alphabetical View
 - [x] Inventory "at-a-glance" Expiring Soon View
 - [x] Inventory "at-a-glance" Grouped Item Type Count View
-- [ ] Detailed inventory view without sorting / filtering
+- [ ] Detailed inventory view with sorting, no filtering
 - [ ] Add item and save it to CSV
 - [ ] Edit item
 - [ ] Remove item
@@ -72,7 +72,7 @@ My intent is to develop a system comprised of four major components:
 - [ ] Remove user
 - [ ] Data updates from CSV periodically
 #### Far
-- [ ] Sort and filter detailed inventory view
+- [ ] Filter detailed inventory view
 - [ ] Assign tags to an item
 - [ ] Unassign tags from an item
 - [ ] Interface with server application / database for inventory items

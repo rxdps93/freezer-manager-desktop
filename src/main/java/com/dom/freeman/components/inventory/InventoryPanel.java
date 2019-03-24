@@ -32,9 +32,9 @@ public class InventoryPanel extends ViewPanel {
 	private void configureContent() {
 		
 		InventoryManagementPanel invManPanel = new InventoryManagementPanel(this.items, this.parent);
-		this.addComponent(invManPanel);
-		this.addComponent(new InventoryManagementControlPanel());
 		this.interactable = invManPanel.getInteractable();
+		this.addComponent(invManPanel);
+		this.addComponent(new InventoryManagementControlPanel(invManPanel));
 	}
 
 	@Override

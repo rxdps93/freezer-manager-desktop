@@ -8,13 +8,17 @@ import com.googlecode.lanterna.gui2.RadioBoxList;
 
 public class InventoryManagementControlPanel extends Panel {
 
-	public InventoryManagementControlPanel() {
+	private final InventoryManagementPanel invPanel;
+	
+	public InventoryManagementControlPanel(InventoryManagementPanel invPanel) {
 		super();
+		this.invPanel = invPanel;
 		this.initializeContent();
 	}
 	
-	public InventoryManagementControlPanel(LayoutManager layoutManager) {
+	public InventoryManagementControlPanel(LayoutManager layoutManager, InventoryManagementPanel invPanel) {
 		super(layoutManager);
+		this.invPanel = invPanel;
 		this.initializeContent();
 	}
 	
@@ -26,6 +30,7 @@ public class InventoryManagementControlPanel extends Panel {
 		RadioBoxList<String> sortDirection = new RadioBoxList<String>();
 		
 		sortField.addItem("Item Type");
+		sortField.addItem("Quantity");
 		sortField.addItem("Date Added");
 		sortField.addItem("Date Expires");
 		
@@ -34,6 +39,9 @@ public class InventoryManagementControlPanel extends Panel {
 		
 		sortField.setCheckedItemIndex(0);
 		sortDirection.setCheckedItemIndex(0);
+		
+		sortField.addListener(new InventorySortListener(sortDirection, this.invPanel));
+		sortDirection.addListener(new InventorySortListener(sortField, this.invPanel));
 		
 		controls.addComponent(sortField);
 		controls.addComponent(sortDirection);
