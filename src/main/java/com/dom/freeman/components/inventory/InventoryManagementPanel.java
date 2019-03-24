@@ -55,10 +55,9 @@ public class InventoryManagementPanel extends Panel {
 			}
 		});
 		
-		// TODO: Temporary until the InventoryManagementControlPanel is ready
-		
 		panel.addComponent(inventory.setEscapeByArrowKey(false));
 		this.inventory = inventory;
+		this.sortTable(InventorySortMode.TYPE_ASC);
 		this.addComponent(panel.withBorder(Borders.singleLine("INVENTORY MANAGEMENT")));
 	}
 	
