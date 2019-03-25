@@ -26,13 +26,6 @@ public class FreeMan {
 				.setTerminalEmulatorFontConfiguration(stfc)
 				.setInitialTerminalSize(new TerminalSize(190, 75))
 				.createTerminal();
-				
-		terminal.addResizeListener(new TerminalResizeListener() {
-			@Override
-			public void onResized(Terminal terminal, TerminalSize newSize) {
-				System.out.println(newSize);
-			}
-		});
 		
 		Screen screen = new TerminalScreen(terminal);
 		screen.startScreen();

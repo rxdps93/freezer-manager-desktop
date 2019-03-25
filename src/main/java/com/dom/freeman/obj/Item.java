@@ -13,8 +13,8 @@ public class Item {
 	@CsvBindByPosition(position = 1)
 	private int quantity;
 	
-	@CsvBindByPosition(position = 2)
-	private String unit;
+	@CsvCustomBindByPosition(position = 2, converter = UnitConverter.class)
+	private Unit unit;
 	
 	@CsvCustomBindByPosition(position = 3, converter = LocalDateConverter.class)
 	private LocalDate added;
@@ -22,7 +22,7 @@ public class Item {
 	@CsvCustomBindByPosition(position = 4, converter = LocalDateConverter.class)
 	private LocalDate expires;
 	
-	public Item(String type, int quantity, String unit, LocalDate added, LocalDate expires) {
+	public Item(String type, int quantity, Unit unit, LocalDate added, LocalDate expires) {
 		this.type = type;
 		this.quantity = quantity;
 		this.unit = unit;
@@ -42,7 +42,7 @@ public class Item {
 		return this.quantity;
 	}
 
-	public String getUnit() {
+	public Unit getUnit() {
 		return this.unit;
 	}
 
@@ -62,7 +62,7 @@ public class Item {
 		this.quantity = quantity;
 	}
 
-	public void setUnit(String unit) {
+	public void setUnit(Unit unit) {
 		this.unit = unit;
 	}
 

@@ -59,7 +59,7 @@ public class ExpirationViewPanel extends Panel {
 			if (remain >= 0 && remain <= 90) {
 				expirations.getTableModel().addRow(
 						item.getType(),
-						String.format("%3d %s", item.getQuantity(), item.getUnit()),
+						String.format("%3d %s", item.getQuantity(), item.getUnit().getAbbreviationByValue(item.getQuantity())),
 						item.getExpires().toString(),
 						Long.toString(remain));
 			}

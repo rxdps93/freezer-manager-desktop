@@ -66,7 +66,7 @@ public class InventoryManagementPanel extends Panel {
 		
 		for (Item item : items) {
 			model.addRow(item.getType(),
-					String.format("%3d %s",  item.getQuantity(), item.getUnit()),
+					String.format("%3d %s",  item.getQuantity(), item.getUnit().getAbbreviationByValue(item.getQuantity())),
 					item.getAdded().toString(),
 					item.getExpires().toString());
 		}
