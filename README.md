@@ -57,7 +57,7 @@ My intent is to develop a system comprised of four major components:
 - [x] Inventory "at-a-glance" Alphabetical View
 - [x] Inventory "at-a-glance" Expiring Soon View
 - [x] Inventory "at-a-glance" Grouped Item Type Count View
-- [ ] Detailed inventory view with sorting, no filtering
+- [x] Detailed inventory view with sorting, no filtering
 - [ ] Add item and save it to CSV
 - [ ] Edit item
 - [ ] Remove item
@@ -80,3 +80,5 @@ My intent is to develop a system comprised of four major components:
 - [ ] Interface with server application / database for tags
 - [ ] Keep logs of all database transactions
 - [ ] Other things I forgot about :)
+#### Future
+- [ ] Integrate with digital recipe management system (another project I have planned to help my wife out)
