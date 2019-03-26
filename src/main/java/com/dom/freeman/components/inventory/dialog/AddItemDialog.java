@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Year;
 
 import com.dom.freeman.components.DateInput;
+import com.dom.freeman.components.InventoryComboBox;
 import com.dom.freeman.obj.Unit;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.Button;
@@ -18,6 +19,12 @@ import com.googlecode.lanterna.gui2.TextBox;
 import com.googlecode.lanterna.gui2.dialogs.DialogWindow;
 
 public class AddItemDialog extends DialogWindow {
+	
+	private TextBox typeEntry;
+	private ComboBox<Unit> unitEntry;
+	private TextBox quantityEntry;
+	private DateInput addedEntry;
+	private DateInput expiresEntry;
 
 	public AddItemDialog(String title) {
 		super(title);
@@ -46,32 +53,36 @@ public class AddItemDialog extends DialogWindow {
 		// Item Type
 		mainPanel.addComponent(this.dialogSpacer());
 		mainPanel.addComponent(new Label("Item Type"));
-		mainPanel.addComponent(new TextBox(new TerminalSize(30, 1)));
+		this.typeEntry = new TextBox(new TerminalSize(30, 1));
+		mainPanel.addComponent(this.typeEntry);
 		
 		// Unit
 		mainPanel.addComponent(this.dialogSpacer());
 		mainPanel.addComponent(new Label("Unit Type"));
-		ComboBox<Unit> units = new ComboBox<>();
+		this.unitEntry = new InventoryComboBox<>();
 		for (Unit u : Unit.values()) {
 			if (!u.equals(Unit.ERROR))
-				units.addItem(u);
+				unitEntry.addItem(u);
 		}
-		mainPanel.addComponent(units.setPreferredSize(new TerminalSize(30, 1)));
+		mainPanel.addComponent(this.unitEntry.setPreferredSize(new TerminalSize(30, 1)));
 		
 		// Quantity
 		mainPanel.addComponent(this.dialogSpacer());
 		mainPanel.addComponent(new Label("Quantity"));
-		mainPanel.addComponent(new TextBox(new TerminalSize(30, 1)));
+		this.quantityEntry = new TextBox(new TerminalSize(30, 1));
+		mainPanel.addComponent(this.quantityEntry);
 		
 		// Expiration Date
 		mainPanel.addComponent(this.dialogSpacer());
 		mainPanel.addComponent(new Label("Expiration Date"));
-		mainPanel.addComponent(new DateInput(Year.now().getValue(), Year.now().getValue() + 20));
+		this.expiresEntry = new DateInput(Year.now().getValue(), Year.now().getValue() + 20);
+		mainPanel.addComponent(this.expiresEntry);
 		
 		// Date Added (default to today)
 		mainPanel.addComponent(this.dialogSpacer());
 		mainPanel.addComponent(new Label("Date Added"));
-		mainPanel.addComponent(new DateInput(LocalDate.now()));
+		this.addedEntry = new DateInput(LocalDate.now());
+		mainPanel.addComponent(this.addedEntry);
 		
 		// Buttons
 		mainPanel.addComponent(this.dialogSpacer());
@@ -90,7 +101,16 @@ public class AddItemDialog extends DialogWindow {
 	}
 
 	private void onSave() {
-		System.out.println("Save");
+		/*
+		 * TODO: Perform the following steps to save:
+		 * > Alert user if quantity seems odd
+		 * > Check if expiration date is on or before today
+		 * > Check if added date is after today
+		 * > Check if expiration date is before added date
+		 * > Present a summary of the item to user to accept or deny
+		 * > Write item to end of CSV
+		 * > Update list of items from CSV
+		 */
 	}
 	
 	private void onCancel() {

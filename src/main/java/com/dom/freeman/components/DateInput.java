@@ -3,7 +3,6 @@ package com.dom.freeman.components;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
-import java.util.Collections;
 
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.ComboBox.Listener;
@@ -19,9 +18,9 @@ public class DateInput extends Panel {
 	public DateInput(int minimumYear, int maximumYear) {
 		super(new GridLayout(3));
 		
-		this.yearPicker = new ComboBox<>("Year", Collections.emptyList());
-		this.monthPicker = new ComboBox<>("Month", Collections.emptyList());
-		this.dayPicker = new ComboBox<>("Day", Collections.emptyList());
+		this.yearPicker = new InventoryComboBox<>();
+		this.monthPicker = new InventoryComboBox<>();
+		this.dayPicker = new InventoryComboBox<>();
 		
 		configureYearPicker(minimumYear, maximumYear);
 		configureMonthPicker(false);
