@@ -1,5 +1,9 @@
 package com.dom.freeman.components.inventory.dialog;
 
+import java.time.LocalDate;
+import java.time.Year;
+
+import com.dom.freeman.components.DateInput;
 import com.dom.freeman.obj.Unit;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.Button;
@@ -35,11 +39,17 @@ public class AddItemDialog extends DialogWindow {
 		
 		Panel mainPanel = new Panel(new GridLayout(2).setLeftMarginSize(1).setRightMarginSize(1));
 		
+		// Description
+		mainPanel.addComponent(this.dialogSpacer());
+		mainPanel.addComponent(new Label("Use arrow keys to navigate between fields").setLayoutData(GridLayout.createHorizontallyFilledLayoutData(2)));
+		
 		// Item Type
+		mainPanel.addComponent(this.dialogSpacer());
 		mainPanel.addComponent(new Label("Item Type"));
 		mainPanel.addComponent(new TextBox(new TerminalSize(30, 1)));
 		
 		// Unit
+		mainPanel.addComponent(this.dialogSpacer());
 		mainPanel.addComponent(new Label("Unit Type"));
 		ComboBox<Unit> units = new ComboBox<>();
 		for (Unit u : Unit.values()) {
@@ -49,18 +59,34 @@ public class AddItemDialog extends DialogWindow {
 		mainPanel.addComponent(units.setPreferredSize(new TerminalSize(30, 1)));
 		
 		// Quantity
+		mainPanel.addComponent(this.dialogSpacer());
 		mainPanel.addComponent(new Label("Quantity"));
 		mainPanel.addComponent(new TextBox(new TerminalSize(30, 1)));
 		
 		// Expiration Date
+		mainPanel.addComponent(this.dialogSpacer());
+		mainPanel.addComponent(new Label("Expiration Date"));
+		mainPanel.addComponent(new DateInput(Year.now().getValue(), Year.now().getValue() + 20));
 		
 		// Date Added (default to today)
+		mainPanel.addComponent(this.dialogSpacer());
+		mainPanel.addComponent(new Label("Date Added"));
+		mainPanel.addComponent(new DateInput(LocalDate.now()));
 		
+		// Buttons
+		mainPanel.addComponent(this.dialogSpacer());
 		buttonPanel.setLayoutData(GridLayout.createLayoutData(
 				Alignment.END, Alignment.CENTER,
 				false, false,
 				2, 1)).addTo(mainPanel);
 		this.setComponent(mainPanel);
+	}
+	
+	private EmptySpace dialogSpacer() {
+		return new EmptySpace(TerminalSize.ONE).setLayoutData(
+				GridLayout.createLayoutData(
+						Alignment.CENTER, Alignment.CENTER,
+						false, false, 2, 1));
 	}
 
 	private void onSave() {

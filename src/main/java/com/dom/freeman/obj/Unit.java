@@ -52,4 +52,9 @@ public enum Unit {
 	public String getAbbreviationByValue(int quantity) {
 		return quantity != 1 ? this.abbrevPlural : this.abbrevSingular;
 	}
+	
+	@Override
+	public String toString() {
+		return this.getCommonName();
+	}
 }
