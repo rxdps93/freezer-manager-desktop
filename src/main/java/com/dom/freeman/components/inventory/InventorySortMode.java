@@ -28,7 +28,7 @@ public enum InventorySortMode {
 		public int compare(Item o1, Item o2) {
 			int result = Double.compare(o1.getUnit().getCompareValue(), o2.getUnit().getCompareValue());
 			if (result == 0)
-				result = Double.compare(o1.getQuantity(), o2.getQuantity());
+				result = Integer.compare(o1.getQuantity(), o2.getQuantity());
 			return result;
 		}
 	}),
@@ -39,7 +39,7 @@ public enum InventorySortMode {
 		public int compare(Item o1, Item o2) {
 			int result = Double.compare(o1.getUnit().getCompareValue(), o2.getUnit().getCompareValue());
 			if (result == 0)
-				result = Double.compare(o1.getQuantity(), o2.getQuantity());
+				result = Integer.compare(o1.getQuantity(), o2.getQuantity());
 			return -result;
 		}
 	}),
