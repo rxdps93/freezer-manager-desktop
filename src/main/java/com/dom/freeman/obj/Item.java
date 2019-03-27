@@ -1,8 +1,8 @@
 package com.dom.freeman.obj;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
+import com.dom.freeman.Global;
 import com.opencsv.bean.CsvBindByPosition;
 import com.opencsv.bean.CsvCustomBindByPosition;
 
@@ -22,8 +22,6 @@ public class Item {
 
 	@CsvCustomBindByPosition(position = 4, converter = LocalDateConverter.class)
 	private LocalDate expires;
-	
-	private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
 	public Item(String type, int quantity, Unit unit, LocalDate added, LocalDate expires) {
 		this.type = type;
@@ -58,11 +56,11 @@ public class Item {
 	}
 
 	public String getAddedFormatted() {
-		return this.added.format(this.dateFormat);
+		return this.added.format(Global.OBJECTS.getDateFormat());
 	}
 
 	public String getExpiresFormatted() {
-		return this.expires.format(this.dateFormat);
+		return this.expires.format(Global.OBJECTS.getDateFormat());
 	}
 
 	public void setType(String type) {

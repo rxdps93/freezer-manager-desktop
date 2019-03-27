@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import com.dom.freeman.Global;
 import com.dom.freeman.components.InventoryTable;
 import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.gui2.Borders;
@@ -22,19 +23,19 @@ public class InventoryViewPanel extends Panel {
 	private Window parent;
 	private InventoryTable<String> inventory;
 
-	public InventoryViewPanel(List<Item> items, Window parent) {
+	public InventoryViewPanel(Window parent) {
 		super();
 		this.parent = parent;
-		this.configureContent(items);
+		this.configureContent();
 	}
 
-	public InventoryViewPanel(LayoutManager layoutManager, List<Item> items, Window parent) {
+	public InventoryViewPanel(LayoutManager layoutManager, Window parent) {
 		super(layoutManager);
 		this.parent = parent;
-		this.configureContent(items);
+		this.configureContent();
 	}
 
-	private void configureContent(List<Item> items) {
+	private void configureContent() {
 
 		Panel panel = new Panel();
 		
@@ -42,7 +43,7 @@ public class InventoryViewPanel extends Panel {
 		inventory.setVisibleRows(60);
 		inventory.setResetSelectOnTab(true);
 
-		Collections.sort(items, new Comparator<Item>() {
+		Collections.sort(Global.OBJECTS.getInventory(), new Comparator<Item>() {
 
 			@Override
 			public int compare(Item o1, Item o2) {
@@ -52,7 +53,7 @@ public class InventoryViewPanel extends Panel {
 
 		});
 
-		for (Item item : items) {
+		for (Item item : Global.OBJECTS.getInventory()) {
 			inventory.getTableModel().addRow(
 					item.getType(),
 					String.format("%3d %s", item.getQuantity(), item.getUnit().getAbbreviationByValue(item.getQuantity())),
@@ -66,8 +67,8 @@ public class InventoryViewPanel extends Panel {
 				List<String> data = inventory.getTableModel().getRow(inventory.getSelectedRow());
 
 				String type = data.get(0);
-				LocalDate added = LocalDate.parse(data.get(2));
-				LocalDate expires = LocalDate.parse(data.get(3));
+				LocalDate added = LocalDate.parse(data.get(2), Global.OBJECTS.getDateFormat());
+				LocalDate expires = LocalDate.parse(data.get(3), Global.OBJECTS.getDateFormat());
 				LocalDate today = LocalDate.now();
 
 				long daysIn = ChronoUnit.DAYS.between(added, today);

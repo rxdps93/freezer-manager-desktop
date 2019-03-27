@@ -3,9 +3,9 @@ package com.dom.freeman.components.dashboard;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
+import com.dom.freeman.Global;
 import com.dom.freeman.components.InventoryTable;
 import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.gui2.Borders;
@@ -20,19 +20,19 @@ public class TypeCountViewPanel extends Panel{
 
 	private Window parent;
 
-	public TypeCountViewPanel(List<Item> items, Map<String, Integer> types, Window parent) {
+	public TypeCountViewPanel(Window parent) {
 		super();
 		this.parent = parent;
-		this.configureContent(items, types);
+		this.configureContent();
 	}
 
-	public TypeCountViewPanel(LayoutManager layoutManager, List<Item> items, Map<String, Integer> types, Window parent) {
+	public TypeCountViewPanel(LayoutManager layoutManager, Window parent) {
 		super(layoutManager);
 		this.parent = parent;
-		this.configureContent(items, types);
+		this.configureContent();
 	}
 
-	private void configureContent(List<Item> items, Map<String, Integer> types) {
+	private void configureContent() {
 
 		Panel panel = new Panel();
 
@@ -41,10 +41,10 @@ public class TypeCountViewPanel extends Panel{
 		typeCount.setResetSelectOnTab(true);
 
 		LocalDate earliestExpiration;
-		for (Entry<String, Integer> entry : types.entrySet()) {
+		for (Entry<String, Integer> entry : Global.OBJECTS.getTypes().entrySet()) {
 
 			earliestExpiration = null;
-			for (Item item : items) {
+			for (Item item : Global.OBJECTS.getInventory()) {
 
 				if (item.getType().equals(entry.getKey())) {
 					if (earliestExpiration == null || earliestExpiration.isAfter(item.getExpires()))

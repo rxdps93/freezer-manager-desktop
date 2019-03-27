@@ -18,6 +18,16 @@ import com.opencsv.bean.CsvToBeanBuilder;
 public enum Utility {
 
 	METHODS;
+	
+	public void refreshViews() {
+		// TODO: refresh all available views to reflect changes
+	}
+	
+	public void updateInventory() {
+		
+		Global.OBJECTS.setInventory(this.parseItemsFromFile());
+		Global.OBJECTS.setTypes(this.itemTypeCount(Global.OBJECTS.getInventory()));
+	}
 
 	public List<Item> parseItemsFromFile() {
 

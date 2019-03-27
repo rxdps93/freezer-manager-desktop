@@ -2,11 +2,8 @@ package com.dom.freeman;
 
 import java.awt.Font;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 import com.dom.freeman.components.MainWindow;
-import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.screen.Screen;
@@ -31,9 +28,8 @@ public class FreeMan {
 		
 		final MultiWindowTextGUI gui = new MultiWindowTextGUI(screen);
 		
-		List<Item> items = Utility.METHODS.parseItemsFromFile();
-		Map<String, Integer> types = Utility.METHODS.itemTypeCount(items);
+		Utility.METHODS.updateInventory();
 		
-		gui.addWindowAndWait(new MainWindow("FREEZER INVENTORY MANAGEMENT SYSTEM", items, types));
+		gui.addWindowAndWait(new MainWindow("FREEZER INVENTORY MANAGEMENT SYSTEM"));
 	}
 }

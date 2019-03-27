@@ -1,8 +1,6 @@
 package com.dom.freeman.components;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.dom.freeman.components.dashboard.DashboardPanel;
@@ -11,7 +9,6 @@ import com.dom.freeman.components.tags.TagPanel;
 import com.dom.freeman.components.transactions.TransactionPanel;
 import com.dom.freeman.components.types.TypePanel;
 import com.dom.freeman.components.users.UserPanel;
-import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.BasicWindow;
@@ -25,8 +22,6 @@ import com.googlecode.lanterna.input.KeyType;
 
 public class MainWindow extends BasicWindow {
 
-	private final List<Item> items;
-	private final Map<String, Integer> types;
 	private final String header;
 	
 	private ViewPanel dashboardPanel;
@@ -36,19 +31,15 @@ public class MainWindow extends BasicWindow {
 	private ViewPanel userPanel;
 	private ViewPanel transactionPanel;
 
-	public MainWindow(String header, List<Item> items, Map<String, Integer> types) {
+	public MainWindow(String header) {
 		super();
 		this.header = header;
-		this.items = items;
-		this.types = types;
 		this.configureContent();
 	}
 
-	public MainWindow(String title, String header, List<Item> items, Map<String, Integer> types) { 
+	public MainWindow(String title, String header) { 
 		super(title);
 		this.header = header;
-		this.items = items;
-		this.types = types;
 		this.configureContent();
 	}
 
@@ -58,8 +49,8 @@ public class MainWindow extends BasicWindow {
 	
 	private void configureContent() {
 
-		this.dashboardPanel = new DashboardPanel(new GridLayout(3), this.items, this.types, this);
-		this.inventoryPanel = new InventoryPanel(new GridLayout(2), this.items, this);
+		this.dashboardPanel = new DashboardPanel(new GridLayout(3), this);
+		this.inventoryPanel = new InventoryPanel(new GridLayout(2), this);
 		this.tagPanel = new TagPanel(new LinearLayout());
 		this.typePanel = new TypePanel(new LinearLayout());
 		this.userPanel = new UserPanel(new LinearLayout());

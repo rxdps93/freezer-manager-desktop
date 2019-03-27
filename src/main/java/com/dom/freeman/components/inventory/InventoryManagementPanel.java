@@ -2,8 +2,8 @@ package com.dom.freeman.components.inventory;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
+import com.dom.freeman.Global;
 import com.dom.freeman.components.InventoryTable;
 import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.gui2.Borders;
@@ -18,20 +18,17 @@ import com.googlecode.lanterna.gui2.table.TableModel;
 public class InventoryManagementPanel extends Panel {
 
 	private Window parent;
-	private List<Item> items;
 	private InventoryTable<String> inventory;
 	
-	public InventoryManagementPanel(List<Item> items, Window parent) {
+	public InventoryManagementPanel( Window parent) {
 		super();
 		this.parent = parent;
-		this.items = items;
 		configureContent();
 	}
 	
-	public InventoryManagementPanel(LayoutManager layoutManager, List<Item> items, Window parent) {
+	public InventoryManagementPanel(LayoutManager layoutManager, Window parent) {
 		super(layoutManager);
 		this.parent = parent;
-		this.items = items;
 		configureContent();
 	}
 	
@@ -42,7 +39,7 @@ public class InventoryManagementPanel extends Panel {
 		inventory.setVisibleRows(60);
 		inventory.setResetSelectOnTab(true);
 		
-		inventory.setTableModel(this.configureTableModel(this.items));
+		inventory.setTableModel(this.configureTableModel());
 		
 		inventory.setSelectAction(new Runnable() {
 			@Override
@@ -61,10 +58,10 @@ public class InventoryManagementPanel extends Panel {
 		this.addComponent(panel.withBorder(Borders.singleLine("INVENTORY MANAGEMENT")));
 	}
 	
-	private TableModel<String> configureTableModel(List<Item> items) {
+	private TableModel<String> configureTableModel() {
 		TableModel<String> model = new TableModel<>("ITEM TYPE", "QUANTITY", "ADDED DATE", "EXPIRATION DATE");
 		
-		for (Item item : items) {
+		for (Item item : Global.OBJECTS.getInventory()) {
 			model.addRow(item.getType(),
 					String.format("%3d %s",  item.getQuantity(), item.getUnit().getAbbreviationByValue(item.getQuantity())),
 					item.getAddedFormatted(),
@@ -76,8 +73,8 @@ public class InventoryManagementPanel extends Panel {
 	
 	public void sortTable(InventorySortMode sortMode) {
 
-		Collections.sort(this.items, sortMode.getSortMethod());
-		this.inventory.setTableModel(configureTableModel(this.items));
+		Collections.sort(Global.OBJECTS.getInventory(), sortMode.getSortMethod());
+		this.inventory.setTableModel(configureTableModel());
 	}
 	
 	public InventoryTable<String> getInteractable() {
