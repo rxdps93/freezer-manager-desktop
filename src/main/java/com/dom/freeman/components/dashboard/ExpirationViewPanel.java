@@ -60,7 +60,7 @@ public class ExpirationViewPanel extends Panel {
 				expirations.getTableModel().addRow(
 						item.getType(),
 						String.format("%3d %s", item.getQuantity(), item.getUnit().getAbbreviationByValue(item.getQuantity())),
-						item.getExpires().toString(),
+						item.getExpiresFormatted().toString(),
 						Long.toString(remain));
 			}
 		}

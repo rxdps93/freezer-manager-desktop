@@ -58,7 +58,7 @@ public enum Unit {
 	}
 	
 	public boolean inRange(int value) {
-		return value >= min && value <= max;
+		return value >= this.min && (value <= this.max || this.max == -1);
 	}
 	
 	@Override

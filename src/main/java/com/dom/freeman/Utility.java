@@ -1,5 +1,7 @@
 package com.dom.freeman;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,6 +11,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.dom.freeman.obj.Item;
+import com.opencsv.CSVWriter;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -45,5 +48,24 @@ public enum Utility {
 		}
 		
 		return types;
+	}
+	
+	public boolean saveToFile(Item item) {
+		
+		boolean success;
+		try {
+			FileWriter writer = new FileWriter(new File(Paths.get("src/main/resources/contents.csv").toString()), true);
+			CSVWriter csv = new CSVWriter(writer);
+			
+			csv.writeNext(item.toCsvString(), false);
+			
+			csv.close();
+			writer.close();
+			success = true;
+		} catch (IOException e) {
+			success = false;
+		}
+		
+		return success;
 	}
 }
