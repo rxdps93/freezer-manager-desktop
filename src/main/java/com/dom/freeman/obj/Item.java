@@ -34,6 +34,10 @@ public class Item {
 		this.expires = expires;
 	}
 	
+	public Item() {
+		
+	}
+	
 	public String getId() {
 		return this.id;
 	}
