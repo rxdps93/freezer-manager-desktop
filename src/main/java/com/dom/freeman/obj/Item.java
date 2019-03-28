@@ -1,12 +1,15 @@
 package com.dom.freeman.obj;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import com.dom.freeman.Global;
 import com.opencsv.bean.CsvBindByPosition;
 import com.opencsv.bean.CsvCustomBindByPosition;
 
 public class Item {
+	
+	private final String id = UUID.randomUUID().toString();
 
 	@CsvBindByPosition(position = 0)
 	private String type;
@@ -30,9 +33,9 @@ public class Item {
 		this.added = added;
 		this.expires = expires;
 	}
-
-	public Item() {
-
+	
+	public String getId() {
+		return this.id;
 	}
 
 	public String getType() {

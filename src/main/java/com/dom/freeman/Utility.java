@@ -30,6 +30,14 @@ public enum Utility {
 		Global.OBJECTS.setInventory(this.parseItemsFromFile());
 		Global.OBJECTS.setTypes(this.itemTypeCount(Global.OBJECTS.getInventory()));
 	}
+	
+	public Item getItemById(String id) {
+		for (Item item : Global.OBJECTS.getInventory()) {
+			if (item.getId().equals(id))
+				return item;
+		}
+		return null;
+	}
 
 	public List<Item> parseItemsFromFile() {
 

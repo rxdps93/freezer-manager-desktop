@@ -58,10 +58,12 @@ My intent is to develop a system comprised of four major components:
 - [x] Inventory "at-a-glance" Expiring Soon View
 - [x] Inventory "at-a-glance" Grouped Item Type Count View
 - [x] Detailed inventory view with sorting, no filtering
-- [ ] Add item and save it to CSV
+- [x] Add item and save it to CSV
 - [ ] Edit item
 - [ ] Remove item
-- [ ] Data updates from CSV each time an action happens
+- [x] Data updates from CSV after add
+- [ ] Data updates from CSV after edit
+- [ ] Data updates from CSV after remove
 - [ ] Properly document code to a respectable and responsible standard
 #### Near
 - [ ] Add tag

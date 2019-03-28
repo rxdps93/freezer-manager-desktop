@@ -33,14 +33,17 @@ public class DateInput extends Panel {
 	
 	public DateInput(LocalDate initialDate) {
 		this(initialDate.getYear() - 5, initialDate.getYear() + 5);
-		
-		this.yearPicker.setSelectedItem(Year.of(initialDate.getYear()));
-		this.monthPicker.setSelectedItem(initialDate.getMonth());
-		this.dayPicker.setSelectedItem(initialDate.getDayOfMonth());
+		this.setSelectedDate(initialDate);
 	}
 	
 	public LocalDate getSelectedDate() {
 		return LocalDate.of(this.yearPicker.getSelectedItem().getValue(), this.monthPicker.getSelectedItem(), this.dayPicker.getSelectedItem());
+	}
+	
+	public void setSelectedDate(LocalDate date) {
+		this.yearPicker.setSelectedItem(Year.of(date.getYear()));
+		this.monthPicker.setSelectedItem(date.getMonth());
+		this.dayPicker.setSelectedItem(date.getDayOfMonth());
 	}
 	
 	private void configureYearPicker(int min, int max) {

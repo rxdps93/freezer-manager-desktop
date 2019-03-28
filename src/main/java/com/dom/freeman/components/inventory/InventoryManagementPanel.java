@@ -3,6 +3,8 @@ package com.dom.freeman.components.inventory;
 import java.util.Arrays;
 
 import com.dom.freeman.Global;
+import com.dom.freeman.Utility;
+import com.dom.freeman.components.inventory.dialog.EditItemDialog;
 import com.dom.freeman.components.inventory.tables.InventoryManagementTable;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Interactable;
@@ -10,8 +12,7 @@ import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.Window.Hint;
-import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
-import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
+import com.googlecode.lanterna.gui2.dialogs.ActionListDialogBuilder;
 
 public class InventoryManagementPanel extends Panel {
 
@@ -42,10 +43,24 @@ public class InventoryManagementPanel extends Panel {
 		inventory.setSelectAction(new Runnable() {
 			@Override
 			public void run() {
-				new MessageDialogBuilder().setTitle("DETAILED ITEM VIEW").setText("WORK IN PROGRESS")
-				.addButton(MessageDialogButton.Close)
-				.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-				.build().showDialog(parent.getTextGUI());
+				new ActionListDialogBuilder()
+					.setTitle("SELECT AN ACTION")
+					.addAction("Edit this item", new Runnable() {
+						@Override
+						public void run() {
+							// TODO: find a way to keep ID linked to item in table but hidden
+							EditItemDialog editItem = new EditItemDialog("EDIT ITEM", Utility.METHODS.getItemById(""));
+							editItem.setHints(Arrays.asList(Hint.CENTERED));
+							editItem.showDialog(parent.getTextGUI());
+						}
+					})
+					.addAction("Delete this item", new Runnable() {
+						@Override
+						public void run() {
+							// TODO: Delete the item via a dialog
+						}
+					})
+					.build().showDialog(parent.getTextGUI());
 				
 			}
 		});

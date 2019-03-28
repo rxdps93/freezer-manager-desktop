@@ -34,7 +34,7 @@ public class AddItemDialog extends DialogWindow {
 
 	public AddItemDialog(String title) {
 		super(title);
-
+		
 		Panel buttonPanel = new Panel(new GridLayout(2).setHorizontalSpacing(1));
 		buttonPanel.addComponent(new Button(LocalizedString.Save.toString(), new Runnable() {
 			@Override
