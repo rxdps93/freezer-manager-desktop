@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.dom.freeman.components.AbstractInventoryTable;
 import com.dom.freeman.obj.Item;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.CsvToBean;
@@ -20,7 +21,8 @@ public enum Utility {
 	METHODS;
 	
 	public void refreshViews() {
-		// TODO: refresh all available views to reflect changes
+		for (AbstractInventoryTable<?> table : Global.OBJECTS.getRegisteredTables())
+			table.refresh();
 	}
 	
 	public void updateInventory() {

@@ -3,11 +3,9 @@ package com.dom.freeman.components.dashboard;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map.Entry;
 
 import com.dom.freeman.Global;
-import com.dom.freeman.components.InventoryTable;
-import com.dom.freeman.obj.Item;
+import com.dom.freeman.components.dashboard.tables.DashboardTypeCountTable;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
@@ -36,27 +34,11 @@ public class TypeCountViewPanel extends Panel{
 
 		Panel panel = new Panel();
 
-		InventoryTable<String> typeCount = new InventoryTable<>("ITEM TYPE", "ITEM COUNT", "EARLIEST EXPIRATION");
+		DashboardTypeCountTable<String> typeCount = new DashboardTypeCountTable<>("ITEM TYPE", "ITEM COUNT", "EARLIEST EXPIRATION");
 		typeCount.setVisibleRows(60);
 		typeCount.setResetSelectOnTab(true);
-
-		LocalDate earliestExpiration;
-		for (Entry<String, Integer> entry : Global.OBJECTS.getTypes().entrySet()) {
-
-			earliestExpiration = null;
-			for (Item item : Global.OBJECTS.getInventory()) {
-
-				if (item.getType().equals(entry.getKey())) {
-					if (earliestExpiration == null || earliestExpiration.isAfter(item.getExpires()))
-						earliestExpiration = item.getExpires();
-				}
-			}
-
-			typeCount.getTableModel().addRow(
-					entry.getKey(),
-					Integer.toString(entry.getValue()),
-					earliestExpiration.toString());
-		}
+		
+		typeCount.sortTable(null);
 
 		typeCount.setSelectAction(new Runnable() {
 			@Override
@@ -95,6 +77,7 @@ public class TypeCountViewPanel extends Panel{
 		});
 
 		panel.addComponent(typeCount.setEscapeByArrowKey(false));
+		Global.OBJECTS.registerTable(typeCount);
 
 		this.addComponent(panel.withBorder(Borders.singleLine("TYPE COUNT VIEW")));
 	}

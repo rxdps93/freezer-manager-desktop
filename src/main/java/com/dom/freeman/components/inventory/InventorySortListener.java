@@ -26,7 +26,7 @@ public class InventorySortListener implements Listener {
 			sortMode = selectSortMode(this.otherSortOption.getCheckedItemIndex(), selectedIndex);
 		}
 		
-		this.invPanel.sortTable(sortMode);
+		this.invPanel.getTable().sortTable(sortMode);
 	}
 	
 	private InventorySortMode selectSortMode(int fieldIndex, int directionIndex) {

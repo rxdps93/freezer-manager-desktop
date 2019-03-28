@@ -1,13 +1,15 @@
 package com.dom.freeman.components;
 
+import com.dom.freeman.components.inventory.InventorySortMode;
 import com.googlecode.lanterna.gui2.table.Table;
+import com.googlecode.lanterna.gui2.table.TableModel;
 import com.googlecode.lanterna.input.KeyStroke;
 
-public class InventoryTable<V> extends Table<V> {
+public abstract class AbstractInventoryTable<V> extends Table<V> {
 
 	private boolean resetSelectOnTab = false;
 	
-	public InventoryTable(String... columnLabels) {
+	public AbstractInventoryTable(String... columnLabels) {
 		super(columnLabels);
 	}
 	
@@ -18,7 +20,7 @@ public class InventoryTable<V> extends Table<V> {
 	public void setResetSelectOnTab(boolean reset) {
 		this.resetSelectOnTab = reset;
 	}
-
+	
 	@Override
 	public Result handleKeyStroke(KeyStroke keyStroke) {
 
@@ -43,4 +45,15 @@ public class InventoryTable<V> extends Table<V> {
 			return super.handleKeyStroke(keyStroke);
 		}
 	}
+	
+	public String[] getColumnLabelArray() {
+		String [] columnLabels = new String[this.getTableModel().getColumnCount()];
+		return this.getTableModel().getColumnLabels().toArray(columnLabels);
+	}
+	
+	public abstract void refresh();
+	
+	public abstract TableModel<V> configureTableModel(String... columnLabels);
+	
+	public abstract void sortTable(InventorySortMode sortMode);
 }

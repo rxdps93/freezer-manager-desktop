@@ -1,9 +1,11 @@
 package com.dom.freeman;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.dom.freeman.components.AbstractInventoryTable;
 import com.dom.freeman.obj.Item;
 
 public enum Global {
@@ -12,6 +14,7 @@ public enum Global {
 	
 	private List<Item> inventory;
 	private Map<String, Integer> types;
+	private List<AbstractInventoryTable<?>> registeredTables = new ArrayList<>();
 	private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 	
 	public List<Item> getInventory() {
@@ -20,6 +23,10 @@ public enum Global {
 	
 	public Map<String, Integer> getTypes() {
 		return this.types;
+	}
+	
+	public List<AbstractInventoryTable<?>> getRegisteredTables() {
+		return this.registeredTables;
 	}
 	
 	public DateTimeFormatter getDateFormat() {
@@ -32,5 +39,9 @@ public enum Global {
 	
 	public void setTypes(Map<String, Integer> types) {
 		this.types = types;
+	}
+	
+	public void registerTable(AbstractInventoryTable<?> table) {
+		this.registeredTables.add(table);
 	}
 }

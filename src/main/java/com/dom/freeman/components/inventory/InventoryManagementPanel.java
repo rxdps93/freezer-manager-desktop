@@ -1,24 +1,22 @@
 package com.dom.freeman.components.inventory;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import com.dom.freeman.Global;
-import com.dom.freeman.components.InventoryTable;
-import com.dom.freeman.obj.Item;
+import com.dom.freeman.components.inventory.tables.InventoryManagementTable;
 import com.googlecode.lanterna.gui2.Borders;
+import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
-import com.googlecode.lanterna.gui2.table.TableModel;
 
 public class InventoryManagementPanel extends Panel {
 
 	private Window parent;
-	private InventoryTable<String> inventory;
+	private InventoryManagementTable<String> inventory;
 	
 	public InventoryManagementPanel( Window parent) {
 		super();
@@ -35,11 +33,11 @@ public class InventoryManagementPanel extends Panel {
 	private void configureContent() {
 		
 		Panel panel = new Panel();
-		InventoryTable<String> inventory = new InventoryTable<>("ITEM TYPE", "QUANTITY", "ADDED DATE", "EXPIRATION DATE");
+		InventoryManagementTable<String> inventory = new InventoryManagementTable<>("ITEM TYPE", "QUANTITY", "ADDED DATE", "EXPIRATION DATE");
 		inventory.setVisibleRows(60);
 		inventory.setResetSelectOnTab(true);
 		
-		inventory.setTableModel(this.configureTableModel());
+		inventory.refresh();
 		
 		inventory.setSelectAction(new Runnable() {
 			@Override
@@ -54,30 +52,15 @@ public class InventoryManagementPanel extends Panel {
 		
 		panel.addComponent(inventory.setEscapeByArrowKey(false));
 		this.inventory = inventory;
-		this.sortTable(InventorySortMode.TYPE_ASC);
+		Global.OBJECTS.registerTable(this.inventory);
 		this.addComponent(panel.withBorder(Borders.singleLine("INVENTORY MANAGEMENT")));
 	}
 	
-	private TableModel<String> configureTableModel() {
-		TableModel<String> model = new TableModel<>("ITEM TYPE", "QUANTITY", "ADDED DATE", "EXPIRATION DATE");
-		
-		for (Item item : Global.OBJECTS.getInventory()) {
-			model.addRow(item.getType(),
-					String.format("%3d %s",  item.getQuantity(), item.getUnit().getAbbreviationByValue(item.getQuantity())),
-					item.getAddedFormatted(),
-					item.getExpiresFormatted());
-		}
-		
-		return model;
+	public InventoryManagementTable<String> getTable() {
+		return this.inventory;
 	}
 	
-	public void sortTable(InventorySortMode sortMode) {
-
-		Collections.sort(Global.OBJECTS.getInventory(), sortMode.getSortMethod());
-		this.inventory.setTableModel(configureTableModel());
-	}
-	
-	public InventoryTable<String> getInteractable() {
+	public Interactable getInteractable() {
 		return this.inventory;
 	}
 }

@@ -3,14 +3,13 @@ package com.dom.freeman.components.dashboard;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import com.dom.freeman.Global;
-import com.dom.freeman.components.InventoryTable;
-import com.dom.freeman.obj.Item;
+import com.dom.freeman.components.dashboard.tables.DashboardInventoryTable;
+import com.dom.freeman.components.inventory.InventorySortMode;
 import com.googlecode.lanterna.gui2.Borders;
+import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.Window;
@@ -21,7 +20,7 @@ import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 public class InventoryViewPanel extends Panel {
 
 	private Window parent;
-	private InventoryTable<String> inventory;
+	private DashboardInventoryTable<String> inventory;
 
 	public InventoryViewPanel(Window parent) {
 		super();
@@ -39,27 +38,11 @@ public class InventoryViewPanel extends Panel {
 
 		Panel panel = new Panel();
 		
-		InventoryTable<String> inventory = new InventoryTable<>("ITEM TYPE", "QUANTITY", "ADDED DATE", "EXPIRATION DATE");
+		DashboardInventoryTable<String> inventory = new DashboardInventoryTable<>("ITEM TYPE", "QUANTITY", "ADDED DATE", "EXPIRATION DATE");
 		inventory.setVisibleRows(60);
 		inventory.setResetSelectOnTab(true);
 
-		Collections.sort(Global.OBJECTS.getInventory(), new Comparator<Item>() {
-
-			@Override
-			public int compare(Item o1, Item o2) {
-
-				return o1.getType().compareTo(o2.getType());
-			}
-
-		});
-
-		for (Item item : Global.OBJECTS.getInventory()) {
-			inventory.getTableModel().addRow(
-					item.getType(),
-					String.format("%3d %s", item.getQuantity(), item.getUnit().getAbbreviationByValue(item.getQuantity())),
-					item.getAddedFormatted(),
-					item.getExpiresFormatted());
-		}
+		inventory.sortTable(InventorySortMode.TYPE_ASC);
 
 		inventory.setSelectAction(new Runnable() {
 			@Override
@@ -91,11 +74,12 @@ public class InventoryViewPanel extends Panel {
 
 		panel.addComponent(inventory.setEscapeByArrowKey(false));
 		this.inventory = inventory;
+		Global.OBJECTS.registerTable(this.inventory);
 
 		this.addComponent(panel.withBorder(Borders.singleLine("INVENTORY ITEMS ALPHABETICAL")));
 	}
 	
-	public InventoryTable<String> getInteractable() {
+	public Interactable getInteractable() {
 		return this.inventory;
 	}
 }
