@@ -54,7 +54,7 @@ public class MainWindow extends BasicWindow {
 		this.tagPanel = new TagPanel(new LinearLayout());
 		this.typePanel = new TypePanel(new LinearLayout());
 		this.userPanel = new UserPanel(new LinearLayout());
-		this.transactionPanel = new TransactionPanel(new LinearLayout());
+		this.transactionPanel = new TransactionPanel(new LinearLayout(), this);
 		
 		this.setComponent(new MainPanel(new BorderLayout(), this.dashboardPanel, this.header));
 		this.setHints(Arrays.asList(Hint.EXPANDED, Hint.FIXED_POSITION));

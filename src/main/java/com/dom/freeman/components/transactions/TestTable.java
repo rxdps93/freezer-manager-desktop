@@ -1,4 +1,4 @@
-package com.dom.freeman.components.inventory.tables;
+package com.dom.freeman.components.transactions;
 
 import java.util.Collections;
 
@@ -8,11 +8,11 @@ import com.dom.freeman.components.inventory.InventorySortMode;
 import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.gui2.table.TableModel;
 
-public class InventoryManagementTable<V> extends AbstractInventoryTable<V> {
+public class TestTable<V> extends AbstractInventoryTable<V> {
 
 	private InventorySortMode lastSortMode = InventorySortMode.TYPE_ASC;
 	
-	public InventoryManagementTable(String... columnLabels) {
+	public TestTable(String... columnLabels) {
 		super(columnLabels);
 	}
 	

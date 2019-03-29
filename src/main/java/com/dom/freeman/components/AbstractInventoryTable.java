@@ -3,6 +3,7 @@ package com.dom.freeman.components;
 import com.dom.freeman.components.inventory.InventorySortMode;
 import com.googlecode.lanterna.gui2.table.Table;
 import com.googlecode.lanterna.gui2.table.TableModel;
+import com.googlecode.lanterna.gui2.table.TableRenderer;
 import com.googlecode.lanterna.input.KeyStroke;
 
 public abstract class AbstractInventoryTable<V> extends Table<V> {
@@ -20,6 +21,15 @@ public abstract class AbstractInventoryTable<V> extends Table<V> {
 	public void setResetSelectOnTab(boolean reset) {
 		this.resetSelectOnTab = reset;
 	}
+	
+	public void hideLastColumn(boolean hide) {
+			this.getRenderer().hideLastColumn(hide);
+	}
+	
+    @Override
+    public InventoryTableRenderer<V> getRenderer() {
+        return (InventoryTableRenderer<V>)super.getRenderer();
+    }
 	
 	@Override
 	public Result handleKeyStroke(KeyStroke keyStroke) {
@@ -56,4 +66,9 @@ public abstract class AbstractInventoryTable<V> extends Table<V> {
 	public abstract TableModel<V> configureTableModel(String... columnLabels);
 	
 	public abstract void sortTable(InventorySortMode sortMode);
+	
+    @Override
+    protected TableRenderer<V> createDefaultRenderer() {
+        return new InventoryTableRenderer<V>();
+    }
 }

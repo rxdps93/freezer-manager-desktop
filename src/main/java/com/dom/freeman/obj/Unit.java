@@ -53,7 +53,7 @@ public enum Unit {
 		return this.abbrevPlural;
 	}
 	
-	public String getAbbreviationByValue(double quantity) {
+	public String getAbbreviationByValue(int quantity) {
 		return quantity != 1 ? this.abbrevPlural : this.abbrevSingular;
 	}
 	

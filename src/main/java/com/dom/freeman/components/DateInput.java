@@ -44,6 +44,10 @@ public class DateInput extends Panel {
 		this.yearPicker.setSelectedItem(Year.of(date.getYear()));
 		this.monthPicker.setSelectedItem(date.getMonth());
 		this.dayPicker.setSelectedItem(date.getDayOfMonth());
+		
+		this.yearPicker.setEnabled(true);
+		this.monthPicker.setEnabled(true);
+		this.dayPicker.setEnabled(true);
 	}
 	
 	private void configureYearPicker(int min, int max) {

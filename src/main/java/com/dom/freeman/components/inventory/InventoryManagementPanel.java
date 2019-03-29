@@ -1,6 +1,7 @@
 package com.dom.freeman.components.inventory;
 
 import java.util.Arrays;
+import java.util.List;
 
 import com.dom.freeman.Global;
 import com.dom.freeman.Utility;
@@ -34,9 +35,10 @@ public class InventoryManagementPanel extends Panel {
 	private void configureContent() {
 		
 		Panel panel = new Panel();
-		InventoryManagementTable<String> inventory = new InventoryManagementTable<>("ITEM TYPE", "QUANTITY", "ADDED DATE", "EXPIRATION DATE");
+		InventoryManagementTable<String> inventory = new InventoryManagementTable<>("ITEM TYPE", "QUANTITY", "ADDED DATE", "EXPIRATION DATE", "ID");
 		inventory.setVisibleRows(60);
 		inventory.setResetSelectOnTab(true);
+		inventory.hideLastColumn(true);
 		
 		inventory.refresh();
 		
@@ -48,8 +50,8 @@ public class InventoryManagementPanel extends Panel {
 					.addAction("Edit this item", new Runnable() {
 						@Override
 						public void run() {
-							// TODO: find a way to keep ID linked to item in table but hidden
-							EditItemDialog editItem = new EditItemDialog("EDIT ITEM", Utility.METHODS.getItemById(""));
+							List<String> data = inventory.getTableModel().getRow(inventory.getSelectedRow());
+							EditItemDialog editItem = new EditItemDialog("EDIT ITEM", Utility.METHODS.getItemById(data.get(4)));
 							editItem.setHints(Arrays.asList(Hint.CENTERED));
 							editItem.showDialog(parent.getTextGUI());
 						}
