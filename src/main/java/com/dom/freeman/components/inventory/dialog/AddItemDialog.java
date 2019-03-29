@@ -208,6 +208,7 @@ public class AddItemDialog extends DialogWindow {
 
 		// If still true we can present the summary
 		if (result) {
+			// TODO: Make a custom dialog for this
 			if (new MessageDialogBuilder().setTitle("Add Item Final Summary")
 					.setText(String.format("Please carefully review item details before saving it\nItem Type:\t\t%s\nQuantity:\t\t%d %s\nAdded Date:\t\t%s\nExpire Date:\t%s\n", 
 							this.typeEntry.getText(),
