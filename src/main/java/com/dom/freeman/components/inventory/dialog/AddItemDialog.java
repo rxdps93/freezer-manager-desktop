@@ -3,6 +3,7 @@ package com.dom.freeman.components.inventory.dialog;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.Arrays;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 import com.dom.freeman.Utility;
@@ -223,7 +224,8 @@ public class AddItemDialog extends DialogWindow {
 						Integer.parseInt(this.quantityEntry.getText()),
 						this.unitEntry.getSelectedItem(),
 						this.addedEntry.getSelectedDate(),
-						this.expiresEntry.getSelectedDate()));
+						this.expiresEntry.getSelectedDate(),
+						UUID.randomUUID().toString()));
 			}
 
 		}

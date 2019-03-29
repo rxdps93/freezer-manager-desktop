@@ -5,10 +5,8 @@ import java.util.List;
 
 import com.dom.freeman.Global;
 import com.dom.freeman.components.ViewPanel;
-import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Interactable;
-import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.LinearLayout;
 import com.googlecode.lanterna.gui2.LinearLayout.Alignment;
@@ -16,7 +14,6 @@ import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
-import com.googlecode.lanterna.gui2.table.Table;
 import com.googlecode.lanterna.input.KeyType;
 
 public class TransactionPanel extends ViewPanel {
@@ -61,6 +58,7 @@ public class TransactionPanel extends ViewPanel {
 		table.setLayoutData(LinearLayout.createLayoutData(Alignment.Center));
 		this.addComponent(table.withBorder(Borders.singleLine("Test Table")));
 		this.interactable = table;
+		Global.OBJECTS.registerTable(table);
 	}
 
 	@Override

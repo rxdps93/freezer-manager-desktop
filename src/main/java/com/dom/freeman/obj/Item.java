@@ -1,15 +1,12 @@
 package com.dom.freeman.obj;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import com.dom.freeman.Global;
 import com.opencsv.bean.CsvBindByPosition;
 import com.opencsv.bean.CsvCustomBindByPosition;
 
 public class Item {
-	
-	private final String id = UUID.randomUUID().toString();
 
 	@CsvBindByPosition(position = 0)
 	private String type;
@@ -25,13 +22,17 @@ public class Item {
 
 	@CsvCustomBindByPosition(position = 4, converter = LocalDateConverter.class)
 	private LocalDate expires;
+	
+	@CsvBindByPosition(position = 5)
+	private String id;
 
-	public Item(String type, int quantity, Unit unit, LocalDate added, LocalDate expires) {
+	public Item(String type, int quantity, Unit unit, LocalDate added, LocalDate expires, String id) {
 		this.type = type;
 		this.quantity = quantity;
 		this.unit = unit;
 		this.added = added;
 		this.expires = expires;
+		this.id = id;
 	}
 	
 	public Item() {
@@ -89,6 +90,10 @@ public class Item {
 	public void setExpires(LocalDate expires) {
 		this.expires = expires;
 	}
+	
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String[] toCsvString() {
 
@@ -97,7 +102,8 @@ public class Item {
 				Integer.toString(this.getQuantity()),
 				this.getUnit().getAbbreviationByValue(this.getQuantity()).toUpperCase(),
 				this.getAddedFormatted(),
-				this.getExpiresFormatted()
+				this.getExpiresFormatted(),
+				this.getId()
 		};
 	}
 

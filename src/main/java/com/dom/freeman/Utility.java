@@ -44,7 +44,7 @@ public enum Utility {
 		List<Item> items = Collections.emptyList();
 		try {
 			
-			CsvToBean<Item> csv = new CsvToBeanBuilder<Item>(Files.newBufferedReader(Paths.get("src/main/resources/contents.csv")))
+			CsvToBean<Item> csv = new CsvToBeanBuilder<Item>(Files.newBufferedReader(Paths.get("src/main/resources/contents_uuid.csv")))
 					.withType(Item.class).build();
 			
 			items = csv.parse();
@@ -74,7 +74,7 @@ public enum Utility {
 		
 		boolean success;
 		try {
-			FileWriter writer = new FileWriter(new File(Paths.get("src/main/resources/contents.csv").toString()), true);
+			FileWriter writer = new FileWriter(new File(Paths.get("src/main/resources/contents_uuid.csv").toString()), true);
 			CSVWriter csv = new CSVWriter(writer);
 			
 			csv.writeNext(item.toCsvString(), false);
