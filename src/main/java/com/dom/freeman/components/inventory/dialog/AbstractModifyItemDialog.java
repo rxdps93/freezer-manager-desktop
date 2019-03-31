@@ -19,7 +19,7 @@ import com.googlecode.lanterna.gui2.TextBox;
 import com.googlecode.lanterna.gui2.GridLayout.Alignment;
 import com.googlecode.lanterna.gui2.dialogs.DialogWindow;
 
-public abstract class AbstractItemDialog extends DialogWindow {
+public abstract class AbstractModifyItemDialog extends DialogWindow {
 	
 	private TextBox typeEntry;
 	private ComboBox<Unit> unitEntry;
@@ -27,7 +27,7 @@ public abstract class AbstractItemDialog extends DialogWindow {
 	private DateInput addedEntry;
 	private DateInput expiresEntry;
 
-	protected AbstractItemDialog(String title) {
+	protected AbstractModifyItemDialog(String title) {
 		super(title);
 		
 		Panel buttonPanel = new Panel(new GridLayout(2).setHorizontalSpacing(1));

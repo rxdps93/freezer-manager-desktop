@@ -2,13 +2,14 @@ package com.dom.freeman.components.inventory.dialog;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.UUID;
 
 import com.dom.freeman.Global;
 import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 
-public class EditItemDialog extends AbstractItemDialog {
+public class EditItemDialog extends AbstractModifyItemDialog {
 	
 	private Item oldItem;
 
@@ -64,25 +65,16 @@ public class EditItemDialog extends AbstractItemDialog {
 		// If still true we can present the summary
 		if (validateItem()) {
 			// TODO: Make a custom dialog for this, Change to a grid layout for better format
-			if (new MessageDialogBuilder().setTitle("Edit Item Final Summary")
-			.setText(
-					"Please carefully review item details before saving it\n" +
-					"Old Item Type:\t\t" + this.oldItem.getType() + "\n" +
-					"New Item Type:\t\t" + this.getTypeEntry().getText() + "\n\n" +
-					"Old Item Quantity:\t" + this.oldItem.getQuantity() + "\n" +
-					"New Item Quantity:\t" + this.getQuantityEntry().getText() + "\n\n" +
-					"Old Item Unit:\t\t" + this.oldItem.getUnit().getCommonName() + "\n" +
-					"New Item Unit:\t\t" + this.getUnitEntry().getSelectedItem().getCommonName() + "\n\n" +
-					"Old Item Add Date:\t" + this.oldItem.getAddedFormatted() + "\n" +
-					"New Item Add Date:\t" + this.getAddedEntry().getSelectedDate().format(Global.OBJECTS.getDateFormat()) + "\n\n" +
-					"Old Item Expire Date:\t" + this.oldItem.getExpiresFormatted() + "\n" +
-					"New Item Expire Date:\t" + this.getExpiresEntry().getSelectedDate().format(Global.OBJECTS.getDateFormat()))
-			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-			.addButton(MessageDialogButton.Continue)
-			.addButton(MessageDialogButton.Abort).build().showDialog(this.getTextGUI())
-			.equals(MessageDialogButton.Continue)) {
-				System.out.println("Save Complete");
-			}
+			Item newItem = new Item(
+					this.getTypeEntry().getText(),
+					Integer.parseInt(this.getQuantityEntry().getText()),
+					this.getUnitEntry().getSelectedItem(),
+					this.getAddedEntry().getSelectedDate(),
+					this.getExpiresEntry().getSelectedDate(),
+					UUID.randomUUID().toString());
+			ItemSummaryDialog summary = new ItemSummaryDialog("Edit Item Final Summary", newItem, this.oldItem);
+			summary.setHints(Arrays.asList(Hint.CENTERED));
+			summary.showDialog(this.getTextGUI());
 		}
 	}
 
