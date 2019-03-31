@@ -1,16 +1,13 @@
 package com.dom.freeman.components.inventory.dialog;
 
 import com.dom.freeman.obj.Item;
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.Button;
-import com.googlecode.lanterna.gui2.Direction;
 import com.googlecode.lanterna.gui2.EmptySpace;
 import com.googlecode.lanterna.gui2.GridLayout;
 import com.googlecode.lanterna.gui2.GridLayout.Alignment;
 import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.LocalizedString;
 import com.googlecode.lanterna.gui2.Panel;
-import com.googlecode.lanterna.gui2.Separator;
 import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import com.googlecode.lanterna.gui2.dialogs.DialogWindow;
 import com.googlecode.lanterna.gui2.table.Table;
@@ -39,7 +36,7 @@ public class ItemSummaryDialog extends DialogWindow {
 	}
 
 	private void configureContent(int gridSize, Item... items) {
-		// TODO: consider a table instead of a gridlayout
+		
 		Panel mainPanel = new Panel(new GridLayout(gridSize));
 
 		// Description
@@ -54,6 +51,7 @@ public class ItemSummaryDialog extends DialogWindow {
 			summary = this.editTable(items[0], items[1]);
 		summary.setLayoutData(GridLayout.createLayoutData(Alignment.CENTER, Alignment.CENTER, true, true, gridSize, 1));
 		summary.setEnabled(false);
+		summary.setTableCellRenderer(new SummaryTableCellRenderer<String>());
 		mainPanel.addComponent(this.dialogSpacer(gridSize));
 		mainPanel.addComponent(summary);
 

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.UUID;
 
-import com.dom.freeman.Global;
 import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
@@ -64,7 +63,6 @@ public class EditItemDialog extends AbstractModifyItemDialog {
 	public void onSave() {
 		// If still true we can present the summary
 		if (validateItem()) {
-			// TODO: Make a custom dialog for this, Change to a grid layout for better format
 			Item newItem = new Item(
 					this.getTypeEntry().getText(),
 					Integer.parseInt(this.getQuantityEntry().getText()),
@@ -74,7 +72,11 @@ public class EditItemDialog extends AbstractModifyItemDialog {
 					UUID.randomUUID().toString());
 			ItemSummaryDialog summary = new ItemSummaryDialog("Edit Item Final Summary", newItem, this.oldItem);
 			summary.setHints(Arrays.asList(Hint.CENTERED));
-			summary.showDialog(this.getTextGUI());
+			
+			// If we hit save, proceed to make the change
+			if (summary.showDialog(this.getTextGUI())) {
+				
+			}
 		}
 	}
 
@@ -99,9 +101,14 @@ public class EditItemDialog extends AbstractModifyItemDialog {
 	}
 
 	private boolean validateQuantity() {
-		if (this.getQuantityEntry().getText().isEmpty()) {
+		if (this.getQuantityEntry().getText().isEmpty() || Integer.parseInt(this.getQuantityEntry().getText()) == 0) {
+			
+			String msg = "You did not enter any value for item quantity. This field cannot be empty.";
+			if (Integer.parseInt(this.getQuantityEntry().getText()) == 0)
+				msg = "You did not enter a valid value for item quantity. This field cannot be zero.";
+				
 			new MessageDialogBuilder().setTitle("Add Item Validation")
-			.setText("You did not enter any value for item quantity. This field cannot be empty.")
+			.setText(msg)
 			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
 			.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
 			return false;

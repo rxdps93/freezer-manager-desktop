@@ -1,4 +1,4 @@
-package com.dom.freeman.obj;
+package com.dom.freeman.components.dashboard.tables;
 
 import java.util.HashMap;
 import java.util.Map;

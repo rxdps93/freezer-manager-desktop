@@ -6,8 +6,8 @@ import java.util.List;
 
 import com.dom.freeman.Global;
 import com.dom.freeman.components.dashboard.tables.DashboardExpirationTable;
+import com.dom.freeman.components.dashboard.tables.ExpirationTableCellRenderer;
 import com.dom.freeman.components.inventory.InventorySortMode;
-import com.dom.freeman.obj.ExpirationTableCellRenderer;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
