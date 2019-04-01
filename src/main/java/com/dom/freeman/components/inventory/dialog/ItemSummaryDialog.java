@@ -49,6 +49,7 @@ public class ItemSummaryDialog extends DialogWindow {
 			summary = this.addTable(items[0]);
 		else
 			summary = this.editTable(items[0], items[1]);
+		
 		summary.setLayoutData(GridLayout.createLayoutData(Alignment.CENTER, Alignment.CENTER, true, true, gridSize, 1));
 		summary.setEnabled(false);
 		summary.setTableCellRenderer(new SummaryTableCellRenderer<String>());
@@ -57,21 +58,24 @@ public class ItemSummaryDialog extends DialogWindow {
 
 		// Buttons
 		mainPanel.addComponent(this.dialogSpacer(gridSize));
-		mainPanel.addComponent(this.dialogSpacer(1));
-		mainPanel.addComponent(new Button(LocalizedString.Save.toString(), new Runnable() {
+		
+		Panel buttons = new Panel(new GridLayout(2));
+		buttons.addComponent(new Button(LocalizedString.Save.toString(), new Runnable() {
 			@Override
 			public void run() {
 				result = true;
 				close();
 			}
 		}));
-		mainPanel.addComponent(new Button(LocalizedString.Abort.toString(), new Runnable() {
+		buttons.addComponent(new Button(LocalizedString.Abort.toString(), new Runnable() {
 			@Override
 			public void run() {
 				result = false;
 				close();
 			}
 		}));
+		buttons.setLayoutData(GridLayout.createLayoutData(Alignment.END, Alignment.END, false, false, gridSize, 1));
+		mainPanel.addComponent(buttons);
 
 		this.setComponent(mainPanel);
 	}

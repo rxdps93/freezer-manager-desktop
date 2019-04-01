@@ -25,20 +25,7 @@ public class EditItemDialog extends AbstractModifyItemDialog {
 
 	@Override
 	public boolean validateItem() {
-		/*
-		 * TODO: Perform the following steps to save:
-		 * > Check if type is empty
-		 * > Check if quantity is empty
-		 * > Check if quantity is out of normal range for the unit
-		 * > Check if expiration date is on or before today
-		 * > Check if added date is after today
-		 * > Check if expiration date is before added date
-		 * > Present a summary of the item to user to accept or deny
-		 * > Show both old and new values in the summary
-		 * > Read CSV into memory again
-		 * > Edit item in the list
-		 * > Write to file
-		 */
+		
 		boolean result = true;
 
 		// Item Type Validation
