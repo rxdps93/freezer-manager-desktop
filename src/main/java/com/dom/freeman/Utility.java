@@ -19,18 +19,18 @@ import com.opencsv.bean.CsvToBeanBuilder;
 public enum Utility {
 
 	METHODS;
-	
+
 	public void refreshViews() {
 		for (AbstractInventoryTable<?> table : Global.OBJECTS.getRegisteredTables())
 			table.refresh();
 	}
-	
+
 	public void updateInventory() {
-		
+
 		Global.OBJECTS.setInventory(this.parseItemsFromFile());
 		Global.OBJECTS.setTypes(this.itemTypeCount(Global.OBJECTS.getInventory()));
 	}
-	
+
 	public Item getItemById(String id) {
 		for (Item item : Global.OBJECTS.getInventory()) {
 			if (item.getId().equals(id))
@@ -43,49 +43,81 @@ public enum Utility {
 
 		List<Item> items = Collections.emptyList();
 		try {
-			
-			CsvToBean<Item> csv = new CsvToBeanBuilder<Item>(Files.newBufferedReader(Paths.get("src/main/resources/contents_uuid.csv")))
+
+			CsvToBean<Item> csv = new CsvToBeanBuilder<Item>(Files.newBufferedReader(Paths.get(Global.OBJECTS.getMainPath(true))))
 					.withType(Item.class).build();
-			
+
 			items = csv.parse();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return items;
 	}
-	
+
 	public Map<String, Integer> itemTypeCount(List<Item> items) {
-		
+
 		Map<String, Integer> types = new TreeMap<String, Integer>();
-		
+
 		for (Item item : items) {
-			
+
 			if (!types.containsKey(item.getType()))
 				types.put(item.getType(), 1);
 			else
 				types.replace(item.getType(), types.get(item.getType()) + 1);
 		}
-		
+
 		return types;
 	}
-	
-	public boolean saveToFile(Item item) {
-		
+
+	public boolean addNewItemToFile(Item item) {
+
 		boolean success;
 		try {
-			FileWriter writer = new FileWriter(new File(Paths.get("src/main/resources/contents_uuid.csv").toString()), true);
+			FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getMainPath(true)).toString()), true);
 			CSVWriter csv = new CSVWriter(writer);
-			
+
 			csv.writeNext(item.toCsvString(), false);
-			
+
 			csv.close();
 			writer.close();
 			success = true;
 		} catch (IOException e) {
 			success = false;
 		}
-		
+
+		return success;
+	}
+
+	public boolean editExistingItemInFile(Item updatedItem) {
+
+		boolean success = false, found = false;
+
+		List<Item> items = this.parseItemsFromFile();
+		for (Item item : items) {
+			if (item.getId().equals(updatedItem.getId())) {
+				items.set(items.indexOf(item), updatedItem);
+				found = true;
+			}
+		}
+
+		if (found) {
+			try {
+				FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getMainPath(true)).toString()), false);
+				CSVWriter csv = new CSVWriter(writer);
+
+				for (Item item : items) {
+					csv.writeNext(item.toCsvString(), false);
+				}
+				
+				csv.close();
+				writer.close();
+				success = true;
+			} catch(IOException e) {
+				success = false;
+			}
+		}
+
 		return success;
 	}
 }

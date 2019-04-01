@@ -17,6 +17,9 @@ public enum Global {
 	private List<AbstractInventoryTable<?>> registeredTables = new ArrayList<>();
 	private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 	
+	private final String mainPath = "src/main/resources/contents.csv";
+	private final String uuidPath = "src/main/resources/contents_uuid.csv";
+	
 	public List<Item> getInventory() {
 		return this.inventory;
 	}
@@ -43,5 +46,12 @@ public enum Global {
 	
 	public void registerTable(AbstractInventoryTable<?> table) {
 		this.registeredTables.add(table);
+	}
+	
+	public String getMainPath(boolean withUUID) {
+		if (withUUID)
+			return this.uuidPath;
+		else
+			return this.mainPath;
 	}
 }

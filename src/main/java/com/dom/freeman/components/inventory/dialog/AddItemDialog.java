@@ -234,7 +234,7 @@ public class AddItemDialog extends DialogWindow {
 	}
 
 	private void saveItem(Item item) {
-		boolean write = Utility.METHODS.saveToFile(item);
+		boolean write = Utility.METHODS.addNewItemToFile(item);
 
 		if (write) {
 			new MessageDialogBuilder().setTitle("Item Added Successfully")
