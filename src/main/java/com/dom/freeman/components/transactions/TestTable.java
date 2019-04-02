@@ -29,6 +29,7 @@ public class TestTable<V> extends AbstractInventoryTable<V> {
 		for (Item item : Global.OBJECTS.getInventory()) {
 			model.addRow((V)item.getType(),
 					(V)String.format("%3d %s",  item.getQuantity(), item.getUnit().getAbbreviationByValue(item.getQuantity())),
+					(V)item.getLocation().getFreezerLocation(),
 					(V)item.getAddedFormatted(),
 					(V)item.getExpiresFormatted(),
 					(V)item.getId());

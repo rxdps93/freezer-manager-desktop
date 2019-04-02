@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import com.dom.freeman.components.DateInput;
 import com.dom.freeman.components.InventoryComboBox;
+import com.dom.freeman.obj.Freezer;
 import com.dom.freeman.obj.Unit;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.Button;
@@ -24,6 +25,7 @@ public abstract class AbstractModifyItemDialog extends DialogWindow {
 	private TextBox typeEntry;
 	private ComboBox<Unit> unitEntry;
 	private TextBox quantityEntry;
+	private ComboBox<Freezer> locEntry;
 	private DateInput addedEntry;
 	private DateInput expiresEntry;
 
@@ -72,6 +74,16 @@ public abstract class AbstractModifyItemDialog extends DialogWindow {
 		mainPanel.addComponent(new Label("Quantity"));
 		this.quantityEntry = new TextBox(new TerminalSize(30, 1)).setValidationPattern(Pattern.compile("[0-9]+"));
 		mainPanel.addComponent(this.quantityEntry);
+		
+		// Location
+		mainPanel.addComponent(this.dialogSpacer());
+		mainPanel.addComponent(new Label("Location"));
+		this.locEntry = new InventoryComboBox<>();
+		for (Freezer f : Freezer.values()) {
+			if (!f.equals(Freezer.ERROR))
+				this.locEntry.addItem(f);
+		}
+		mainPanel.addComponent(this.locEntry.setPreferredSize(new TerminalSize(30, 1)));
 
 		// Expiration Date
 		mainPanel.addComponent(this.dialogSpacer());
@@ -111,6 +123,10 @@ public abstract class AbstractModifyItemDialog extends DialogWindow {
 	
 	public TextBox getQuantityEntry() {
 		return this.quantityEntry;
+	}
+	
+	public ComboBox<Freezer> getLocationEntry() {
+		return this.locEntry;
 	}
 	
 	public DateInput getAddedEntry() {

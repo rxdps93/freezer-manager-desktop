@@ -20,6 +20,7 @@ public class EditItemDialog extends AbstractModifyItemDialog {
 		this.getTypeEntry().setText(toEdit.getType());
 		this.getUnitEntry().setSelectedItem(toEdit.getUnit());
 		this.getQuantityEntry().setText(Integer.toString(toEdit.getQuantity()));
+		this.getLocationEntry().setSelectedItem(toEdit.getLocation());
 		this.getAddedEntry().setSelectedDate(toEdit.getAdded());
 		this.getExpiresEntry().setSelectedDate(toEdit.getExpires());
 	}
@@ -55,6 +56,7 @@ public class EditItemDialog extends AbstractModifyItemDialog {
 					this.getTypeEntry().getText(),
 					Integer.parseInt(this.getQuantityEntry().getText()),
 					this.getUnitEntry().getSelectedItem(),
+					this.getLocationEntry().getSelectedItem(),
 					this.getAddedEntry().getSelectedDate(),
 					this.getExpiresEntry().getSelectedDate(),
 					oldItem.getId());

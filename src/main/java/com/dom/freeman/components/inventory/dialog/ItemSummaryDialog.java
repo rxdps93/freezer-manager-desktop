@@ -90,6 +90,7 @@ public class ItemSummaryDialog extends DialogWindow {
 		summary.getTableModel().addRow("Item Type", newItem.getType());
 		summary.getTableModel().addRow("Quantity", Integer.toString(newItem.getQuantity()));
 		summary.getTableModel().addRow("Unit", newItem.getUnit().getCommonName());
+		summary.getTableModel().addRow("Location", newItem.getLocation().getFreezerLocation());
 		summary.getTableModel().addRow("Add Date", newItem.getAddedFormatted());
 		summary.getTableModel().addRow("Expires", newItem.getExpiresFormatted());
 
@@ -119,6 +120,7 @@ public class ItemSummaryDialog extends DialogWindow {
 				oldItem.getType(),
 				Integer.toString(oldItem.getQuantity()),
 				oldItem.getUnit().getCommonName(),
+				oldItem.getLocation().getFreezerLocation(),
 				oldItem.getAddedFormatted(),
 				oldItem.getExpiresFormatted()});
 		

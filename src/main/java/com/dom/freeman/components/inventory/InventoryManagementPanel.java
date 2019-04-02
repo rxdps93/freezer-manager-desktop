@@ -40,7 +40,7 @@ public class InventoryManagementPanel extends Panel {
 	private void configureContent() {
 
 		Panel panel = new Panel();
-		InventoryManagementTable<String> inventory = new InventoryManagementTable<>("ITEM TYPE", "QUANTITY", "ADDED DATE", "EXPIRATION DATE", "ID");
+		InventoryManagementTable<String> inventory = new InventoryManagementTable<>("ITEM TYPE", "QUANTITY", "LOCATION", "ADDED DATE", "EXPIRATION DATE", "ID");
 		inventory.setVisibleRows(60);
 		inventory.setResetSelectOnTab(true);
 		inventory.hideLastColumn(true);

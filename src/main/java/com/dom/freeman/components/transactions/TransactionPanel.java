@@ -39,7 +39,7 @@ public class TransactionPanel extends ViewPanel {
 //		content.setLayoutData(LinearLayout.createLayoutData(Alignment.Center));
 //		this.addComponent(content);
 		
-		TestTable<String> table = new TestTable<>("Name", "Quantity", "Added", "Expires", "Id");
+		TestTable<String> table = new TestTable<>("Name", "Quantity", "Location", "Added", "Expires", "Id");
 		table.setVisibleRows(60);
 		table.refresh();
 		table.hideLastColumn(true);
@@ -49,7 +49,8 @@ public class TransactionPanel extends ViewPanel {
 			public void run() {
 				
 				List<String> data = table.getTableModel().getRow(table.getSelectedRow());
-				String msg = String.format("Title: %s\nQuantity: %s\nAdded: %s\nExpires: %s\nID: %s", data.get(0), data.get(1), data.get(2), data.get(3), data.get(4));
+				String msg = String.format("Title: %s\nQuantity: %s\nLocation: %s\nAdded: %s\nExpires: %s\nID: %s", 
+						data.get(0), data.get(1), data.get(2), data.get(3), data.get(4), data.get(5));
 				
 				new MessageDialogBuilder().setTitle("Item Description").setText(msg).setExtraWindowHints(Arrays.asList(Hint.CENTERED)).addButton(MessageDialogButton.Cancel).build().showDialog(parent.getTextGUI());
 			}

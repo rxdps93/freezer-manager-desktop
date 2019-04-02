@@ -38,7 +38,7 @@ public class InventoryViewPanel extends Panel {
 
 		Panel panel = new Panel();
 		
-		DashboardInventoryTable<String> inventory = new DashboardInventoryTable<>("ITEM TYPE", "QUANTITY", "ADDED DATE", "EXPIRATION DATE");
+		DashboardInventoryTable<String> inventory = new DashboardInventoryTable<>("ITEM TYPE", "QUANTITY", "LOCATION", "ADDED DATE", "EXPIRATION DATE");
 		inventory.setVisibleRows(60);
 		inventory.setResetSelectOnTab(true);
 
@@ -50,8 +50,9 @@ public class InventoryViewPanel extends Panel {
 				List<String> data = inventory.getTableModel().getRow(inventory.getSelectedRow());
 
 				String type = data.get(0);
-				LocalDate added = LocalDate.parse(data.get(2), Global.OBJECTS.getDateFormat());
-				LocalDate expires = LocalDate.parse(data.get(3), Global.OBJECTS.getDateFormat());
+				String location = data.get(2);
+				LocalDate added = LocalDate.parse(data.get(3), Global.OBJECTS.getDateFormat());
+				LocalDate expires = LocalDate.parse(data.get(4), Global.OBJECTS.getDateFormat());
 				LocalDate today = LocalDate.now();
 
 				long daysIn = ChronoUnit.DAYS.between(added, today);
@@ -59,6 +60,7 @@ public class InventoryViewPanel extends Panel {
 
 				StringBuilder info = new StringBuilder();
 				info.append(String.format("Summary for %s:%n", type));
+				info.append(String.format("This item is located in the: %s%n", location));
 				info.append(String.format("In freezer for %,d days.%n", daysIn));
 				if (remain != 0)
 					info.append(String.format("%,d %s %s expiration.", Math.abs(remain), (Math.abs(remain) > 1 ? "days" : "day"), (remain > 0 ? "until" : "past")));

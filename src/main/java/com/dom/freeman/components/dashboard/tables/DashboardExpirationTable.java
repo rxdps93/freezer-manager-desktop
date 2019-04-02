@@ -35,6 +35,7 @@ public class DashboardExpirationTable<V> extends AbstractInventoryTable<V> {
 				model.addRow(
 						(V)item.getType(),
 						(V)String.format("%3d %s", item.getQuantity(), item.getUnit().getAbbreviationByValue(item.getQuantity())),
+						(V)item.getLocation().getFreezerLocation(),
 						(V)item.getExpiresFormatted().toString(),
 						(V)Long.toString(remain));
 			}

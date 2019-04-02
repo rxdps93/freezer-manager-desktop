@@ -36,7 +36,7 @@ public class ExpirationViewPanel extends Panel {
 
 		Panel panel = new Panel();
 
-		DashboardExpirationTable<String> expirations = new DashboardExpirationTable<>("ITEM TYPE", "QUANTITY", "EXPIRATION DATE", "DAYS LEFT");
+		DashboardExpirationTable<String> expirations = new DashboardExpirationTable<>("ITEM TYPE", "QUANTITY", "LOCATION", "EXPIRATION DATE", "DAYS LEFT");
 		expirations.setVisibleRows(60);
 		expirations.setResetSelectOnTab(true);
 		expirations.setTableCellRenderer(new ExpirationTableCellRenderer<String>());
@@ -49,11 +49,13 @@ public class ExpirationViewPanel extends Panel {
 				List<String> data = expirations.getTableModel().getRow(expirations.getSelectedRow());
 
 				String type = data.get(0);
-				LocalDate expires = LocalDate.parse(data.get(2), Global.OBJECTS.getDateFormat());
-				long remain = Long.parseLong(data.get(3));
+				String location = data.get(2);
+				LocalDate expires = LocalDate.parse(data.get(3), Global.OBJECTS.getDateFormat());
+				long remain = Long.parseLong(data.get(4));
 
 				StringBuilder info = new StringBuilder();
 				info.append(String.format("Summary for %s:%n", type));
+				info.append(String.format("This item is located in the: %s%n", location));
 				info.append(String.format("This item expires on: %s%n", expires.toString()));
 				if (remain != 0)
 					info.append(String.format("%d days until expiration.", remain));

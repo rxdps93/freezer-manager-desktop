@@ -16,20 +16,24 @@ public class Item {
 
 	@CsvCustomBindByPosition(position = 2, converter = UnitConverter.class)
 	private Unit unit;
-
-	@CsvCustomBindByPosition(position = 3, converter = LocalDateConverter.class)
-	private LocalDate added;
+	
+	@CsvCustomBindByPosition(position = 3, converter = FreezerConverter.class)
+	private Freezer location;
 
 	@CsvCustomBindByPosition(position = 4, converter = LocalDateConverter.class)
+	private LocalDate added;
+
+	@CsvCustomBindByPosition(position = 5, converter = LocalDateConverter.class)
 	private LocalDate expires;
 	
-	@CsvBindByPosition(position = 5)
+	@CsvBindByPosition(position = 6)
 	private String id;
 
-	public Item(String type, int quantity, Unit unit, LocalDate added, LocalDate expires, String id) {
+	public Item(String type, int quantity, Unit unit, Freezer location, LocalDate added, LocalDate expires, String id) {
 		this.type = type;
 		this.quantity = quantity;
 		this.unit = unit;
+		this.location = location;
 		this.added = added;
 		this.expires = expires;
 		this.id = id;
@@ -53,6 +57,10 @@ public class Item {
 
 	public Unit getUnit() {
 		return this.unit;
+	}
+	
+	public Freezer getLocation() {
+		return this.location;
 	}
 	
 	public LocalDate getAdded() {
@@ -82,6 +90,10 @@ public class Item {
 	public void setUnit(Unit unit) {
 		this.unit = unit;
 	}
+	
+	public void setFreezer(Freezer location) {
+		this.location = location;
+	}
 
 	public void setAdded(LocalDate added) {
 		this.added = added;
@@ -101,6 +113,7 @@ public class Item {
 				this.getType().toUpperCase(),
 				Integer.toString(this.getQuantity()),
 				this.getUnit().getAbbreviationByValue(this.getQuantity()).toUpperCase(),
+				this.getLocation().getFreezerLocation(),
 				this.getAddedFormatted(),
 				this.getExpiresFormatted(),
 				this.getId()
@@ -110,6 +123,6 @@ public class Item {
 	@Override
 	public String toString() {
 
-		return String.format("%20s%5d%5s%15s%15s", this.getType(), this.getQuantity(), this.getUnit(), this.getAddedFormatted(), this.getExpiresFormatted());
+		return String.format("%20s%5d%5s%10s%15s%15s", this.getType(), this.getQuantity(), this.getUnit(), this.getLocation(), this.getAddedFormatted(), this.getExpiresFormatted());
 	}
 }

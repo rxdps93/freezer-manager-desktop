@@ -121,6 +121,7 @@ public class AddItemDialog extends AbstractModifyItemDialog {
 					this.getTypeEntry().getText(),
 					Integer.parseInt(this.getQuantityEntry().getText()),
 					this.getUnitEntry().getSelectedItem(),
+					this.getLocationEntry().getSelectedItem(),
 					this.getAddedEntry().getSelectedDate(),
 					this.getExpiresEntry().getSelectedDate(),
 					UUID.randomUUID().toString());
