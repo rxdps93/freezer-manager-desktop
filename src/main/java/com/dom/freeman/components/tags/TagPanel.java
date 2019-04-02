@@ -2,7 +2,6 @@ package com.dom.freeman.components.tags;
 
 import com.dom.freeman.components.ViewPanel;
 import com.googlecode.lanterna.gui2.Interactable;
-import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.input.KeyType;
@@ -29,7 +28,7 @@ public class TagPanel extends ViewPanel {
 		TagManagementPanel tagPanel = new TagManagementPanel(this.parent);
 		this.interactable = tagPanel.getInteractable();
 		this.addComponent(tagPanel);
-		this.addComponent(new Label("temporary"));
+		this.addComponent(new TagControlPanel(this.parent));
 	}
 	
 	public Window getParentWindow() {

@@ -39,6 +39,12 @@ public class AbstractTag {
 		return this.associatedItemIds;
 	}
 	
+	public void associateItems(Item... items) {
+		for (Item item : items) {
+			this.associateItems(item.getId());
+		}
+	}
+	
 	public void associateItems(String... itemIds) {
 		for (String id : itemIds) {
 			this.associatedItemIds.add(id);
