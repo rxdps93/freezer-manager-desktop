@@ -113,7 +113,7 @@ public class Item {
 				this.getType().toUpperCase(),
 				Integer.toString(this.getQuantity()),
 				this.getUnit().getAbbreviationByValue(this.getQuantity()).toUpperCase(),
-				this.getLocation().getFreezerLocation(),
+				this.getLocation().getFreezerLocation().toUpperCase(),
 				this.getAddedFormatted(),
 				this.getExpiresFormatted(),
 				this.getId()

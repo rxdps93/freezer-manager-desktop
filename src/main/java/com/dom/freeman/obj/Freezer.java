@@ -2,8 +2,8 @@ package com.dom.freeman.obj;
 
 public enum Freezer {
 
-	CHEST_FREEZER("Chest Freezer", "Basement"),
-	KITCHEN_FREEZER("Fridge Freezer", "Kitchen"),
+	CHEST_FREEZER("Chest Freezer", "BASEMENT"),
+	KITCHEN_FREEZER("Fridge Freezer", "KITCHEN"),
 	ERROR("UNKNOWN", "UNKNOWN");
 	
 	private final String name;
@@ -20,5 +20,10 @@ public enum Freezer {
 	
 	public String getFreezerLocation() {
 		return this.location;
+	}
+	
+	@Override
+	public String toString() {
+		return (this.getFreezerName() + ": " + this.getFreezerLocation()).toUpperCase();
 	}
 }

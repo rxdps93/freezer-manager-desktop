@@ -11,7 +11,7 @@ public class FreezerConverter extends AbstractBeanField<Freezer> {
 		Freezer freezer = Freezer.ERROR;
 		
 		for (Freezer f : Freezer.values()) {
-			if (value.equals(f.getFreezerLocation())) {
+			if (value.equalsIgnoreCase(f.getFreezerLocation())) {
 				freezer = f;
 				break;
 			}

@@ -52,7 +52,7 @@ My intent is to develop a system comprised of four major components:
 
 ## Tentative Feature Timing
 #### Now
-- [ ] Differentiate between freezers (basement vs kitchen)
+- [x] Differentiate between freezers (basement vs kitchen)
 - [ ] Add tag
 - [ ] Edit tag
 - [ ] Remove tag

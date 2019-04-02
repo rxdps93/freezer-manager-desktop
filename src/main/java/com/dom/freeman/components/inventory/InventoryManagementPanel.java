@@ -56,7 +56,7 @@ public class InventoryManagementPanel extends Panel {
 					@Override
 					public void run() {
 						List<String> data = inventory.getTableModel().getRow(inventory.getSelectedRow());
-						EditItemDialog editItem = new EditItemDialog("EDIT ITEM", Utility.METHODS.getItemById(data.get(4)));
+						EditItemDialog editItem = new EditItemDialog("EDIT ITEM", Utility.METHODS.getItemById(data.get(5)));
 						editItem.setHints(Arrays.asList(Hint.CENTERED));
 						editItem.showDialog(parent.getTextGUI());
 					}
@@ -65,7 +65,7 @@ public class InventoryManagementPanel extends Panel {
 					@Override
 					public void run() {
 						List<String> data = inventory.getTableModel().getRow(inventory.getSelectedRow());
-						Item toRemove = Utility.METHODS.getItemById(data.get(4));
+						Item toRemove = Utility.METHODS.getItemById(data.get(5));
 
 						ItemSummaryDialog summary = new ItemSummaryDialog("Remove Item Final Summary", FileOperation.REMOVE, toRemove);
 						summary.setHints(Arrays.asList(Hint.CENTERED));

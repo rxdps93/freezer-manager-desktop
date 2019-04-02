@@ -45,7 +45,7 @@ public enum Utility {
 		List<Item> items = Collections.emptyList();
 		try {
 
-			CsvToBean<Item> csv = new CsvToBeanBuilder<Item>(Files.newBufferedReader(Paths.get(Global.OBJECTS.getMainPath(true))))
+			CsvToBean<Item> csv = new CsvToBeanBuilder<Item>(Files.newBufferedReader(Paths.get(Global.OBJECTS.getMainPath())))
 					.withType(Item.class).build();
 
 			items = csv.parse();
@@ -75,7 +75,7 @@ public enum Utility {
 
 		boolean success;
 		try {
-			FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getMainPath(true)).toString()), true);
+			FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getMainPath()).toString()), true);
 			CSVWriter csv = new CSVWriter(writer);
 
 			csv.writeNext(item.toCsvString(), false);
@@ -109,7 +109,7 @@ public enum Utility {
 				items.remove(index);
 			
 			try {
-				FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getMainPath(true)).toString()), false);
+				FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getMainPath()).toString()), false);
 				CSVWriter csv = new CSVWriter(writer);
 
 				for (Item item : items) {

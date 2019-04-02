@@ -15,7 +15,7 @@ import com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration;
 public class FreeMan {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
-			
+		
 		SwingTerminalFontConfiguration stfc = SwingTerminalFontConfiguration.newInstance(new Font("Courier New", Font.PLAIN, 12));
 		Terminal terminal = new DefaultTerminalFactory()
 				.setTerminalEmulatorTitle("Freezer Inventory Management System")
