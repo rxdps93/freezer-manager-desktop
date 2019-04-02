@@ -51,7 +51,7 @@ public class MainWindow extends BasicWindow {
 
 		this.dashboardPanel = new DashboardPanel(new GridLayout(3), this);
 		this.inventoryPanel = new InventoryPanel(new GridLayout(2), this);
-		this.tagPanel = new TagPanel(new LinearLayout());
+		this.tagPanel = new TagPanel(new GridLayout(2), this);
 		this.typePanel = new TypePanel(new LinearLayout());
 		this.userPanel = new UserPanel(new LinearLayout());
 		this.transactionPanel = new TransactionPanel(new LinearLayout(), this);

@@ -63,6 +63,9 @@ My intent is to develop a system comprised of four major components:
 #### Near
 - [ ] Assign tags to an item
 - [ ] Unassign tags from an item
+- [ ] Introduce concept of 'item type' as an object
+- [ ] Differentiate between permanent and instance tags
+- [ ] Rework tag assignment/unassignment to account for tag types
 - [ ] Filter detailed inventory view by field
 - [ ] Filter detailed inventory view by tag
 - [ ] Keep logs of all CSV file transactions

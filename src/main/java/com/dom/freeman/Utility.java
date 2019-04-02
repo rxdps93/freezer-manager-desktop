@@ -13,6 +13,7 @@ import java.util.TreeMap;
 import com.dom.freeman.components.AbstractInventoryTable;
 import com.dom.freeman.components.FileOperation;
 import com.dom.freeman.obj.Item;
+import com.dom.freeman.obj.ItemTag;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -30,12 +31,21 @@ public enum Utility {
 
 		Global.OBJECTS.setInventory(this.parseItemsFromFile());
 		Global.OBJECTS.setTypes(this.itemTypeCount(Global.OBJECTS.getInventory()));
+		Global.OBJECTS.setItemTags(this.parseItemTagsFromFile());
 	}
 
 	public Item getItemById(String id) {
 		for (Item item : Global.OBJECTS.getInventory()) {
 			if (item.getId().equals(id))
 				return item;
+		}
+		return null;
+	}
+
+	public ItemTag getItemTagByName(String name) {
+		for (ItemTag tag : Global.OBJECTS.getItemTags()) {
+			if (tag.getName().equalsIgnoreCase(name))
+				return tag;
 		}
 		return null;
 	}
@@ -54,6 +64,21 @@ public enum Utility {
 		}
 
 		return items;
+	}
+
+	public List<ItemTag> parseItemTagsFromFile() {
+
+		List<ItemTag> itemTags = Collections.emptyList();
+		if (new File(Global.OBJECTS.getItemTagPath()).length() != 0) {
+			try {
+				CsvToBean<ItemTag> csv = new CsvToBeanBuilder<ItemTag>(Files.newBufferedReader(Paths.get(Global.OBJECTS.getItemTagPath())))
+						.withType(ItemTag.class).build();
+				itemTags = csv.parse();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return itemTags;
 	}
 
 	public Map<String, Integer> itemTypeCount(List<Item> items) {
@@ -107,7 +132,7 @@ public enum Utility {
 				items.set(index, toModify);
 			else if (op.equals(FileOperation.REMOVE))
 				items.remove(index);
-			
+
 			try {
 				FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getMainPath()).toString()), false);
 				CSVWriter csv = new CSVWriter(writer);
@@ -115,7 +140,7 @@ public enum Utility {
 				for (Item item : items) {
 					csv.writeNext(item.toCsvString(), false);
 				}
-				
+
 				csv.close();
 				writer.close();
 				success = true;

@@ -25,16 +25,16 @@ public class InventoryManagementPanel extends Panel {
 	private Window parent;
 	private InventoryManagementTable<String> inventory;
 
-	public InventoryManagementPanel( Window parent) {
+	public InventoryManagementPanel(Window parent) {
 		super();
 		this.parent = parent;
-		configureContent();
+		this.configureContent();
 	}
 
 	public InventoryManagementPanel(LayoutManager layoutManager, Window parent) {
 		super(layoutManager);
 		this.parent = parent;
-		configureContent();
+		this.configureContent();
 	}
 
 	private void configureContent() {
