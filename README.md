@@ -52,20 +52,7 @@ My intent is to develop a system comprised of four major components:
 
 ## Tentative Feature Timing
 #### Now
-- [x] Read test data from a randomly generated CSV file
-- [x] Read data on application launch; data is not updated
-- [x] Inventory "at-a-glance" Alphabetical View
-- [x] Inventory "at-a-glance" Expiring Soon View
-- [x] Inventory "at-a-glance" Grouped Item Type Count View
-- [x] Detailed inventory view with sorting, no filtering
-- [x] Add item and save it to CSV
-- [x] Edit item
-- [x] Remove item
-- [x] Data updates from CSV after add
-- [x] Data updates from CSV after edit
-- [x] Data updates from CSV after remove
-- [ ] Properly document code to a respectable and responsible standard
-#### Near
+- [ ] Differentiate between freezers (basement vs kitchen)
 - [ ] Add tag
 - [ ] Edit tag
 - [ ] Remove tag
@@ -73,10 +60,14 @@ My intent is to develop a system comprised of four major components:
 - [ ] Edit user
 - [ ] Remove user
 - [ ] Data updates from CSV periodically
-#### Far
-- [ ] Filter detailed inventory view
+#### Near
 - [ ] Assign tags to an item
 - [ ] Unassign tags from an item
+- [ ] Filter detailed inventory view by field
+- [ ] Filter detailed inventory view by tag
+- [ ] Keep logs of all CSV file transactions
+#### Far
+- [ ] Ensure documentation is up to a reasonable standard
 - [ ] Interface with server application / database for inventory items
 - [ ] Interface with server application / database for users
 - [ ] Interface with server application / database for tags
@@ -84,3 +75,19 @@ My intent is to develop a system comprised of four major components:
 - [ ] Other things I forgot about :)
 #### Future
 - [ ] Integrate with digital recipe management system (another project I have planned to help my wife out)
+
+## Completed Feature List
+This gets updated whenever the "Now" section above is completed. When that happens those items move here, along with a completion (push) date and then everything is re-prioritized. These records are mostly for my own sake/interest. I enjoy looking back on the progression of my personal projects.
+####'Now' Priorities Iteration 1, Completed 4/1/19
+- [x] Read test data from a randomly generated CSV file: **Completed 3/20/19**
+- [x] Read data on application launch; data is not updated **Completed 3/20/19**
+- [x] Inventory "at-a-glance" Alphabetical View **Completed 3/20/19**
+- [x] Inventory "at-a-glance" Expiring Soon View **Completed 3/20/19**
+- [x] Inventory "at-a-glance" Grouped Item Type Count View **Completed 3/20/19**
+- [x] Detailed inventory view with sorting, no filtering **Completed 3/24/19**
+- [x] Add item and save it to CSV **Completed 3/27/19**
+- [x] Edit item **Completed 4/1/19**
+- [x] Remove item **Completed 4/1/19**
+- [x] Data updates from CSV after add **Completed 3/28/19**
+- [x] Data updates from CSV after edit **Completed 4/1/19**
+- [x] Data updates from CSV after remove **Completed 4/1/19**
