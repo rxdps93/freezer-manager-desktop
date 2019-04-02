@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.dom.freeman.components.AbstractInventoryTable;
+import com.dom.freeman.components.FileOperation;
 import com.dom.freeman.obj.Item;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.CsvToBean;
@@ -89,19 +90,24 @@ public enum Utility {
 		return success;
 	}
 
-	public boolean editExistingItemInFile(Item updatedItem) {
+	public boolean modifyExistingItemInFile(Item toModify, FileOperation op) {
 
-		boolean success = false, found = false;
+		boolean success = false;
 
 		List<Item> items = this.parseItemsFromFile();
+		int index = -1;
 		for (Item item : items) {
-			if (item.getId().equals(updatedItem.getId())) {
-				items.set(items.indexOf(item), updatedItem);
-				found = true;
+			if (item.getId().equals(toModify.getId())) {
+				index = items.indexOf(item);
 			}
 		}
 
-		if (found) {
+		if (index != -1) {
+			if (op.equals(FileOperation.EDIT))
+				items.set(index, toModify);
+			else if (op.equals(FileOperation.REMOVE))
+				items.remove(index);
+			
 			try {
 				FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getMainPath(true)).toString()), false);
 				CSVWriter csv = new CSVWriter(writer);

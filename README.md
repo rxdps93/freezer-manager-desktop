@@ -60,10 +60,10 @@ My intent is to develop a system comprised of four major components:
 - [x] Detailed inventory view with sorting, no filtering
 - [x] Add item and save it to CSV
 - [x] Edit item
-- [ ] Remove item
+- [x] Remove item
 - [x] Data updates from CSV after add
 - [x] Data updates from CSV after edit
-- [ ] Data updates from CSV after remove
+- [x] Data updates from CSV after remove
 - [ ] Properly document code to a respectable and responsible standard
 #### Near
 - [ ] Add tag

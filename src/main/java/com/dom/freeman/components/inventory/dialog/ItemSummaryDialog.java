@@ -1,5 +1,6 @@
 package com.dom.freeman.components.inventory.dialog;
 
+import com.dom.freeman.components.FileOperation;
 import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.EmptySpace;
@@ -15,16 +16,19 @@ import com.googlecode.lanterna.gui2.table.Table;
 public class ItemSummaryDialog extends DialogWindow {
 
 	private Boolean result;
+	private FileOperation op;
 
 	// For adding an item
-	public ItemSummaryDialog(String title, Item newItem) {
+	public ItemSummaryDialog(String title, FileOperation op, Item newItem) {
 		super(title);
+		this.op = op;
 		configureContent(2, newItem);
 	}
 
 	// For editing an item
-	public ItemSummaryDialog(String title, Item newItem, Item oldItem) {
+	public ItemSummaryDialog(String title, FileOperation op, Item newItem, Item oldItem) {
 		super(title);
+		this.op = op;
 		configureContent(3, newItem, oldItem);
 	}
 
@@ -40,7 +44,7 @@ public class ItemSummaryDialog extends DialogWindow {
 		Panel mainPanel = new Panel(new GridLayout(gridSize));
 
 		// Description
-		mainPanel.addComponent(new Label("Please carefully review item details before saving it.").setLayoutData(
+		mainPanel.addComponent(new Label(this.labelMessage()).setLayoutData(
 				GridLayout.createLayoutData(Alignment.BEGINNING, Alignment.CENTER, false, false, gridSize, 1)));
 
 		// Table
@@ -60,7 +64,7 @@ public class ItemSummaryDialog extends DialogWindow {
 		mainPanel.addComponent(this.dialogSpacer(gridSize));
 		
 		Panel buttons = new Panel(new GridLayout(2));
-		buttons.addComponent(new Button(LocalizedString.Save.toString(), new Runnable() {
+		buttons.addComponent(new Button(LocalizedString.Continue.toString(), new Runnable() {
 			@Override
 			public void run() {
 				result = true;
@@ -81,7 +85,7 @@ public class ItemSummaryDialog extends DialogWindow {
 	}
 
 	private Table<String> addTable(Item newItem) {
-		Table<String> summary = new Table<>("Item Field", "New Item");
+		Table<String> summary = new Table<>("Item Field", this.op.equals(FileOperation.REMOVE) ? "Selected Item" : "New Item");
 
 		summary.getTableModel().addRow("Item Type", newItem.getType());
 		summary.getTableModel().addRow("Quantity", Integer.toString(newItem.getQuantity()));
@@ -90,6 +94,22 @@ public class ItemSummaryDialog extends DialogWindow {
 		summary.getTableModel().addRow("Expires", newItem.getExpiresFormatted());
 
 		return summary;
+	}
+	
+	private String labelMessage() {
+		
+		String msg;
+		switch (op) {
+		case REMOVE:
+			msg = "Please carefully review item details. Removing an item CANNOT BE UNDONE.";
+			break;
+		case ADD:
+		case EDIT:
+			default:
+			msg = "Please carefully review item details before saving it.";
+				
+		}
+		return msg;
 	}
 
 	private Table<String> editTable(Item newItem, Item oldItem) {

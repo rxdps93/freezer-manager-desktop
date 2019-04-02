@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.UUID;
 
 import com.dom.freeman.Utility;
+import com.dom.freeman.components.FileOperation;
 import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
@@ -123,7 +124,7 @@ public class AddItemDialog extends AbstractModifyItemDialog {
 					this.getAddedEntry().getSelectedDate(),
 					this.getExpiresEntry().getSelectedDate(),
 					UUID.randomUUID().toString());
-			ItemSummaryDialog summary = new ItemSummaryDialog("Add Item Final Summary", newItem);
+			ItemSummaryDialog summary = new ItemSummaryDialog("Add Item Final Summary", FileOperation.ADD, newItem);
 			summary.setHints(Arrays.asList(Hint.CENTERED));
 			
 			if (summary.showDialog(this.getTextGUI())) {
