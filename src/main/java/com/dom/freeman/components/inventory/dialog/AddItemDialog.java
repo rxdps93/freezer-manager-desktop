@@ -143,7 +143,7 @@ public class AddItemDialog extends AbstractModifyItemDialog {
 			.setText("Item successfully added to inventory!")
 			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
 			.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
-			close();
+			this.close();
 			Utility.METHODS.updateInventory();
 			Utility.METHODS.refreshViews();
 		} else {

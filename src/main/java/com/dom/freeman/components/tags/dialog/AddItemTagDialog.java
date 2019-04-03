@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.dom.freeman.Global;
+import com.dom.freeman.Utility;
 import com.dom.freeman.components.inventory.InventorySortMode;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
@@ -65,8 +66,26 @@ public class AddItemTagDialog extends AbstractModifyTagDialog {
 					tag.associateItems(this.checkListItems.get(i));
 			}
 			
-			System.out.println(tag.toString());
-			this.onCancel();
+			this.saveItem(tag);
+		}
+	}
+	
+	private void saveItem(ItemTag tag) {
+		boolean write = Utility.METHODS.addNewItemTagToFile(tag);
+		
+		if (write) {
+			new MessageDialogBuilder().setTitle("Item Tag Added Successfully")
+			.setText("Item tag successfully saved.")
+			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+			.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
+			this.close();
+			Utility.METHODS.updateInventory();
+			Utility.METHODS.refreshViews();
+		} else {
+			new MessageDialogBuilder().setTitle("Warning")
+			.setText("Some error occurred and the item tag could not be saved. Please try again.")
+			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+			.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
 		}
 	}
 

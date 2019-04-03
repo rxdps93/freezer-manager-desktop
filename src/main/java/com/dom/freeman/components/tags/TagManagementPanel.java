@@ -46,7 +46,7 @@ public class TagManagementPanel extends Panel {
 			@Override
 			public void run() {
 				List<String> data = tagList.getTableModel().getRow(tagList.getSelectedRow());
-				ItemTag tag = Utility.METHODS.getItemTagByName(data.get(1));
+				ItemTag tag = Utility.METHODS.getItemTagByName(data.get(0));
 				
 				StringBuilder msg = new StringBuilder();
 				for (String id : tag.getAssociatedItemIds())
