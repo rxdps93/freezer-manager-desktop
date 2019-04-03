@@ -116,7 +116,7 @@ public class AddItemDialog extends AbstractModifyItemDialog {
 	@Override
 	public void onSave() {
 		
-		if (validateItem()) {
+		if (this.validateItem()) {
 			Item newItem = new Item(
 					this.getTypeEntry().getText(),
 					Integer.parseInt(this.getQuantityEntry().getText()),
@@ -156,7 +156,7 @@ public class AddItemDialog extends AbstractModifyItemDialog {
 
 	@Override
 	public void onCancel() {
-		close();
+		this.close();
 	}
 
 }

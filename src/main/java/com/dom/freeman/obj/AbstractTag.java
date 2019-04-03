@@ -1,6 +1,6 @@
 package com.dom.freeman.obj;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.bean.CsvBindByPosition;
@@ -16,7 +16,7 @@ public class AbstractTag {
 	
 	public AbstractTag(String name) {
 		this.name = name;
-		associatedItemIds = Collections.emptyList();
+		associatedItemIds = new ArrayList<String>();
 	}
 	
 	public AbstractTag() {
@@ -56,10 +56,22 @@ public class AbstractTag {
 	}
 	
 	public String[] toCsvString() {
-		String [] csv = new String[this.associatedItemIds.size() + 1];
+		String [] csv = new String[2];
 		csv[0] = this.name;
-		for (int i = 0; i < this.associatedItemIds.size(); i++)
-			csv[i + 1] = this.associatedItemIds.get(i);
+		
+		StringBuilder ids = new StringBuilder();
+		for (int i = 0; i < this.associatedItemIds.size(); i++) {
+			ids.append(this.associatedItemIds.get(i));
+			if (i < this.associatedItemIds.size() - 1)
+				ids.append(";");
+		}
+		csv[1] = ids.toString();
 		return csv;
+	}
+	
+	@Override
+	public String toString() {
+		String [] str = this.toCsvString();
+		return str[0] + ": " + str[1];
 	}
 }

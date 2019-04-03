@@ -119,6 +119,14 @@ public class Item {
 				this.getId()
 		};
 	}
+	
+	public String toSimpleString() {
+		return String.format("%s, %3d %s, %s", 
+				this.getType(),
+				this.getQuantity(),
+				this.getUnit().getAbbreviationByValue(this.getQuantity()),
+				this.getLocation().getFreezerLocation());
+	}
 
 	@Override
 	public String toString() {

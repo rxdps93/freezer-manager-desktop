@@ -114,6 +114,25 @@ public enum Utility {
 
 		return success;
 	}
+	
+	public boolean addNewItemTagToFile(ItemTag tag) {
+		
+		boolean success;
+		try {
+			FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getItemTagPath()).toString()), true);
+			CSVWriter csv = new CSVWriter(writer);
+			
+			csv.writeNext(tag.toCsvString(), false);
+			
+			csv.close();
+			writer.close();
+			success = true;
+		} catch (IOException e) {
+			success = false;
+		}
+		
+		return success;
+	}
 
 	public boolean modifyExistingItemInFile(Item toModify, FileOperation op) {
 

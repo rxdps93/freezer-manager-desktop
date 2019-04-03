@@ -1,10 +1,14 @@
 package com.dom.freeman.components.tags;
 
+import java.util.Arrays;
+
+import com.dom.freeman.components.tags.dialog.AddItemTagDialog;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.Window;
+import com.googlecode.lanterna.gui2.Window.Hint;
 
 public class TagControlPanel extends Panel {
 
@@ -28,8 +32,9 @@ public class TagControlPanel extends Panel {
 		options.addComponent(new Button("Create New Item Tag", new Runnable() {
 			@Override
 			public void run() {
-				// TODO: Add Item Tag Dialog
-				System.out.println("make thing");
+				AddItemTagDialog addItemTag = new AddItemTagDialog("CREATE NEW ITEM TAG");
+				addItemTag.setHints(Arrays.asList(Hint.CENTERED));
+				addItemTag.showDialog(parent.getTextGUI());
 			}
 		}));
 		options.addComponent(new Button("Create New Permanent Tag", new Runnable() {
