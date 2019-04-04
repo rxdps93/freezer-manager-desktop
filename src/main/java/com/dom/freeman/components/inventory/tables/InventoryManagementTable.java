@@ -3,6 +3,7 @@ package com.dom.freeman.components.inventory.tables;
 import java.util.Collections;
 
 import com.dom.freeman.Global;
+import com.dom.freeman.Utility;
 import com.dom.freeman.components.AbstractInventoryTable;
 import com.dom.freeman.components.inventory.InventorySortMode;
 import com.dom.freeman.obj.Item;
@@ -32,6 +33,7 @@ public class InventoryManagementTable<V> extends AbstractInventoryTable<V> {
 					(V)item.getLocation().getFreezerLocation(),
 					(V)item.getAddedFormatted(),
 					(V)item.getExpiresFormatted(),
+					(V)Integer.toString(Utility.METHODS.getTagsByItem(item).size()),
 					(V)item.getId());
 		}
 		

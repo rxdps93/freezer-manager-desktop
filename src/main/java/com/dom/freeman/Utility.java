@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,17 @@ public enum Utility {
 				return tag;
 		}
 		return null;
+	}
+	
+	public List<ItemTag> getTagsByItem(Item item) {
+		List<ItemTag> tags = new ArrayList<>();
+		
+		for (ItemTag tag : Global.OBJECTS.getItemTags()) {
+			if (tag.isItemAssociated(item))
+				tags.add(tag);
+		}
+		
+		return tags;
 	}
 
 	public List<Item> parseItemsFromFile() {

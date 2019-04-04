@@ -40,7 +40,7 @@ public class InventoryManagementPanel extends Panel {
 	private void configureContent() {
 
 		Panel panel = new Panel();
-		InventoryManagementTable<String> inventory = new InventoryManagementTable<>("ITEM TYPE", "QUANTITY", "LOCATION", "ADDED DATE", "EXPIRATION DATE", "ID");
+		InventoryManagementTable<String> inventory = new InventoryManagementTable<>("ITEM TYPE", "QUANTITY", "LOCATION", "ADDED DATE", "EXPIRATION DATE", "TAGS", "ID");
 		inventory.setVisibleRows(60);
 		inventory.setResetSelectOnTab(true);
 		inventory.hideLastColumn(true);
@@ -56,7 +56,7 @@ public class InventoryManagementPanel extends Panel {
 					@Override
 					public void run() {
 						List<String> data = inventory.getTableModel().getRow(inventory.getSelectedRow());
-						EditItemDialog editItem = new EditItemDialog("EDIT ITEM", Utility.METHODS.getItemById(data.get(5)));
+						EditItemDialog editItem = new EditItemDialog("EDIT ITEM", Utility.METHODS.getItemById(data.get(6)));
 						editItem.setHints(Arrays.asList(Hint.CENTERED));
 						editItem.showDialog(parent.getTextGUI());
 					}
@@ -65,7 +65,7 @@ public class InventoryManagementPanel extends Panel {
 					@Override
 					public void run() {
 						List<String> data = inventory.getTableModel().getRow(inventory.getSelectedRow());
-						Item toRemove = Utility.METHODS.getItemById(data.get(5));
+						Item toRemove = Utility.METHODS.getItemById(data.get(6));
 
 						ItemSummaryDialog summary = new ItemSummaryDialog("Remove Item Final Summary", FileOperation.REMOVE, toRemove);
 						summary.setHints(Arrays.asList(Hint.CENTERED));
