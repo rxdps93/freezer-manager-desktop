@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.dom.freeman.Global;
 import com.dom.freeman.Utility;
-import com.dom.freeman.components.FileOperation;
 import com.dom.freeman.components.tags.dialog.EditItemTagDialog;
 import com.dom.freeman.components.tags.dialog.ItemTagSummaryDialog;
 import com.dom.freeman.components.tags.tables.ItemTagViewTable;
+import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.ItemTag;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Interactable;
@@ -55,16 +55,10 @@ public class TagManagementPanel extends Panel {
 					public void run() {
 						List<String> data = tagList.getTableModel().getRow(tagList.getSelectedRow());
 						ItemTag tag = Utility.METHODS.getItemTagByName(data.get(0));
-
-						StringBuilder msg = new StringBuilder();
-						for (String id : tag.getAssociatedItemIds())
-							msg.append(Utility.METHODS.getItemById(id).toString() + "\n");
-
-						new MessageDialogBuilder().setTitle("TAG SUMMARY")
-						.setText(msg.toString())
-						.addButton(MessageDialogButton.Close)
-						.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-						.build().showDialog(parent.getTextGUI());
+						
+						ItemTagSummaryDialog summary = new ItemTagSummaryDialog("ITEM TAG SUMMARY", FileOperation.NONE, tag);
+						summary.setHints(Arrays.asList(Hint.CENTERED));
+						summary.showDialog(parent.getTextGUI());
 					}
 				})
 				.addAction("Edit Item Tag", new Runnable() {

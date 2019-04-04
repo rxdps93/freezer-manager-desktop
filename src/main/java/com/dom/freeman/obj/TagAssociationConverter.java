@@ -1,6 +1,7 @@
 package com.dom.freeman.obj;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.opencsv.bean.AbstractBeanField;
@@ -12,7 +13,14 @@ public class TagAssociationConverter extends AbstractBeanField<List<String>> {
 	@Override
 	protected List<String> convert(String value) throws CsvDataTypeMismatchException, CsvConstraintViolationException {
 		
-		return Arrays.asList(value.split(";"));
+		List<String> ids;
+		
+		if (value.isEmpty())
+			ids = Collections.emptyList();
+		else
+			ids = Arrays.asList(value.split(";"));
+		
+		return ids;
 	}
 
 }

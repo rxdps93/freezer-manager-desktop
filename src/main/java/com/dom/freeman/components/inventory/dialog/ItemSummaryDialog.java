@@ -1,6 +1,6 @@
 package com.dom.freeman.components.inventory.dialog;
 
-import com.dom.freeman.components.FileOperation;
+import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.EmptySpace;

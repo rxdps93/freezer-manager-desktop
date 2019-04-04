@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.dom.freeman.components.AbstractInventoryTable;
-import com.dom.freeman.components.FileOperation;
+import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
 import com.opencsv.CSVWriter;

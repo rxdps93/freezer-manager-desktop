@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 import com.dom.freeman.Utility;
-import com.dom.freeman.components.FileOperation;
+import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;

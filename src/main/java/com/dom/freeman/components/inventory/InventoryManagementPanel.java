@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.dom.freeman.Global;
 import com.dom.freeman.Utility;
-import com.dom.freeman.components.FileOperation;
 import com.dom.freeman.components.inventory.dialog.EditItemDialog;
 import com.dom.freeman.components.inventory.dialog.ItemSummaryDialog;
 import com.dom.freeman.components.inventory.tables.InventoryManagementTable;
+import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Interactable;

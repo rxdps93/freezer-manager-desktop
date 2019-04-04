@@ -1,7 +1,7 @@
 package com.dom.freeman.components.tags.dialog;
 
 import com.dom.freeman.Utility;
-import com.dom.freeman.components.FileOperation;
+import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
 import com.googlecode.lanterna.gui2.Button;
@@ -16,29 +16,29 @@ import com.googlecode.lanterna.gui2.dialogs.DialogWindow;
 import com.googlecode.lanterna.gui2.table.Table;
 
 public class ItemTagSummaryDialog extends DialogWindow {
-	
+
 	private Boolean result;
-	
+
 	public ItemTagSummaryDialog(String title, FileOperation op, ItemTag tag) {
 		super(title);
 		this.configureContent(op, tag);
 	}
-	
+
 	@Override
 	public Boolean showDialog(WindowBasedTextGUI textGUI) {
 		result = null;
 		super.showDialog(textGUI);
 		return result;
 	}
-	
+
 	private void configureContent(FileOperation op, ItemTag tag) {
 		Panel mainPanel = new Panel(new GridLayout(5));
-		
+
 		// Description
 		mainPanel.addComponent(new Label(this.labelMessage(op)).setLayoutData(
 				GridLayout.createLayoutData(Alignment.BEGINNING, Alignment.CENTER, 
 						false, false, 5, 1)));
-		
+
 		// Name
 		mainPanel.addComponent(this.dialogSpacer(5));
 		mainPanel.addComponent(new Label("Item Tag Name").setLayoutData(
@@ -47,7 +47,7 @@ public class ItemTagSummaryDialog extends DialogWindow {
 		mainPanel.addComponent(this.dialogSpacer(1));
 		mainPanel.addComponent(new Label(tag.getName()).setLayoutData(
 				GridLayout.createHorizontallyFilledLayoutData(2)));
-		
+
 		// Table
 		Table<String> associatedItemTable = this.addTable(tag);
 		Label tableLabel = new Label("").setLayoutData(
@@ -64,34 +64,45 @@ public class ItemTagSummaryDialog extends DialogWindow {
 		} else {
 			tableLabel.setText("No associated items were found for this item tag.");
 		}
-		
+
 		// Buttons
 		mainPanel.addComponent(this.dialogSpacer(5));
-		
+
 		Panel buttons = new Panel(new GridLayout(2));
-		buttons.addComponent(new Button(LocalizedString.Continue.toString(), new Runnable() {
-			@Override
-			public void run() {
-				result = true;
-				close();
-			}
-		}));
-		buttons.addComponent(new Button(LocalizedString.Abort.toString(), new Runnable() {
-			@Override
-			public void run() {
-				result = false;
-				close();
-			}
-		}));
+		if (op.equals(FileOperation.NONE)) {
+			buttons.addComponent(this.dialogSpacer(1));
+			buttons.addComponent(new Button(LocalizedString.Close.toString(), new Runnable() {
+				@Override
+				public void run() {
+					result = true;
+					close();
+				}
+			}));
+		} else {
+			buttons.addComponent(new Button(LocalizedString.Continue.toString(), new Runnable() {
+				@Override
+				public void run() {
+					result = true;
+					close();
+				}
+			}));
+			buttons.addComponent(new Button(LocalizedString.Abort.toString(), new Runnable() {
+				@Override
+				public void run() {
+					result = false;
+					close();
+				}
+			}));
+		}
 		buttons.setLayoutData(GridLayout.createLayoutData(Alignment.END, Alignment.END, false, false, 5, 1));
 		mainPanel.addComponent(buttons);
-		
+
 		this.setComponent(mainPanel);
 	}
-	
+
 	private Table<String> addTable(ItemTag tag) {
 		Table<String> summary = new Table<>("Item Type", "Quantity", "Location", "Added", "Expires");
-		
+
 		Item assoc;
 		for (String id : tag.getAssociatedItemIds()) {
 			assoc = Utility.METHODS.getItemById(id);
@@ -102,24 +113,27 @@ public class ItemTagSummaryDialog extends DialogWindow {
 					assoc.getAddedFormatted(),
 					assoc.getExpiresFormatted());
 		}
-		
+
 		return summary;
 	}
-	
+
 	private EmptySpace dialogSpacer(int gridSize) {
 		return new EmptySpace().setLayoutData(GridLayout.createHorizontallyFilledLayoutData(gridSize));
 	}
-	
+
 	private String labelMessage(FileOperation op) {
 		String msg;
 		switch (op) {
+		case NONE:
+			msg = "Summary for selected item tag";
+			break;
 		case REMOVE:
 			msg = "Please carefully review item tag details. Removing an item CANNOT BE UNDONE.\nAssociated items WILL NOT be removed.";
 			break;
 		case ADD:
 		case EDIT:
-			default:
-				msg = "Please carefully review item tag details before saving it.";
+		default:
+			msg = "Please carefully review item tag details before saving it.";
 		}
 		return msg;
 	}

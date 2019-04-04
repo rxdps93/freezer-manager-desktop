@@ -6,6 +6,7 @@ import java.util.List;
 import com.dom.freeman.Global;
 import com.dom.freeman.Utility;
 import com.dom.freeman.components.inventory.InventorySortMode;
+import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
 import com.googlecode.lanterna.TerminalSize;
@@ -66,7 +67,11 @@ public class AddItemTagDialog extends AbstractModifyTagDialog {
 					tag.associateItems(this.checkListItems.get(i));
 			}
 			
-			this.saveItem(tag);
+			ItemTagSummaryDialog summary = new ItemTagSummaryDialog("FINAL ADD ITEM TAG SUMMARY", FileOperation.ADD, tag);
+			summary.setHints(Arrays.asList(Hint.CENTERED));
+			
+			if (summary.showDialog(this.getTextGUI()))
+				this.saveItem(tag);
 		}
 	}
 	
