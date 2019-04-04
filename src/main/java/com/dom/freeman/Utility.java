@@ -170,4 +170,40 @@ public enum Utility {
 
 		return success;
 	}
+	
+	public boolean modifyExistingItemTagInFile(ItemTag toModify, FileOperation op) {
+		boolean success = false;
+		
+		List<ItemTag> itemTags = this.parseItemTagsFromFile();
+		int index = -1;
+		for (ItemTag tag : itemTags) {
+			if (tag.getName().equalsIgnoreCase(toModify.getName())) {
+				index = itemTags.indexOf(tag);
+			}
+		}
+		
+		if (index != -1) {
+			if (op.equals(FileOperation.EDIT))
+				itemTags.set(index, toModify);
+			else if (op.equals(FileOperation.REMOVE))
+				itemTags.remove(index);
+			
+			try {
+				FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getItemTagPath()).toString()), false);
+				CSVWriter csv = new CSVWriter(writer);
+				
+				for (ItemTag tag : itemTags) {
+					csv.writeNext(tag.toCsvString(), false);
+				}
+				
+				csv.close();
+				writer.close();
+				success = true;
+			} catch(IOException e) {
+				success = false;
+			}
+		}
+		
+		return success;
+	}
 }
