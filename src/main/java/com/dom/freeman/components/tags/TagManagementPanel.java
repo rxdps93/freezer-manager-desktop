@@ -5,7 +5,9 @@ import java.util.List;
 
 import com.dom.freeman.Global;
 import com.dom.freeman.Utility;
+import com.dom.freeman.components.FileOperation;
 import com.dom.freeman.components.tags.dialog.EditItemTagDialog;
+import com.dom.freeman.components.tags.dialog.ItemTagSummaryDialog;
 import com.dom.freeman.components.tags.tables.ItemTagViewTable;
 import com.dom.freeman.obj.ItemTag;
 import com.googlecode.lanterna.gui2.Borders;
@@ -73,7 +75,36 @@ public class TagManagementPanel extends Panel {
 						editItemTag.setHints(Arrays.asList(Hint.CENTERED));
 						editItemTag.showDialog(parent.getTextGUI());
 					}
-				}).build().showDialog(parent.getTextGUI());
+				})
+				.addAction("Remove Item Tag", new Runnable() {
+					@Override
+					public void run() {
+						List<String> data = tagList.getTableModel().getRow(tagList.getSelectedRow());
+						ItemTag toRemove = Utility.METHODS.getItemTagByName(data.get(0));
+						
+						ItemTagSummaryDialog summary = new ItemTagSummaryDialog("Remove Item Tag Final Summary", FileOperation.REMOVE, toRemove);
+						summary.setHints(Arrays.asList(Hint.CENTERED));
+						
+						if (summary.showDialog(parent.getTextGUI())) {
+							boolean remove = Utility.METHODS.modifyExistingItemTagInFile(toRemove, FileOperation.REMOVE);
+							
+							if (remove) {
+								new MessageDialogBuilder().setTitle("Item Tag Removed Successfully")
+								.setText("Item tag successfully removed!")
+								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+								.addButton(MessageDialogButton.OK).build().showDialog(parent.getTextGUI());
+								Utility.METHODS.updateInventory();
+								Utility.METHODS.refreshViews();
+							} else {
+								new MessageDialogBuilder().setTitle("Warning")
+								.setText("Some error occurred and the item tag could not be removed. Please try again.")
+								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+								.addButton(MessageDialogButton.OK).build().showDialog(parent.getTextGUI());
+							}
+						}
+					}
+				})
+				.build().showDialog(parent.getTextGUI());
 			}
 		});
 

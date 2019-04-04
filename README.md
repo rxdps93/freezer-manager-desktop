@@ -54,15 +54,15 @@ My intent is to develop a system comprised of four major components:
 #### Now
 - [x] Differentiate between freezers (basement vs kitchen)
 - [x] Add tag
-- [ ] Edit tag
-- [ ] Remove tag
+- [x] Edit tag
+- [x] Remove tag
+- [x] Associate items with tags by tag
+- [ ] Associate items with tags by item
 - [ ] Add user
 - [ ] Edit user
 - [ ] Remove user
 - [ ] Data updates from CSV periodically
 #### Near
-- [ ] Assign tags to an item
-- [ ] Unassign tags from an item
 - [ ] Introduce concept of 'item type' as an object
 - [ ] Differentiate between permanent and instance tags
 - [ ] Rework tag assignment/unassignment to account for tag types
