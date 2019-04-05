@@ -1,7 +1,6 @@
 package com.dom.freeman.obj;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.opencsv.bean.CsvBindByPosition;
 import com.opencsv.bean.CsvCustomBindByPosition;
@@ -12,7 +11,7 @@ public class AbstractTag {
 	private String name;
 	
 	@CsvCustomBindByPosition(position = 1, converter = TagAssociationConverter.class)
-	private List<String> associatedItemIds = new ArrayList<>();
+	private ArrayList<String> associatedItemIds = new ArrayList<>();
 	
 	public AbstractTag(String name) {
 		this.name = name;
@@ -30,11 +29,11 @@ public class AbstractTag {
 		return this.name;
 	}
 	
-	public void setAssociatedItemIds(List<String> ids) {
+	public void setAssociatedItemIds(ArrayList<String> ids) {
 		this.associatedItemIds = ids;
 	}
 	
-	public List<String> getAssociatedItemIds() {
+	public ArrayList<String> getAssociatedItemIds() {
 		return this.associatedItemIds;
 	}
 	
@@ -51,6 +50,21 @@ public class AbstractTag {
 		
 		for (String id : itemIds) {
 			this.associatedItemIds.add(id);
+		}
+	}
+	
+	public void unassociateItems(Item... items) {
+		for (Item item : items) {
+			this.unassociateItems(item.getId());
+		}
+	}
+	
+	public void unassociateItems(String... itemIds) {
+		
+		if (!this.associatedItemIds.isEmpty()) {
+			for (String id : itemIds) {
+				this.associatedItemIds.remove(id);
+			}
 		}
 	}
 	

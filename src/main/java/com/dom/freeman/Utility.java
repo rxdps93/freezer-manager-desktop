@@ -159,12 +159,26 @@ public enum Utility {
 		}
 
 		if (index != -1) {
-			
-			
+
+
 			if (op.equals(FileOperation.EDIT))
 				items.set(index, toModify);
-			else if (op.equals(FileOperation.REMOVE))
+			else if (op.equals(FileOperation.REMOVE)) {
+				
+				ArrayList<ItemTag> tags = new ArrayList<>();
+				for (ItemTag tag : Global.OBJECTS.getItemTags()) {
+					if (tag.isItemAssociated(items.get(index))) {
+						tags.add(tag);
+						tag.unassociateItems(items.get(index));
+					}
+				}
+				if (!tags.isEmpty()) {
+					ItemTag [] updatedTags = new ItemTag[tags.size()];
+					success = this.modifyExistingItemTagsInFile(FileOperation.EDIT, tags.toArray(updatedTags));
+				}
+				
 				items.remove(index);
+			}
 
 			try {
 				FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getMainPath()).toString()), false);
@@ -189,21 +203,24 @@ public enum Utility {
 		boolean success = false;
 
 		List<ItemTag> itemTags = this.parseItemTagsFromFile();
+		ArrayList<Integer> index = new ArrayList<>();
 
-		boolean update = false;
 		for (ItemTag tag : itemTags) {
 			for (ItemTag updatedTag : toModify) {
 				if (tag.getName().equalsIgnoreCase(updatedTag.getName())) {
-					update = true;
-					if (op.equals(FileOperation.EDIT))
-						itemTags.set(itemTags.indexOf(tag), updatedTag);
-					else if (op.equals(FileOperation.REMOVE))
-						itemTags.remove(itemTags.indexOf(tag));
+					index.add(itemTags.indexOf(tag));
 				}
 			}
 		}
 
-		if (update) {
+		if (!index.isEmpty()) {
+			
+			for (int i = 0; i < index.size(); i++) {
+				if (op.equals(FileOperation.EDIT))
+					itemTags.set(index.get(i), toModify[i]);
+				else if (op.equals(FileOperation.REMOVE))
+					itemTags.remove(index.get(i).intValue());
+			}
 
 			try {
 				FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getItemTagPath()).toString()), false);
