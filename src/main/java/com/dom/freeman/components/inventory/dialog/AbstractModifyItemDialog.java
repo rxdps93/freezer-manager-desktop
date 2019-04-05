@@ -51,7 +51,7 @@ public abstract class AbstractModifyItemDialog extends DialogWindow {
 
 		// Description
 		mainPanel.addComponent(this.dialogSpacer());
-		mainPanel.addComponent(new Label("Use arrow keys to navigate between fields").setLayoutData(GridLayout.createHorizontallyFilledLayoutData(2)));
+		mainPanel.addComponent(new Label("Use arrow keys to navigate between fields.").setLayoutData(GridLayout.createHorizontallyFilledLayoutData(2)));
 		
 		// Item Type
 		mainPanel.addComponent(this.dialogSpacer());

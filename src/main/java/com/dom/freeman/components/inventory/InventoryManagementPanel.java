@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.dom.freeman.Global;
 import com.dom.freeman.Utility;
+import com.dom.freeman.components.inventory.dialog.AssignItemTagDialog;
 import com.dom.freeman.components.inventory.dialog.EditItemDialog;
 import com.dom.freeman.components.inventory.dialog.ItemSummaryDialog;
 import com.dom.freeman.components.inventory.tables.InventoryManagementTable;
@@ -52,6 +53,15 @@ public class InventoryManagementPanel extends Panel {
 			public void run() {
 				new ActionListDialogBuilder()
 				.setTitle("SELECT AN ACTION")
+				.addAction("Assign Item Tags", new Runnable() {
+					@Override
+					public void run() {
+						List<String> data = inventory.getTableModel().getRow(inventory.getSelectedRow());
+						AssignItemTagDialog assignTags = new AssignItemTagDialog("Assign Item Tags", Utility.METHODS.getItemById(data.get(6)));
+						assignTags.setHints(Arrays.asList(Hint.CENTERED));
+						assignTags.showDialog(parent.getTextGUI());
+					}
+				})
 				.addAction("Edit this item", new Runnable() {
 					@Override
 					public void run() {

@@ -12,11 +12,10 @@ public class AbstractTag {
 	private String name;
 	
 	@CsvCustomBindByPosition(position = 1, converter = TagAssociationConverter.class)
-	private List<String> associatedItemIds;
+	private List<String> associatedItemIds = new ArrayList<>();
 	
 	public AbstractTag(String name) {
 		this.name = name;
-		associatedItemIds = new ArrayList<String>();
 	}
 	
 	public AbstractTag() {
@@ -46,6 +45,10 @@ public class AbstractTag {
 	}
 	
 	public void associateItems(String... itemIds) {
+		
+		if (this.associatedItemIds.isEmpty())
+			this.associatedItemIds = new ArrayList<>();
+		
 		for (String id : itemIds) {
 			this.associatedItemIds.add(id);
 		}

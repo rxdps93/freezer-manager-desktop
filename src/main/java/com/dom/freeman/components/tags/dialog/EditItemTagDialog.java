@@ -83,7 +83,7 @@ public class EditItemTagDialog extends AbstractModifyTagDialog {
 	}
 	
 	private void saveItem(ItemTag tag) {
-		boolean write = Utility.METHODS.modifyExistingItemTagInFile(tag, FileOperation.EDIT);
+		boolean write = Utility.METHODS.modifyExistingItemTagsInFile(FileOperation.EDIT, tag);
 		
 		if (write) {
 			new MessageDialogBuilder().setTitle("Item Tag Edited Successfully")

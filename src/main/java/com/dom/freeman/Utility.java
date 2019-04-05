@@ -50,15 +50,15 @@ public enum Utility {
 		}
 		return null;
 	}
-	
+
 	public List<ItemTag> getTagsByItem(Item item) {
 		List<ItemTag> tags = new ArrayList<>();
-		
+
 		for (ItemTag tag : Global.OBJECTS.getItemTags()) {
 			if (tag.isItemAssociated(item))
 				tags.add(tag);
 		}
-		
+
 		return tags;
 	}
 
@@ -126,23 +126,23 @@ public enum Utility {
 
 		return success;
 	}
-	
+
 	public boolean addNewItemTagToFile(ItemTag tag) {
-		
+
 		boolean success;
 		try {
 			FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getItemTagPath()).toString()), true);
 			CSVWriter csv = new CSVWriter(writer);
-			
+
 			csv.writeNext(tag.toCsvString(), false);
-			
+
 			csv.close();
 			writer.close();
 			success = true;
 		} catch (IOException e) {
 			success = false;
 		}
-		
+
 		return success;
 	}
 
@@ -159,6 +159,8 @@ public enum Utility {
 		}
 
 		if (index != -1) {
+			
+			
 			if (op.equals(FileOperation.EDIT))
 				items.set(index, toModify);
 			else if (op.equals(FileOperation.REMOVE))
@@ -182,32 +184,35 @@ public enum Utility {
 
 		return success;
 	}
-	
-	public boolean modifyExistingItemTagInFile(ItemTag toModify, FileOperation op) {
+
+	public boolean modifyExistingItemTagsInFile(FileOperation op, ItemTag... toModify) {
 		boolean success = false;
-		
+
 		List<ItemTag> itemTags = this.parseItemTagsFromFile();
-		int index = -1;
+
+		boolean update = false;
 		for (ItemTag tag : itemTags) {
-			if (tag.getName().equalsIgnoreCase(toModify.getName())) {
-				index = itemTags.indexOf(tag);
+			for (ItemTag updatedTag : toModify) {
+				if (tag.getName().equalsIgnoreCase(updatedTag.getName())) {
+					update = true;
+					if (op.equals(FileOperation.EDIT))
+						itemTags.set(itemTags.indexOf(tag), updatedTag);
+					else if (op.equals(FileOperation.REMOVE))
+						itemTags.remove(itemTags.indexOf(tag));
+				}
 			}
 		}
-		
-		if (index != -1) {
-			if (op.equals(FileOperation.EDIT))
-				itemTags.set(index, toModify);
-			else if (op.equals(FileOperation.REMOVE))
-				itemTags.remove(index);
-			
+
+		if (update) {
+
 			try {
 				FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getItemTagPath()).toString()), false);
 				CSVWriter csv = new CSVWriter(writer);
-				
+
 				for (ItemTag tag : itemTags) {
 					csv.writeNext(tag.toCsvString(), false);
 				}
-				
+
 				csv.close();
 				writer.close();
 				success = true;
@@ -215,7 +220,7 @@ public enum Utility {
 				success = false;
 			}
 		}
-		
+
 		return success;
 	}
 }

@@ -57,12 +57,14 @@ My intent is to develop a system comprised of four major components:
 - [x] Edit tag
 - [x] Remove tag
 - [x] Associate items with tags by tag
-- [ ] Associate items with tags by item
+- [x] Associate items with tags by item
+- [ ] Show tags in item summary
 - [ ] Add user
 - [ ] Edit user
 - [ ] Remove user
 - [ ] Data updates from CSV periodically
 #### Near
+- [ ] Allow adding tags to items via the add/edit item dialog
 - [ ] Introduce concept of 'item type' as an object
 - [ ] Differentiate between permanent and instance tags
 - [ ] Rework tag assignment/unassignment to account for tag types

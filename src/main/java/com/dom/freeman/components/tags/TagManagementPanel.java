@@ -80,7 +80,7 @@ public class TagManagementPanel extends Panel {
 						summary.setHints(Arrays.asList(Hint.CENTERED));
 						
 						if (summary.showDialog(parent.getTextGUI())) {
-							boolean remove = Utility.METHODS.modifyExistingItemTagInFile(toRemove, FileOperation.REMOVE);
+							boolean remove = Utility.METHODS.modifyExistingItemTagsInFile(FileOperation.REMOVE, toRemove);
 							
 							if (remove) {
 								new MessageDialogBuilder().setTitle("Item Tag Removed Successfully")
