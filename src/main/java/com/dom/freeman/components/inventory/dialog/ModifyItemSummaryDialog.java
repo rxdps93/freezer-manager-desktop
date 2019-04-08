@@ -13,20 +13,20 @@ import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import com.googlecode.lanterna.gui2.dialogs.DialogWindow;
 import com.googlecode.lanterna.gui2.table.Table;
 
-public class ItemSummaryDialog extends DialogWindow {
+public class ModifyItemSummaryDialog extends DialogWindow {
 
 	private Boolean result;
 	private FileOperation op;
 
 	// For adding an item
-	public ItemSummaryDialog(String title, FileOperation op, Item newItem) {
+	public ModifyItemSummaryDialog(String title, FileOperation op, Item newItem) {
 		super(title);
 		this.op = op;
 		configureContent(2, newItem);
 	}
 
 	// For editing an item
-	public ItemSummaryDialog(String title, FileOperation op, Item newItem, Item oldItem) {
+	public ModifyItemSummaryDialog(String title, FileOperation op, Item newItem, Item oldItem) {
 		super(title);
 		this.op = op;
 		configureContent(3, newItem, oldItem);

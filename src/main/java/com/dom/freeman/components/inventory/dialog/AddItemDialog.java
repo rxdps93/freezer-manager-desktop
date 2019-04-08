@@ -125,7 +125,7 @@ public class AddItemDialog extends AbstractModifyItemDialog {
 					this.getAddedEntry().getSelectedDate(),
 					this.getExpiresEntry().getSelectedDate(),
 					UUID.randomUUID().toString());
-			ItemSummaryDialog summary = new ItemSummaryDialog("Add Item Final Summary", FileOperation.ADD, newItem);
+			ModifyItemSummaryDialog summary = new ModifyItemSummaryDialog("Add Item Final Summary", FileOperation.ADD, newItem);
 			summary.setHints(Arrays.asList(Hint.CENTERED));
 			
 			if (summary.showDialog(this.getTextGUI())) {

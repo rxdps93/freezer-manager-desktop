@@ -60,7 +60,7 @@ public class EditItemDialog extends AbstractModifyItemDialog {
 					this.getAddedEntry().getSelectedDate(),
 					this.getExpiresEntry().getSelectedDate(),
 					oldItem.getId());
-			ItemSummaryDialog summary = new ItemSummaryDialog("Edit Item Final Summary", FileOperation.EDIT, newItem, this.oldItem);
+			ModifyItemSummaryDialog summary = new ModifyItemSummaryDialog("Edit Item Final Summary", FileOperation.EDIT, newItem, this.oldItem);
 			summary.setHints(Arrays.asList(Hint.CENTERED));
 			
 			// If we hit save, proceed to make the change

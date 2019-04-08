@@ -7,7 +7,8 @@ import com.dom.freeman.Global;
 import com.dom.freeman.Utility;
 import com.dom.freeman.components.inventory.dialog.AssignItemTagDialog;
 import com.dom.freeman.components.inventory.dialog.EditItemDialog;
-import com.dom.freeman.components.inventory.dialog.ItemSummaryDialog;
+import com.dom.freeman.components.inventory.dialog.ModifyItemSummaryDialog;
+import com.dom.freeman.components.inventory.dialog.ViewItemSummaryDialog;
 import com.dom.freeman.components.inventory.tables.InventoryManagementTable;
 import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
@@ -53,6 +54,15 @@ public class InventoryManagementPanel extends Panel {
 			public void run() {
 				new ActionListDialogBuilder()
 				.setTitle("SELECT AN ACTION")
+				.addAction("View Item Summary", new Runnable() {
+					@Override
+					public void run() {
+						List<String> data = inventory.getTableModel().getRow(inventory.getSelectedRow());
+						ViewItemSummaryDialog summary = new ViewItemSummaryDialog("Item Summary", Utility.METHODS.getItemById(data.get(6)));
+						summary.setHints(Arrays.asList(Hint.CENTERED));
+						summary.showDialog(parent.getTextGUI());
+					}
+				})
 				.addAction("Assign Item Tags", new Runnable() {
 					@Override
 					public void run() {
@@ -77,7 +87,7 @@ public class InventoryManagementPanel extends Panel {
 						List<String> data = inventory.getTableModel().getRow(inventory.getSelectedRow());
 						Item toRemove = Utility.METHODS.getItemById(data.get(6));
 
-						ItemSummaryDialog summary = new ItemSummaryDialog("Remove Item Final Summary", FileOperation.REMOVE, toRemove);
+						ModifyItemSummaryDialog summary = new ModifyItemSummaryDialog("Remove Item Final Summary", FileOperation.REMOVE, toRemove);
 						summary.setHints(Arrays.asList(Hint.CENTERED));
 
 						if (summary.showDialog(parent.getTextGUI())) {
