@@ -23,19 +23,19 @@ public class ViewItemSummaryDialog extends DialogWindow {
 		super(title);
 		this.configureContent(item);
 	}
-	
+
 	public void configureContent(Item item) {
-		
+
 		Panel mainPanel = new Panel(new GridLayout(2));
-		
+
 		// Description
 		mainPanel.addComponent(new Label("Summary for selected item").setLayoutData(
 				GridLayout.createLayoutData(Alignment.BEGINNING, Alignment.CENTER,
 						false, false, 2, 1)));
-		
+
 		// Item Details Table
 		Table<String> summary = new Table<>("Item Type", "Quantity", "Unit", "Location", "Add Date", "Expires");
-		
+
 		summary.getTableModel().addRow(
 				item.getType(),
 				Integer.toString(item.getQuantity()),
@@ -43,29 +43,38 @@ public class ViewItemSummaryDialog extends DialogWindow {
 				item.getLocation().getFreezerLocation(),
 				item.getAddedFormatted(),
 				item.getExpiresFormatted());
-		
+
 		summary.setLayoutData(GridLayout.createLayoutData(
 				Alignment.CENTER, Alignment.CENTER, true, true, 2, 1));
 		summary.setEnabled(false);
 		mainPanel.addComponent(this.dialogSpacer());
 		mainPanel.addComponent(summary);
-		
+
 		// Item Tags TODO: Make this look less bad
 		Panel itemTagPanel = new Panel(new GridLayout(3)).setLayoutData(
-				GridLayout.createLayoutData(Alignment.CENTER, Alignment.CENTER, true, true, 2, 1));
+				GridLayout.createHorizontallyFilledLayoutData(2));
+
 		List<ItemTag> associatedTags = Utility.METHODS.getTagsByItem(item);
-		for (int i = 0; i < associatedTags.size(); i++) {
-			itemTagPanel.addComponent(new Label(associatedTags.get(i).getName()));
+		if (associatedTags.size() > 0) {
+			for (int i = 0; i < associatedTags.size(); i++) {
+				itemTagPanel.addComponent(new Label(associatedTags.get(i).getName()).setLayoutData(
+						GridLayout.createHorizontallyFilledLayoutData(1)));
+			}
+
+			// Will add 1 or 2 empty spaces to finish off the final row, if needed
+			for (int i = 0; i < (3 - (associatedTags.size() % 3)) % 3; i++) {
+				itemTagPanel.addComponent(new EmptySpace(TerminalSize.ONE)
+						.setLayoutData(GridLayout.createHorizontallyFilledLayoutData(1)));
+			}
+		} else {
+			itemTagPanel.addComponent(new Label("No item tags found for this item")
+					.setLayoutData(GridLayout.createLayoutData(Alignment.CENTER, Alignment.CENTER,
+							true, false, 3, 1)));
 		}
-		
-		// Will add 1 or 2 empty spaces to finish off the final row, if needed
-		for (int i = 0; i < (3 - (associatedTags.size() % 3)) % 3; i++) {
-			itemTagPanel.addComponent(new EmptySpace(TerminalSize.ONE));
-		}
-		
+
 		mainPanel.addComponent(this.dialogSpacer());
 		mainPanel.addComponent(itemTagPanel.withBorder(Borders.singleLine("Item Tags")));
-		
+
 		// Buttons
 		mainPanel.addComponent(this.dialogSpacer());
 		mainPanel.addComponent(new EmptySpace(TerminalSize.ONE));
@@ -75,10 +84,10 @@ public class ViewItemSummaryDialog extends DialogWindow {
 				close();
 			}
 		}));
-		
+
 		this.setComponent(mainPanel);
 	}
-	
+
 	private EmptySpace dialogSpacer() {
 		return new EmptySpace().setLayoutData(GridLayout.createHorizontallyFilledLayoutData(2));
 	}
