@@ -58,7 +58,7 @@ My intent is to develop a system comprised of four major components:
 - [x] Remove tag
 - [x] Associate items with tags by tag
 - [x] Associate items with tags by item
-- [ ] Show tags in item summary
+- [x] Show tags in item summary
 - [ ] Add user
 - [ ] Edit user
 - [ ] Remove user
