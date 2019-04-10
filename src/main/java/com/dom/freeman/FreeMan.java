@@ -20,7 +20,7 @@ public class FreeMan {
 		Terminal terminal = new DefaultTerminalFactory()
 				.setTerminalEmulatorTitle("Freezer Inventory Management System")
 				.setTerminalEmulatorFontConfiguration(stfc)
-				.setInitialTerminalSize(new TerminalSize(190, 75))
+				.setInitialTerminalSize(new TerminalSize(200, 75))
 				.createTerminal();
 		
 		Screen screen = new TerminalScreen(terminal);

@@ -12,6 +12,7 @@ import java.util.List;
 import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
+import com.dom.freeman.obj.User;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -49,6 +50,21 @@ public enum FileIO {
 			}
 		}
 		return itemTags;
+	}
+	
+	public List<User> parseUsersFromFile() {
+		
+		List<User> users = Collections.emptyList();
+		if (new File(Global.OBJECTS.getUserPath()).length() != 0) {
+			try {
+				CsvToBean<User> csv = new CsvToBeanBuilder<User>(Files.newBufferedReader(Paths.get(Global.OBJECTS.getUserPath())))
+						.withType(User.class).build();
+				users = csv.parse();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return users;
 	}
 	
 	public boolean addNewItemToFile(Item item) {

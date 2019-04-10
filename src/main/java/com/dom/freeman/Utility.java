@@ -23,6 +23,7 @@ public enum Utility {
 		Global.OBJECTS.setInventory(FileIO.METHODS.parseItemsFromFile());
 		Global.OBJECTS.setTypes(this.itemTypeCount(Global.OBJECTS.getInventory()));
 		Global.OBJECTS.setItemTags(FileIO.METHODS.parseItemTagsFromFile());
+		Global.OBJECTS.setUsers(FileIO.METHODS.parseUsersFromFile());
 	}
 
 	public Item getItemById(String id) {

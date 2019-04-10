@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.dom.freeman.obj.converter.UserConverter;
 import com.opencsv.bean.CsvBindByPosition;
+import com.opencsv.bean.CsvCustomBindByPosition;
 
 public class User {
 
@@ -20,7 +22,7 @@ public class User {
 	@CsvBindByPosition(position = 3)
 	private String id;
 	
-	@CsvBindByPosition(position = 4)
+	@CsvCustomBindByPosition(position = 4, converter = UserConverter.class)
 	private List<UserPermission> grantedPermissions;
 	
 	public User(String firstName, String lastName, String displayName,

@@ -8,6 +8,7 @@ import java.util.Map;
 import com.dom.freeman.components.AbstractInventoryTable;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
+import com.dom.freeman.obj.User;
 
 public enum Global {
 
@@ -18,13 +19,15 @@ public enum Global {
 	
 	private List<ItemTag> itemTags;
 	
+	private List<User> users;
+	
 	private List<AbstractInventoryTable<?>> registeredTables = new ArrayList<>();
 	private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 	
 //	private final String origPath = "src/main/resources/contents.csv";
 //	private final String uuidPath = "src/main/resources/contents_uuid.csv";
 	private final String frzrPath = "src/main/resources/contents_location.csv";
-	
+	private final String userPath = "src/main/resources/users.csv";
 	private final String itemTagPath = "src/main/resources/item_tags.csv";
 	
 	public List<Item> getInventory() {
@@ -37,6 +40,10 @@ public enum Global {
 	
 	public List<ItemTag> getItemTags() {
 		return this.itemTags;
+	}
+	
+	public List<User> getUsers() {
+		return this.users;
 	}
 	
 	public List<AbstractInventoryTable<?>> getRegisteredTables() {
@@ -55,6 +62,10 @@ public enum Global {
 		this.types = types;
 	}
 	
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+	
 	public void setItemTags(List<ItemTag> itemTags) {
 		this.itemTags = itemTags;
 	}
@@ -65,6 +76,10 @@ public enum Global {
 	
 	public String getMainPath() {
 		return this.frzrPath;
+	}
+	
+	public String getUserPath() {
+		return this.userPath;
 	}
 	
 	public String getItemTagPath() {
