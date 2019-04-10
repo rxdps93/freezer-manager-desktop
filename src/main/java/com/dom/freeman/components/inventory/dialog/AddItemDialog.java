@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.UUID;
 
+import com.dom.freeman.FileIO;
 import com.dom.freeman.Utility;
 import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
@@ -136,7 +137,7 @@ public class AddItemDialog extends AbstractModifyItemDialog {
 	
 	private void saveItem(Item item) {
 		
-		boolean write = Utility.METHODS.addNewItemToFile(item);
+		boolean write = FileIO.METHODS.addNewItemToFile(item);
 		
 		if (write) {
 			new MessageDialogBuilder().setTitle("Item Added Successfully")

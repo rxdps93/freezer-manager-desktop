@@ -3,6 +3,7 @@ package com.dom.freeman.components.inventory.dialog;
 import java.time.LocalDate;
 import java.util.Arrays;
 
+import com.dom.freeman.FileIO;
 import com.dom.freeman.Utility;
 import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
@@ -76,7 +77,7 @@ public class EditItemDialog extends AbstractModifyItemDialog {
 	}
 	
 	private void saveItem(Item newItem) {
-		boolean write = Utility.METHODS.modifyExistingItemInFile(newItem, FileOperation.EDIT);
+		boolean write = FileIO.METHODS.modifyExistingItemInFile(newItem, FileOperation.EDIT);
 		
 		if (write) {
 			new MessageDialogBuilder().setTitle("Item Edited Successfully")

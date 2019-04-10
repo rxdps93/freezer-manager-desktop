@@ -3,6 +3,7 @@ package com.dom.freeman.components.tags.dialog;
 import java.util.Arrays;
 import java.util.List;
 
+import com.dom.freeman.FileIO;
 import com.dom.freeman.Global;
 import com.dom.freeman.Utility;
 import com.dom.freeman.components.inventory.InventorySortMode;
@@ -83,7 +84,7 @@ public class EditItemTagDialog extends AbstractModifyTagDialog {
 	}
 	
 	private void saveItem(ItemTag tag) {
-		boolean write = Utility.METHODS.modifyExistingItemTagsInFile(FileOperation.EDIT, tag);
+		boolean write = FileIO.METHODS.modifyExistingItemTagsInFile(FileOperation.EDIT, tag);
 		
 		if (write) {
 			new MessageDialogBuilder().setTitle("Item Tag Edited Successfully")

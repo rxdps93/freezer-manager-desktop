@@ -3,6 +3,7 @@ package com.dom.freeman.components.inventory;
 import java.util.Arrays;
 import java.util.List;
 
+import com.dom.freeman.FileIO;
 import com.dom.freeman.Global;
 import com.dom.freeman.Utility;
 import com.dom.freeman.components.inventory.dialog.AssignItemTagDialog;
@@ -92,7 +93,7 @@ public class InventoryManagementPanel extends Panel {
 
 						if (summary.showDialog(parent.getTextGUI())) {
 
-							boolean remove = Utility.METHODS.modifyExistingItemInFile(toRemove, FileOperation.REMOVE);
+							boolean remove = FileIO.METHODS.modifyExistingItemInFile(toRemove, FileOperation.REMOVE);
 
 							if (remove) {
 								new MessageDialogBuilder().setTitle("Item Removed Successfully")

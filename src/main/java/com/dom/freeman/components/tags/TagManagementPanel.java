@@ -3,6 +3,7 @@ package com.dom.freeman.components.tags;
 import java.util.Arrays;
 import java.util.List;
 
+import com.dom.freeman.FileIO;
 import com.dom.freeman.Global;
 import com.dom.freeman.Utility;
 import com.dom.freeman.components.tags.dialog.EditItemTagDialog;
@@ -80,7 +81,7 @@ public class TagManagementPanel extends Panel {
 						summary.setHints(Arrays.asList(Hint.CENTERED));
 						
 						if (summary.showDialog(parent.getTextGUI())) {
-							boolean remove = Utility.METHODS.modifyExistingItemTagsInFile(FileOperation.REMOVE, toRemove);
+							boolean remove = FileIO.METHODS.modifyExistingItemTagsInFile(FileOperation.REMOVE, toRemove);
 							
 							if (remove) {
 								new MessageDialogBuilder().setTitle("Item Tag Removed Successfully")

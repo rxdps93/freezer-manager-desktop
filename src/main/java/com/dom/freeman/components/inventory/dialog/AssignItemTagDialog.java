@@ -3,6 +3,7 @@ package com.dom.freeman.components.inventory.dialog;
 import java.util.Arrays;
 import java.util.List;
 
+import com.dom.freeman.FileIO;
 import com.dom.freeman.Global;
 import com.dom.freeman.Utility;
 import com.dom.freeman.obj.FileOperation;
@@ -84,7 +85,7 @@ public class AssignItemTagDialog extends DialogWindow {
 			toModify[i].associateItems(selectedItem);
 		}
 		
-		boolean write = Utility.METHODS.modifyExistingItemTagsInFile(FileOperation.EDIT, toModify);
+		boolean write = FileIO.METHODS.modifyExistingItemTagsInFile(FileOperation.EDIT, toModify);
 		
 		if (write) {
 			new MessageDialogBuilder().setTitle("Item Tags Successfully Associated")
