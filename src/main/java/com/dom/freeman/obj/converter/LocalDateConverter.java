@@ -1,4 +1,4 @@
-package com.dom.freeman.obj;
+package com.dom.freeman.obj.converter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

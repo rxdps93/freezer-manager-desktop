@@ -1,5 +1,6 @@
-package com.dom.freeman.obj;
+package com.dom.freeman.obj.converter;
 
+import com.dom.freeman.obj.Unit;
 import com.opencsv.bean.AbstractBeanField;
 import com.opencsv.exceptions.CsvConstraintViolationException;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;

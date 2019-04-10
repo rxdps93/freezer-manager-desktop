@@ -2,6 +2,7 @@ package com.dom.freeman.obj;
 
 import java.util.ArrayList;
 
+import com.dom.freeman.obj.converter.TagAssociationConverter;
 import com.opencsv.bean.CsvBindByPosition;
 import com.opencsv.bean.CsvCustomBindByPosition;
 
