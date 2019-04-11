@@ -105,6 +105,25 @@ public enum FileIO {
 		return success;
 	}
 	
+	public boolean addNewUserToFile(User user) {
+		
+		boolean success;
+		try {
+			FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getUserPath()).toString()), true);
+			CSVWriter csv = new CSVWriter(writer);
+			
+			csv.writeNext(user.toCsvString(), false);
+			
+			csv.close();
+			writer.close();
+			success = true;
+		} catch (IOException e) {
+			success = false;
+		}
+		
+		return success;
+	}
+	
 	public boolean modifyExistingItemInFile(Item toModify, FileOperation op) {
 
 		boolean success = false;

@@ -1,4 +1,4 @@
-package com.dom.freeman.components.inventory.dialog;
+package com.dom.freeman.obj;
 
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalSize;

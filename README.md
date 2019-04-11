@@ -59,9 +59,10 @@ My intent is to develop a system comprised of four major components:
 - [x] Associate items with tags by tag
 - [x] Associate items with tags by item
 - [x] Show tags in item summary
-- [ ] Add user
+- [x] Add user
 - [ ] Edit user
 - [ ] Remove user
+- [ ] Sort user table
 - [ ] Data updates from CSV periodically
 #### Near
 - [ ] Allow adding tags to items via the add/edit item dialog
