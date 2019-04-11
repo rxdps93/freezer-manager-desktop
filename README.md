@@ -62,10 +62,9 @@ My intent is to develop a system comprised of four major components:
 - [x] Add user
 - [x] Edit user
 - [x] Remove user
-- [ ] Sort user table
+- [x] Sort user table
 - [ ] Assign permissions to a user
 - [ ] Unassign permissions from a user
-- [ ] Data updates from CSV periodically
 #### Near
 - [ ] Make permissions actually do something
 - [ ] Allow adding tags to items via the add/edit item dialog

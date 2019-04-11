@@ -1,6 +1,7 @@
 package com.dom.freeman.components;
 
 import com.dom.freeman.components.inventory.InventorySortMode;
+import com.dom.freeman.obj.SortMode;
 import com.googlecode.lanterna.gui2.table.Table;
 import com.googlecode.lanterna.gui2.table.TableModel;
 import com.googlecode.lanterna.gui2.table.TableRenderer;
@@ -65,7 +66,7 @@ public abstract class AbstractInventoryTable<V> extends Table<V> {
 	
 	public abstract TableModel<V> configureTableModel(String... columnLabels);
 	
-	public abstract void sortTable(InventorySortMode sortMode);
+	public abstract void sortTable(SortMode sortMode);
 	
     @Override
     protected TableRenderer<V> createDefaultRenderer() {

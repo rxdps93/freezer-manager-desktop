@@ -3,8 +3,9 @@ package com.dom.freeman.components.inventory;
 import java.util.Comparator;
 
 import com.dom.freeman.obj.Item;
+import com.dom.freeman.obj.SortMode;
 
-public enum InventorySortMode {
+public enum InventorySortMode implements SortMode {
 	
 	// Sorting on Item Type from A to Z
 	TYPE_ASC(new Comparator<Item>() {
@@ -82,6 +83,7 @@ public enum InventorySortMode {
 		this.sortMethod = sortMethod;
 	}
 	
+	@Override
 	public Comparator<Item> getSortMethod() {
 		return this.sortMethod;
 	}

@@ -22,14 +22,14 @@ public class InventoryManagementControlPanel extends Panel {
 		super();
 		this.invPanel = invPanel;
 		this.parent = parent;
-		this.initializeContent();
+		this.configureContent();
 	}
 	
 	public InventoryManagementControlPanel(LayoutManager layoutManager, InventoryManagementPanel invPanel, Window parent) {
 		super(layoutManager);
 		this.invPanel = invPanel;
 		this.parent = parent;
-		this.initializeContent();
+		this.configureContent();
 	}
 	
 	private Panel initializeSortPanel() {
@@ -80,7 +80,7 @@ public class InventoryManagementControlPanel extends Panel {
 		return options;
 	}
 	
-	private void initializeContent() {
+	private void configureContent() {
 		
 		this.addComponent(initializeSortPanel().withBorder(Borders.singleLine("INVENTORY SORT CONTROLS")));
 		this.addComponent(initializeFilterPanel().withBorder(Borders.singleLine("INVENTORY FILTER CONTROLS")));

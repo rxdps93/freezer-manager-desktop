@@ -5,8 +5,8 @@ import java.util.Map.Entry;
 
 import com.dom.freeman.Global;
 import com.dom.freeman.components.AbstractInventoryTable;
-import com.dom.freeman.components.inventory.InventorySortMode;
 import com.dom.freeman.obj.Item;
+import com.dom.freeman.obj.SortMode;
 import com.googlecode.lanterna.gui2.table.TableModel;
 
 public class DashboardTypeCountTable<V> extends AbstractInventoryTable<V> {
@@ -47,7 +47,7 @@ public class DashboardTypeCountTable<V> extends AbstractInventoryTable<V> {
 	}
 
 	@Override
-	public void sortTable(InventorySortMode sortMode) {
+	public void sortTable(SortMode sortMode) {
 		this.setTableModel(this.configureTableModel(this.getColumnLabelArray()));
 	}
 

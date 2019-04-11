@@ -6,6 +6,7 @@ import com.dom.freeman.Global;
 import com.dom.freeman.components.AbstractInventoryTable;
 import com.dom.freeman.components.inventory.InventorySortMode;
 import com.dom.freeman.obj.Item;
+import com.dom.freeman.obj.SortMode;
 import com.googlecode.lanterna.gui2.table.TableModel;
 
 public class DashboardInventoryTable<V> extends AbstractInventoryTable<V> {
@@ -38,10 +39,11 @@ public class DashboardInventoryTable<V> extends AbstractInventoryTable<V> {
 	}
 
 	@Override
-	public void sortTable(InventorySortMode sortMode) {
-		Collections.sort(Global.OBJECTS.getInventory(), sortMode.getSortMethod());
+	public void sortTable(SortMode sortMode) {
+		InventorySortMode invSortMode = (InventorySortMode)sortMode;
+		Collections.sort(Global.OBJECTS.getInventory(), invSortMode.getSortMethod());
 		this.setTableModel(this.configureTableModel(this.getColumnLabelArray()));
-		this.lastSortMode = sortMode;
+		this.lastSortMode = invSortMode;
 	}
 
 

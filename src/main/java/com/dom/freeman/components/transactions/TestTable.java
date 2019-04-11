@@ -1,11 +1,10 @@
 package com.dom.freeman.components.transactions;
 
-import java.util.Collections;
-
 import com.dom.freeman.Global;
 import com.dom.freeman.components.AbstractInventoryTable;
 import com.dom.freeman.components.inventory.InventorySortMode;
 import com.dom.freeman.obj.Item;
+import com.dom.freeman.obj.SortMode;
 import com.googlecode.lanterna.gui2.table.TableModel;
 
 public class TestTable<V> extends AbstractInventoryTable<V> {
@@ -39,10 +38,8 @@ public class TestTable<V> extends AbstractInventoryTable<V> {
 	}
 
 	@Override
-	public void sortTable(InventorySortMode sortMode) {
-		Collections.sort(Global.OBJECTS.getInventory(), sortMode.getSortMethod());
+	public void sortTable(SortMode sortMode) {
 		this.setTableModel(this.configureTableModel(this.getColumnLabelArray()));
-		this.lastSortMode = sortMode;
 	}
 
 }

@@ -2,8 +2,8 @@ package com.dom.freeman.components.tags.tables;
 
 import com.dom.freeman.Global;
 import com.dom.freeman.components.AbstractInventoryTable;
-import com.dom.freeman.components.inventory.InventorySortMode;
 import com.dom.freeman.obj.ItemTag;
+import com.dom.freeman.obj.SortMode;
 import com.googlecode.lanterna.gui2.table.TableModel;
 
 public class ItemTagViewTable<V> extends AbstractInventoryTable<V> {
@@ -31,7 +31,7 @@ public class ItemTagViewTable<V> extends AbstractInventoryTable<V> {
 	}
 
 	@Override
-	public void sortTable(InventorySortMode sortMode) {
+	public void sortTable(SortMode sortMode) {
 		this.setTableModel(this.configureTableModel(this.getColumnLabelArray()));
 	}
 
