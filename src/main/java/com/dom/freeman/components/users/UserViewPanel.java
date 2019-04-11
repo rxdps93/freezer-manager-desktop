@@ -3,11 +3,14 @@ package com.dom.freeman.components.users;
 import java.util.Arrays;
 import java.util.List;
 
+import com.dom.freeman.FileIO;
 import com.dom.freeman.Global;
 import com.dom.freeman.Utility;
 import com.dom.freeman.components.users.dialog.EditUserDialog;
+import com.dom.freeman.components.users.dialog.ModifyUserSummaryDialog;
 import com.dom.freeman.components.users.dialog.ViewUserSummaryDialog;
 import com.dom.freeman.components.users.tables.UserViewTable;
+import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.User;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Interactable;
@@ -16,6 +19,8 @@ import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.ActionListDialogBuilder;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 
 public class UserViewPanel extends Panel {
 
@@ -78,7 +83,27 @@ public class UserViewPanel extends Panel {
 				.addAction("Remove User", new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("remove user");
+						ModifyUserSummaryDialog summary = new ModifyUserSummaryDialog("REMOVE USER",
+								FileOperation.REMOVE, selectedUser);
+						summary.setHints(Arrays.asList(Hint.CENTERED));
+						
+						if (summary.showDialog(parent.getTextGUI())) {
+							boolean remove = FileIO.METHODS.modifyExistingUserInFile(FileOperation.REMOVE, selectedUser);
+							
+							if (remove) {
+								new MessageDialogBuilder().setTitle("User Removed Successfully")
+								.setText("User successfully removed!")
+								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+								.addButton(MessageDialogButton.OK).build().showDialog(parent.getTextGUI());
+								Utility.METHODS.updateInventory();
+								Utility.METHODS.refreshViews();
+							} else {
+								new MessageDialogBuilder().setTitle("Warning")
+								.setText("Some error occurred and the user could not be removed. Please try again.")
+								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+								.addButton(MessageDialogButton.OK).build().showDialog(parent.getTextGUI());
+							}
+						}
 					}
 				}).build().showDialog(parent.getTextGUI());
 			}

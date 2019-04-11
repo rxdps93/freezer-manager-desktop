@@ -61,7 +61,7 @@ My intent is to develop a system comprised of four major components:
 - [x] Show tags in item summary
 - [x] Add user
 - [x] Edit user
-- [ ] Remove user
+- [x] Remove user
 - [ ] Sort user table
 - [ ] Assign permissions to a user
 - [ ] Unassign permissions from a user
