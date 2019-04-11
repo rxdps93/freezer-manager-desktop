@@ -138,7 +138,6 @@ public enum FileIO {
 
 		if (index != -1) {
 
-
 			if (op.equals(FileOperation.EDIT))
 				items.set(index, toModify);
 			else if (op.equals(FileOperation.REMOVE)) {
@@ -174,6 +173,45 @@ public enum FileIO {
 			}
 		}
 
+		return success;
+	}
+	
+	public boolean modifyExistingUserInFile(FileOperation op, User toModify) {
+		
+		boolean success = false;
+		
+		List<User> users = this.parseUsersFromFile();
+		int index = -1;
+		for (User user : users) {
+			if (user.getId().equals(toModify.getId())) {
+				index = users.indexOf(user);
+			}
+		}
+		
+		if (index != -1) {
+			
+			if (op.equals(FileOperation.EDIT)) {
+				users.set(index, toModify);
+			} else if (op.equals(FileOperation.REMOVE)) {
+				users.remove(index);
+			}
+			
+			try {
+				FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getUserPath()).toString()), false);
+				CSVWriter csv = new CSVWriter(writer);
+				
+				for (User user : users) {
+					csv.writeNext(user.toCsvString());
+				}
+				
+				csv.close();
+				writer.close();
+				success = true;
+			} catch(IOException e) {
+				success = false;
+			}
+		}
+		
 		return success;
 	}
 

@@ -8,6 +8,7 @@ import java.util.TreeMap;
 import com.dom.freeman.components.AbstractInventoryTable;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
+import com.dom.freeman.obj.User;
 
 public enum Utility {
 
@@ -30,6 +31,14 @@ public enum Utility {
 		for (Item item : Global.OBJECTS.getInventory()) {
 			if (item.getId().equals(id))
 				return item;
+		}
+		return null;
+	}
+	
+	public User getUserById(String id) {
+		for (User user : Global.OBJECTS.getUsers()) {
+			if (user.getId().equals(id))
+				return user;
 		}
 		return null;
 	}

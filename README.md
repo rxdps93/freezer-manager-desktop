@@ -60,7 +60,7 @@ My intent is to develop a system comprised of four major components:
 - [x] Associate items with tags by item
 - [x] Show tags in item summary
 - [x] Add user
-- [ ] Edit user
+- [x] Edit user
 - [ ] Remove user
 - [ ] Sort user table
 - [ ] Assign permissions to a user

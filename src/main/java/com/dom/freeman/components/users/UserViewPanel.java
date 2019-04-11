@@ -1,12 +1,18 @@
 package com.dom.freeman.components.users;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.dom.freeman.Global;
+import com.dom.freeman.Utility;
+import com.dom.freeman.components.users.dialog.EditUserDialog;
 import com.dom.freeman.components.users.tables.UserViewTable;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.Window;
+import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.ActionListDialogBuilder;
 
 public class UserViewPanel extends Panel {
@@ -39,6 +45,9 @@ public class UserViewPanel extends Panel {
 		userTable.setSelectAction(new Runnable() {
 			@Override
 			public void run() {
+				
+				List<String> data = userTable.getTableModel().getRow(userTable.getSelectedRow());
+				
 				new ActionListDialogBuilder().setTitle("SELECT AN ACTION")
 				.addAction("View User Summary", new Runnable() {
 					@Override
@@ -49,7 +58,10 @@ public class UserViewPanel extends Panel {
 				.addAction("Edit User Details", new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("edit user");
+						EditUserDialog editUser = new EditUserDialog("EDIT USER",
+								Utility.METHODS.getUserById(data.get(userTable.getTableModel().getColumnCount() - 1)));
+						editUser.setHints(Arrays.asList(Hint.CENTERED));
+						editUser.showDialog(parent.getTextGUI());
 					}
 				})
 				.addAction("Edit User Permissions", new Runnable() {

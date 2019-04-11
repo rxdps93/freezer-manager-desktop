@@ -31,6 +31,7 @@ public class ModifyUserSummaryDialog extends DialogWindow {
 	public ModifyUserSummaryDialog(String title, FileOperation op, User newUser, User oldUser) {
 		super(title);
 		this.op = op;
+		this.newUser = newUser;
 		this.oldUser = oldUser;
 		this.configureContent(3);
 	}
@@ -105,7 +106,7 @@ public class ModifyUserSummaryDialog extends DialogWindow {
 			this.oldUser.getDisplayName()
 		});
 		
-		return null;
+		return summary;
 	}
 	
 	private String labelMessage() {
