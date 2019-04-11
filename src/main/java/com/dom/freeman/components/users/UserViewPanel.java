@@ -7,6 +7,7 @@ import com.dom.freeman.FileIO;
 import com.dom.freeman.Global;
 import com.dom.freeman.Utility;
 import com.dom.freeman.components.users.dialog.EditUserDialog;
+import com.dom.freeman.components.users.dialog.ModifyUserPermissionsDialog;
 import com.dom.freeman.components.users.dialog.ModifyUserSummaryDialog;
 import com.dom.freeman.components.users.dialog.ViewUserSummaryDialog;
 import com.dom.freeman.components.users.tables.UserViewTable;
@@ -77,7 +78,9 @@ public class UserViewPanel extends Panel {
 				.addAction("Edit User Permissions", new Runnable() {
 					@Override
 					public void run() {
-						// TODO: Future task
+						ModifyUserPermissionsDialog userPermissions = new ModifyUserPermissionsDialog("USER PERMISSIONS", selectedUser);
+						userPermissions.setHints(Arrays.asList(Hint.CENTERED));
+						userPermissions.showDialog(parent.getTextGUI());
 					}
 				})
 				.addAction("Remove User", new Runnable() {

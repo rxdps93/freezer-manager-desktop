@@ -51,13 +51,13 @@ public class ViewUserSummaryDialog extends DialogWindow {
 							false, false, 2, 1)));
 		} else {
 			Table<String> permissions = new Table<String>("PERMISSION", "DESCRIPTION");
-			permissions.setEnabled(false);
+			permissions.setEnabled(true); // TODO: figure out why this steals focus when set to false
 			for (UserPermission permission : user.getUserPermissions()) {
 				permissions.getTableModel().addRow(
 						permission.toString(), permission.getDescription());
 			}
 			permissions.setLayoutData(GridLayout.createLayoutData(
-					Alignment.FILL, Alignment.FILL, true, true, 2, 1));
+					Alignment.CENTER, Alignment.CENTER, true, false, 2, 1));
 			mainPanel.addComponent(permissions.withBorder(Borders.singleLine("Permissions")));
 		}
 		

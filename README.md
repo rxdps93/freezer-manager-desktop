@@ -63,8 +63,8 @@ My intent is to develop a system comprised of four major components:
 - [x] Edit user
 - [x] Remove user
 - [x] Sort user table
-- [ ] Assign permissions to a user
-- [ ] Unassign permissions from a user
+- [x] Assign permissions to a user
+- [x] Unassign permissions from a user
 #### Near
 - [ ] Make permissions actually do something
 - [ ] Allow adding tags to items via the add/edit item dialog
