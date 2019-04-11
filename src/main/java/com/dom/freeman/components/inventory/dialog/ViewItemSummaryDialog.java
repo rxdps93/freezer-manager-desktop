@@ -24,7 +24,7 @@ public class ViewItemSummaryDialog extends DialogWindow {
 		this.configureContent(item);
 	}
 
-	public void configureContent(Item item) {
+	private void configureContent(Item item) {
 
 		Panel mainPanel = new Panel(new GridLayout(2));
 
@@ -50,7 +50,6 @@ public class ViewItemSummaryDialog extends DialogWindow {
 		mainPanel.addComponent(this.dialogSpacer());
 		mainPanel.addComponent(summary);
 
-		// Item Tags TODO: Make this look less bad
 		Panel itemTagPanel = new Panel(new GridLayout(3)).setLayoutData(
 				GridLayout.createHorizontallyFilledLayoutData(2));
 

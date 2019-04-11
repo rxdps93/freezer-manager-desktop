@@ -6,7 +6,9 @@ import java.util.List;
 import com.dom.freeman.Global;
 import com.dom.freeman.Utility;
 import com.dom.freeman.components.users.dialog.EditUserDialog;
+import com.dom.freeman.components.users.dialog.ViewUserSummaryDialog;
 import com.dom.freeman.components.users.tables.UserViewTable;
+import com.dom.freeman.obj.User;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.LayoutManager;
@@ -47,19 +49,22 @@ public class UserViewPanel extends Panel {
 			public void run() {
 				
 				List<String> data = userTable.getTableModel().getRow(userTable.getSelectedRow());
+				User selectedUser = Utility.METHODS.getUserById(data.get(userTable.getTableModel().getColumnCount() - 1));
 				
 				new ActionListDialogBuilder().setTitle("SELECT AN ACTION")
 				.addAction("View User Summary", new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("user summary");
+						ViewUserSummaryDialog viewUser = new ViewUserSummaryDialog("USER SUMMARY",
+								selectedUser);
+						viewUser.setHints(Arrays.asList(Hint.CENTERED));
+						viewUser.showDialog(parent.getTextGUI());
 					}
 				})
 				.addAction("Edit User Details", new Runnable() {
 					@Override
 					public void run() {
-						EditUserDialog editUser = new EditUserDialog("EDIT USER",
-								Utility.METHODS.getUserById(data.get(userTable.getTableModel().getColumnCount() - 1)));
+						EditUserDialog editUser = new EditUserDialog("EDIT USER", selectedUser);
 						editUser.setHints(Arrays.asList(Hint.CENTERED));
 						editUser.showDialog(parent.getTextGUI());
 					}
@@ -67,7 +72,7 @@ public class UserViewPanel extends Panel {
 				.addAction("Edit User Permissions", new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("edit permissions");
+						// TODO: Future task
 					}
 				})
 				.addAction("Remove User", new Runnable() {
