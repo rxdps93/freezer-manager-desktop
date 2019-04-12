@@ -71,7 +71,7 @@ public class ViewUserSummaryDialog extends DialogWindow {
 				close();
 			}
 		});
-		mainPanel.addComponent(btn);
+		mainPanel.addComponent(btn.setLayoutData(GridLayout.createLayoutData(Alignment.END, Alignment.CENTER, false, false)));
 		
 		this.setComponent(mainPanel);
 		this.setFocusedInteractable(btn);

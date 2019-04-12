@@ -82,7 +82,7 @@ public class ViewItemSummaryDialog extends DialogWindow {
 			public void run() {
 				close();
 			}
-		}));
+		}).setLayoutData(GridLayout.createLayoutData(Alignment.END, Alignment.CENTER, false, false)));
 
 		this.setComponent(mainPanel);
 	}
