@@ -11,12 +11,18 @@ import com.googlecode.lanterna.gui2.Panel;
 
 public class DateInput extends Panel {
 	
-	private final ComboBox<Year> yearPicker;
+	private ComboBox<Year> yearPicker;
 	private final ComboBox<Month> monthPicker;
 	private final ComboBox<Integer> dayPicker;
+	
+	private final int minYear;
+	private final int maxYear;
 
 	public DateInput(int minimumYear, int maximumYear) {
 		super(new GridLayout(3));
+		
+		this.minYear = minimumYear;
+		this.maxYear = maximumYear;
 		
 		this.yearPicker = new InventoryComboBox<>();
 		this.monthPicker = new InventoryComboBox<>();
@@ -40,7 +46,23 @@ public class DateInput extends Panel {
 		return LocalDate.of(this.yearPicker.getSelectedItem().getValue(), this.monthPicker.getSelectedItem(), this.dayPicker.getSelectedItem());
 	}
 	
+	public void setEnabled(boolean enabled) {
+		this.yearPicker.setEnabled(enabled);
+		this.monthPicker.setEnabled(enabled);
+		this.dayPicker.setEnabled(enabled);
+		this.yearPicker.takeFocus();
+	}
+	
 	public void setSelectedDate(LocalDate date) {
+		
+		if (date.getYear() < this.minYear) {
+			this.yearPicker.clearItems();
+			this.configureYearPicker(date.getYear(), this.maxYear);
+		} else if (date.getYear() > this.maxYear) {
+			this.yearPicker.clearItems();
+			this.configureYearPicker(this.minYear, date.getYear());
+		}
+		
 		this.yearPicker.setSelectedItem(Year.of(date.getYear()));
 		this.monthPicker.setSelectedItem(date.getMonth());
 		this.dayPicker.setSelectedItem(date.getDayOfMonth());

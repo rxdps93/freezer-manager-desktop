@@ -1,6 +1,5 @@
 package com.dom.freeman.components;
 
-import com.dom.freeman.components.inventory.InventorySortMode;
 import com.dom.freeman.obj.SortMode;
 import com.googlecode.lanterna.gui2.table.Table;
 import com.googlecode.lanterna.gui2.table.TableModel;
