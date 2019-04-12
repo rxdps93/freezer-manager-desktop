@@ -51,7 +51,7 @@ public class ViewUserSummaryDialog extends DialogWindow {
 							false, false, 2, 1)));
 		} else {
 			Table<String> permissions = new Table<String>("PERMISSION", "DESCRIPTION");
-			permissions.setEnabled(true); // TODO: figure out why this steals focus when set to false
+			permissions.setEnabled(false);
 			for (UserPermission permission : user.getUserPermissions()) {
 				permissions.getTableModel().addRow(
 						permission.toString(), permission.getDescription());
@@ -64,14 +64,17 @@ public class ViewUserSummaryDialog extends DialogWindow {
 		// Buttons
 		mainPanel.addComponent(this.dialogSpacer());
 		mainPanel.addComponent(new EmptySpace(TerminalSize.ONE));
-		mainPanel.addComponent(new Button(LocalizedString.OK.toString(), new Runnable() {
+		
+		Button btn = new Button(LocalizedString.OK.toString(), new Runnable() {
 			@Override
 			public void run() {
 				close();
 			}
-		}));
+		});
+		mainPanel.addComponent(btn);
 		
 		this.setComponent(mainPanel);
+		this.setFocusedInteractable(btn);
 	}
 	
 	private EmptySpace dialogSpacer() {
