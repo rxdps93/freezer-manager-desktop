@@ -52,25 +52,13 @@ My intent is to develop a system comprised of four major components:
 
 ## Tentative Feature Timing
 #### Now
-- [x] Differentiate between freezers (basement vs kitchen)
-- [x] Add tag
-- [x] Edit tag
-- [x] Remove tag
-- [x] Associate items with tags by tag
-- [x] Associate items with tags by item
-- [x] Show tags in item summary
-- [x] Add user
-- [x] Edit user
-- [x] Remove user
-- [x] Sort user table
-- [x] Assign permissions to a user
-- [x] Unassign permissions from a user
-#### Near
+- [ ] Ability to manage expired items
 - [ ] Make permissions actually do something
 - [ ] Allow adding tags to items via the add/edit item dialog
 - [ ] Introduce concept of 'item type' as an object
-- [ ] Differentiate between permanent and instance tags
+- [ ] Differentiate between permanent and instance(item) tags
 - [ ] Rework tag assignment/unassignment to account for tag types
+#### Near
 - [ ] Filter detailed inventory view by field
 - [ ] Filter detailed inventory view by tag
 - [ ] Keep logs of all CSV file transactions
@@ -99,3 +87,17 @@ This gets updated whenever the "Now" section above is completed. When that happe
 - [x] Data updates from CSV after add **Completed 3/28/19**
 - [x] Data updates from CSV after edit **Completed 4/1/19**
 - [x] Data updates from CSV after remove **Completed 4/1/19**
+####'Now' Priorities Iteration 2, Completed 4/12/19
+- [x] Differentiate between freezers (basement vs kitchen) **Completed 4/2/19**
+- [x] Add tag **Completed 4/3/19**
+- [x] Edit tag **Completed 4/3/19**
+- [x] Remove tag **Completed 4/4/19**
+- [x] Associate items with tags by tag **Completed 4/4/19**
+- [x] Associate items with tags by item **Completed 4/5/19**
+- [x] Show tags in item summary **Completed 4/9/19**
+- [x] Add user **Completed 4/11/19**
+- [x] Edit user **Completed 4/11/19**
+- [x] Remove user **Completed 4/11/19**
+- [x] Sort user table **Completed 4/11/19**
+- [x] Assign permissions to a user **Completed 4/11/19**
+- [x] Unassign permissions from a user **Completed 4/11/19**
