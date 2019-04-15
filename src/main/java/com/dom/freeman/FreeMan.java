@@ -35,7 +35,7 @@ public class FreeMan {
 		Utility.METHODS.updateInventory();
 		
 		// TODO: ADMIN ACCOUNT; REMOVE EVENTUALLY
-		User admin = new User("admin", "adminson", "rxdps93", "trump2020", UserOperations.values());
+		User admin = new User("Admin", "Adminson", "rxdps93", "trump2020", UserOperations.values());
 		Global.OBJECTS.setCurrentUser(admin);
 		
 		gui.addWindowAndWait(new MainWindow("FREEZER INVENTORY MANAGEMENT SYSTEM"));

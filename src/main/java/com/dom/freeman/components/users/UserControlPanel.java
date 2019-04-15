@@ -68,6 +68,13 @@ public class UserControlPanel extends Panel {
 			}
 		}));
 		
+		options.addComponent(new Button("Switch Current User", new Runnable() {
+			@Override
+			public void run() {
+				// TODO: Future task
+			}
+		}));
+		
 		return options;
 	}
 	

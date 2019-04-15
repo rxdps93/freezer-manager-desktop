@@ -2,6 +2,7 @@ package com.dom.freeman.components;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.dom.freeman.utils.Global;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor.ANSI;
@@ -77,7 +78,7 @@ public class MainPanel extends Panel {
 	
 	private void configureHeaderPanel() {
 
-		Label headerLabel = new Label(this.header);
+		Label headerLabel = new Label(this.header + "\n" + StringUtils.center("Current User: " + Global.OBJECTS.getCurrentUser().getDisplayName(), this.header.length()));
 
 		this.headerPanel = new Panel(new LinearLayout());
 		this.headerPanel.setLayoutData(BorderLayout.Location.TOP);
@@ -125,6 +126,10 @@ public class MainPanel extends Panel {
 		this.currentComponent = component;
 		
 		this.addComponent(this.actionPanel.withBorder(Borders.singleLine()));
+	}
+	
+	public void updateCurrentUser() {
+		this.configureHeaderPanel();
 	}
 	
 	public ViewPanel getCurrentComponent() {
