@@ -1,7 +1,7 @@
 package com.dom.freeman.components.users.dialog;
 
-import com.dom.freeman.obj.User;
-import com.dom.freeman.obj.UserPermission;
+import com.dom.freeman.obj.users.User;
+import com.dom.freeman.obj.users.UserOperations;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.Borders;
@@ -52,7 +52,7 @@ public class ViewUserSummaryDialog extends DialogWindow {
 		} else {
 			Table<String> permissions = new Table<String>("PERMISSION", "DESCRIPTION");
 			permissions.setEnabled(false);
-			for (UserPermission permission : user.getUserPermissions()) {
+			for (UserOperations permission : user.getUserPermissions()) {
 				permissions.getTableModel().addRow(
 						permission.toString(), permission.getDescription());
 			}

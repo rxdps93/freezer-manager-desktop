@@ -3,8 +3,8 @@ package com.dom.freeman.components.inventory.dialog;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
+import com.dom.freeman.obj.users.UserOperations;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
@@ -61,7 +61,7 @@ public class EditItemDialog extends AbstractModifyItemDialog {
 					this.getAddedEntry().getSelectedDate(),
 					this.getExpiresEntry().getSelectedDate(),
 					oldItem.getId());
-			ModifyItemSummaryDialog summary = new ModifyItemSummaryDialog("Edit Item Final Summary", FileOperation.EDIT, newItem, this.oldItem);
+			ModifyItemSummaryDialog summary = new ModifyItemSummaryDialog("Edit Item Final Summary", UserOperations.EDIT_ITEM, newItem, this.oldItem);
 			summary.setHints(Arrays.asList(Hint.CENTERED));
 			
 			// If we hit save, proceed to make the change
@@ -77,7 +77,7 @@ public class EditItemDialog extends AbstractModifyItemDialog {
 	}
 	
 	private void saveItem(Item newItem) {
-		boolean write = FileIO.METHODS.modifyExistingItemInFile(newItem, FileOperation.EDIT);
+		boolean write = FileIO.METHODS.modifyExistingItemInFile(newItem, UserOperations.EDIT_ITEM);
 		
 		if (write) {
 			new MessageDialogBuilder().setTitle("Item Edited Successfully")

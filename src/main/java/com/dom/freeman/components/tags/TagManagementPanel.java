@@ -6,8 +6,8 @@ import java.util.List;
 import com.dom.freeman.components.tags.dialog.EditItemTagDialog;
 import com.dom.freeman.components.tags.dialog.ItemTagSummaryDialog;
 import com.dom.freeman.components.tags.tables.ItemTagViewTable;
-import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.ItemTag;
+import com.dom.freeman.obj.users.UserOperations;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Global;
 import com.dom.freeman.utils.Utility;
@@ -57,7 +57,7 @@ public class TagManagementPanel extends Panel {
 						List<String> data = tagList.getTableModel().getRow(tagList.getSelectedRow());
 						ItemTag tag = Utility.METHODS.getItemTagByName(data.get(0));
 						
-						ItemTagSummaryDialog summary = new ItemTagSummaryDialog("ITEM TAG SUMMARY", FileOperation.NONE, tag);
+						ItemTagSummaryDialog summary = new ItemTagSummaryDialog("ITEM TAG SUMMARY", UserOperations.VIEW, tag);
 						summary.setHints(Arrays.asList(Hint.CENTERED));
 						summary.showDialog(parent.getTextGUI());
 					}
@@ -77,11 +77,11 @@ public class TagManagementPanel extends Panel {
 						List<String> data = tagList.getTableModel().getRow(tagList.getSelectedRow());
 						ItemTag toRemove = Utility.METHODS.getItemTagByName(data.get(0));
 						
-						ItemTagSummaryDialog summary = new ItemTagSummaryDialog("Remove Item Tag Final Summary", FileOperation.REMOVE, toRemove);
+						ItemTagSummaryDialog summary = new ItemTagSummaryDialog("Remove Item Tag Final Summary", UserOperations.REMOVE_ITEM_TAG, toRemove);
 						summary.setHints(Arrays.asList(Hint.CENTERED));
 						
 						if (summary.showDialog(parent.getTextGUI())) {
-							boolean remove = FileIO.METHODS.modifyExistingItemTagsInFile(FileOperation.REMOVE, toRemove);
+							boolean remove = FileIO.METHODS.modifyExistingItemTagsInFile(UserOperations.REMOVE_ITEM_TAG, toRemove);
 							
 							if (remove) {
 								new MessageDialogBuilder().setTitle("Item Tag Removed Successfully")

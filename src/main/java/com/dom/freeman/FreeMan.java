@@ -4,6 +4,9 @@ import java.awt.Font;
 import java.io.IOException;
 
 import com.dom.freeman.components.MainWindow;
+import com.dom.freeman.obj.users.User;
+import com.dom.freeman.obj.users.UserOperations;
+import com.dom.freeman.utils.Global;
 import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
@@ -30,6 +33,10 @@ public class FreeMan {
 		final MultiWindowTextGUI gui = new MultiWindowTextGUI(screen);
 		
 		Utility.METHODS.updateInventory();
+		
+		// TODO: ADMIN ACCOUNT; REMOVE EVENTUALLY
+		User admin = new User("admin", "adminson", "rxdps93", "trump2020", UserOperations.values());
+		Global.OBJECTS.setCurrentUser(admin);
 		
 		gui.addWindowAndWait(new MainWindow("FREEZER INVENTORY MANAGEMENT SYSTEM"));
 	}

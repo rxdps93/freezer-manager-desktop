@@ -1,8 +1,8 @@
 package com.dom.freeman.components.users.dialog;
 
-import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.SummaryTableCellRenderer;
-import com.dom.freeman.obj.User;
+import com.dom.freeman.obj.users.User;
+import com.dom.freeman.obj.users.UserOperations;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.EmptySpace;
 import com.googlecode.lanterna.gui2.GridLayout;
@@ -17,18 +17,18 @@ import com.googlecode.lanterna.gui2.table.Table;
 public class ModifyUserSummaryDialog extends DialogWindow {
 
 	private Boolean result;
-	private FileOperation op;
+	private UserOperations op;
 	private User newUser = null;
 	private User oldUser = null;
 	
-	public ModifyUserSummaryDialog(String title, FileOperation op, User newUser) {
+	public ModifyUserSummaryDialog(String title, UserOperations op, User newUser) {
 		super(title);
 		this.op = op;
 		this.newUser = newUser;
 		this.configureContent(2);
 	}
 	
-	public ModifyUserSummaryDialog(String title, FileOperation op, User newUser, User oldUser) {
+	public ModifyUserSummaryDialog(String title, UserOperations op, User newUser, User oldUser) {
 		super(title);
 		this.op = op;
 		this.newUser = newUser;
@@ -88,7 +88,7 @@ public class ModifyUserSummaryDialog extends DialogWindow {
 	}
 	
 	private Table<String> addUserTable() {
-		Table<String> summary = new Table<>("User Field", this.op.equals(FileOperation.REMOVE) ? "Selected Item" : "New Item");
+		Table<String> summary = new Table<>("User Field", this.op.equals(UserOperations.REMOVE_USER) ? "Selected Item" : "New Item");
 		
 		summary.getTableModel().addRow("First Name", this.newUser.getFirstName());
 		summary.getTableModel().addRow("Last Name", this.newUser.getLastName());
@@ -113,11 +113,11 @@ public class ModifyUserSummaryDialog extends DialogWindow {
 		
 		String msg;
 		switch (op) {
-		case REMOVE:
+		case REMOVE_USER:
 			msg = "Please carefully review user details. Removing a user CANNOT BE UNDONE.";
 			break;
-		case ADD:
-		case EDIT:
+		case ADD_USER:
+		case EDIT_USER:
 			default:
 				msg = "Please carefully review user details before saving.";
 		}

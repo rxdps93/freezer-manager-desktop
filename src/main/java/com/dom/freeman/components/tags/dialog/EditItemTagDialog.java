@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.dom.freeman.components.inventory.InventorySortMode;
-import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
+import com.dom.freeman.obj.users.UserOperations;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Global;
 import com.dom.freeman.utils.Utility;
@@ -75,7 +75,7 @@ public class EditItemTagDialog extends AbstractModifyTagDialog {
 					tag.associateItems(this.checkListItems.get(i));
 			}
 			
-			ItemTagSummaryDialog summary = new ItemTagSummaryDialog("FINAL EDIT ITEM TAG SUMMARY", FileOperation.EDIT, tag);
+			ItemTagSummaryDialog summary = new ItemTagSummaryDialog("FINAL EDIT ITEM TAG SUMMARY", UserOperations.EDIT_ITEM_TAG, tag);
 			summary.setHints(Arrays.asList(Hint.CENTERED));
 			
 			if (summary.showDialog(this.getTextGUI()))
@@ -84,7 +84,7 @@ public class EditItemTagDialog extends AbstractModifyTagDialog {
 	}
 	
 	private void saveItem(ItemTag tag) {
-		boolean write = FileIO.METHODS.modifyExistingItemTagsInFile(FileOperation.EDIT, tag);
+		boolean write = FileIO.METHODS.modifyExistingItemTagsInFile(UserOperations.EDIT_ITEM_TAG, tag);
 		
 		if (write) {
 			new MessageDialogBuilder().setTitle("Item Tag Edited Successfully")

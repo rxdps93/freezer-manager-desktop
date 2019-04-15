@@ -8,8 +8,8 @@ import com.dom.freeman.components.users.dialog.ModifyUserPermissionsDialog;
 import com.dom.freeman.components.users.dialog.ModifyUserSummaryDialog;
 import com.dom.freeman.components.users.dialog.ViewUserSummaryDialog;
 import com.dom.freeman.components.users.tables.UserViewTable;
-import com.dom.freeman.obj.FileOperation;
-import com.dom.freeman.obj.User;
+import com.dom.freeman.obj.users.User;
+import com.dom.freeman.obj.users.UserOperations;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Global;
 import com.dom.freeman.utils.Utility;
@@ -87,11 +87,11 @@ public class UserViewPanel extends Panel {
 					@Override
 					public void run() {
 						ModifyUserSummaryDialog summary = new ModifyUserSummaryDialog("REMOVE USER",
-								FileOperation.REMOVE, selectedUser);
+								UserOperations.REMOVE_USER, selectedUser);
 						summary.setHints(Arrays.asList(Hint.CENTERED));
 						
 						if (summary.showDialog(parent.getTextGUI())) {
-							boolean remove = FileIO.METHODS.modifyExistingUserInFile(FileOperation.REMOVE, selectedUser);
+							boolean remove = FileIO.METHODS.modifyExistingUserInFile(UserOperations.REMOVE_USER, selectedUser);
 							
 							if (remove) {
 								new MessageDialogBuilder().setTitle("User Removed Successfully")

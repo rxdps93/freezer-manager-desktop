@@ -5,7 +5,7 @@ import java.util.Collections;
 import com.dom.freeman.components.AbstractInventoryTable;
 import com.dom.freeman.components.users.UserSortMode;
 import com.dom.freeman.obj.SortMode;
-import com.dom.freeman.obj.User;
+import com.dom.freeman.obj.users.User;
 import com.dom.freeman.utils.Global;
 import com.googlecode.lanterna.gui2.table.TableModel;
 

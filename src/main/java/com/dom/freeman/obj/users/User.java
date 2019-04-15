@@ -1,4 +1,4 @@
-package com.dom.freeman.obj;
+package com.dom.freeman.obj.users;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,10 +23,10 @@ public class User {
 	private String id;
 	
 	@CsvCustomBindByPosition(position = 4, converter = UserConverter.class)
-	private List<UserPermission> grantedPermissions;
+	private List<UserOperations> grantedPermissions;
 	
 	public User(String firstName, String lastName, String displayName,
-			String id, UserPermission... grantedPermissions) {
+			String id, UserOperations... grantedPermissions) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.displayName = displayName;
@@ -56,7 +56,7 @@ public class User {
 		return this.id;
 	}
 	
-	public List<UserPermission> getUserPermissions() {
+	public List<UserOperations> getUserPermissions() {
 		return this.grantedPermissions;
 	}
 	
@@ -76,14 +76,14 @@ public class User {
 		this.id = id;
 	}
 	
-	public void setUserPermissions(List<UserPermission> permissions) {
+	public void setUserPermissions(List<UserOperations> permissions) {
 		this.grantedPermissions = permissions;
 	}
-	public boolean hasPermission(UserPermission permission) {
+	public boolean hasPermission(UserOperations permission) {
 		return this.grantedPermissions.contains(permission);
 	}
 	
-	public boolean grantPermission(UserPermission grant) {
+	public boolean grantPermission(UserOperations grant) {
 		
 		if (!this.grantedPermissions.contains(grant)) {
 			this.grantedPermissions.add(grant);
@@ -92,7 +92,7 @@ public class User {
 		return false;
 	}
 	
-	public boolean revokePermission(UserPermission revoke) {
+	public boolean revokePermission(UserOperations revoke) {
 		return this.grantedPermissions.remove(revoke);
 	}
 	

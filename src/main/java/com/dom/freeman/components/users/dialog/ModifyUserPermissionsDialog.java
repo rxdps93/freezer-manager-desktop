@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.dom.freeman.obj.FileOperation;
-import com.dom.freeman.obj.User;
-import com.dom.freeman.obj.UserPermission;
+import com.dom.freeman.obj.users.User;
+import com.dom.freeman.obj.users.UserOperations;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.TerminalSize;
@@ -73,22 +72,22 @@ public class ModifyUserPermissionsDialog extends DialogWindow {
 	}
 	
 	private CheckBoxList<String> configurePermissionList(User selectedUser) {
-		CheckBoxList<String> checkList = new CheckBoxList<>(new TerminalSize(50, UserPermission.values().length));
+		CheckBoxList<String> checkList = new CheckBoxList<>(new TerminalSize(50, UserOperations.values().length));
 		
-		for (UserPermission permission : UserPermission.values()) {
+		for (UserOperations permission : UserOperations.values()) {
 			checkList.addItem(permission.toString(), selectedUser.hasPermission(permission));
 		}
 		return checkList;
 	}
 	
 	private void onSave(User selectedUser) {
-		List<UserPermission> permissions = new ArrayList<>();
+		List<UserOperations> permissions = new ArrayList<>();
 		for (String str : this.permissionList.getCheckedItems()) {
-			permissions.add(UserPermission.valueOf(str));
+			permissions.add(UserOperations.valueOf(str));
 		}
 		selectedUser.setUserPermissions(permissions);
 		
-		boolean write = FileIO.METHODS.modifyExistingUserInFile(FileOperation.EDIT, selectedUser);
+		boolean write = FileIO.METHODS.modifyExistingUserInFile(UserOperations.EDIT_USER, selectedUser);
 		
 		if (write) {
 			new MessageDialogBuilder().setTitle("User Permissions Successfully Updated")

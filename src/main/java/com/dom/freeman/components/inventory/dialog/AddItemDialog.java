@@ -4,8 +4,9 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.UUID;
 
-import com.dom.freeman.obj.FileOperation;
+import com.dom.freeman.obj.FileIOResult;
 import com.dom.freeman.obj.Item;
+import com.dom.freeman.obj.users.UserOperations;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
@@ -126,7 +127,7 @@ public class AddItemDialog extends AbstractModifyItemDialog {
 					this.getAddedEntry().getSelectedDate(),
 					this.getExpiresEntry().getSelectedDate(),
 					UUID.randomUUID().toString());
-			ModifyItemSummaryDialog summary = new ModifyItemSummaryDialog("Add Item Final Summary", FileOperation.ADD, newItem);
+			ModifyItemSummaryDialog summary = new ModifyItemSummaryDialog("Add Item Final Summary", UserOperations.ADD_ITEM, newItem);
 			summary.setHints(Arrays.asList(Hint.CENTERED));
 			
 			if (summary.showDialog(this.getTextGUI())) {
@@ -137,21 +138,18 @@ public class AddItemDialog extends AbstractModifyItemDialog {
 	
 	private void saveItem(Item item) {
 		
-		boolean write = FileIO.METHODS.addNewItemToFile(item);
+		FileIOResult write = FileIO.METHODS.addNewItemToFile(item);
 		
-		if (write) {
-			new MessageDialogBuilder().setTitle("Item Added Successfully")
-			.setText("Item successfully added to inventory!")
-			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-			.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
+		new MessageDialogBuilder().setTitle("Add Item Results")
+		.setText(write.getMessage())
+		.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+		.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
+		
+		
+		if (write.isSuccess()) {
 			this.close();
 			Utility.METHODS.updateInventory();
 			Utility.METHODS.refreshViews();
-		} else {
-			new MessageDialogBuilder().setTitle("Warning")
-			.setText("Some error occurred and the item could not be added. Please try again.")
-			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-			.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
 		}
 	}
 

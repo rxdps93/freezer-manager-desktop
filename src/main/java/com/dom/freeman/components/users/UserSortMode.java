@@ -3,7 +3,7 @@ package com.dom.freeman.components.users;
 import java.util.Comparator;
 
 import com.dom.freeman.obj.SortMode;
-import com.dom.freeman.obj.User;
+import com.dom.freeman.obj.users.User;
 
 public enum UserSortMode implements SortMode {
 

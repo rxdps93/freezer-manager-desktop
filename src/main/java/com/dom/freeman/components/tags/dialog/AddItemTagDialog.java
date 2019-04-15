@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.dom.freeman.components.inventory.InventorySortMode;
-import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
+import com.dom.freeman.obj.users.UserOperations;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Global;
 import com.dom.freeman.utils.Utility;
@@ -68,7 +68,7 @@ public class AddItemTagDialog extends AbstractModifyTagDialog {
 					tag.associateItems(this.checkListItems.get(i));
 			}
 			
-			ItemTagSummaryDialog summary = new ItemTagSummaryDialog("FINAL ADD ITEM TAG SUMMARY", FileOperation.ADD, tag);
+			ItemTagSummaryDialog summary = new ItemTagSummaryDialog("FINAL ADD ITEM TAG SUMMARY", UserOperations.ADD_ITEM_TAG, tag);
 			summary.setHints(Arrays.asList(Hint.CENTERED));
 			
 			if (summary.showDialog(this.getTextGUI()))

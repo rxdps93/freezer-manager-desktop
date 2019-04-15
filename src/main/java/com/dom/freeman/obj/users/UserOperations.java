@@ -1,6 +1,6 @@
-package com.dom.freeman.obj;
+package com.dom.freeman.obj.users;
 
-public enum UserPermission {
+public enum UserOperations {
 
 	ADD_ITEM("Ability to add a new item to the inventory"),
 	EDIT_ITEM("Ability to edit an existing item in the inventory"),
@@ -25,11 +25,13 @@ public enum UserPermission {
 	REVOKE_USER_PERMISSION("Ability to revoke permissions from a user"),
 	
 	VIEW_TRANSACTIONS_SELF("Ability to see a history of your actions in the system"),
-	VIEW_TRANSACTIONS_ALL("Ability to see a history of all users' actions in the system");
+	VIEW_TRANSACTIONS_ALL("Ability to see a history of all users' actions in the system"),
+	
+	VIEW("Ability to view the inventory");
 	
 	private String description;
 	
-	private UserPermission(String description) {
+	private UserOperations(String description) {
 		this.description = description;
 	}
 	

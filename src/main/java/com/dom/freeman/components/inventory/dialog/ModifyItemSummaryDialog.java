@@ -1,8 +1,8 @@
 package com.dom.freeman.components.inventory.dialog;
 
-import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.SummaryTableCellRenderer;
+import com.dom.freeman.obj.users.UserOperations;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.EmptySpace;
 import com.googlecode.lanterna.gui2.GridLayout;
@@ -17,17 +17,17 @@ import com.googlecode.lanterna.gui2.table.Table;
 public class ModifyItemSummaryDialog extends DialogWindow {
 
 	private Boolean result;
-	private FileOperation op;
+	private UserOperations op;
 
 	// For adding an item
-	public ModifyItemSummaryDialog(String title, FileOperation op, Item newItem) {
+	public ModifyItemSummaryDialog(String title, UserOperations op, Item newItem) {
 		super(title);
 		this.op = op;
 		configureContent(2, newItem);
 	}
 
 	// For editing an item
-	public ModifyItemSummaryDialog(String title, FileOperation op, Item newItem, Item oldItem) {
+	public ModifyItemSummaryDialog(String title, UserOperations op, Item newItem, Item oldItem) {
 		super(title);
 		this.op = op;
 		configureContent(3, newItem, oldItem);
@@ -86,7 +86,7 @@ public class ModifyItemSummaryDialog extends DialogWindow {
 	}
 
 	private Table<String> addTable(Item newItem) {
-		Table<String> summary = new Table<>("Item Field", this.op.equals(FileOperation.REMOVE) ? "Selected Item" : "New Item");
+		Table<String> summary = new Table<>("Item Field", this.op.equals(UserOperations.REMOVE_ITEM) ? "Selected Item" : "New Item");
 
 		summary.getTableModel().addRow("Item Type", newItem.getType());
 		summary.getTableModel().addRow("Quantity", Integer.toString(newItem.getQuantity()));
@@ -102,11 +102,11 @@ public class ModifyItemSummaryDialog extends DialogWindow {
 		
 		String msg;
 		switch (op) {
-		case REMOVE:
+		case REMOVE_ITEM:
 			msg = "Please carefully review item details. Removing an item CANNOT BE UNDONE.";
 			break;
-		case ADD:
-		case EDIT:
+		case ADD_ITEM:
+		case EDIT_ITEM:
 			default:
 			msg = "Please carefully review item details before saving it.";
 				

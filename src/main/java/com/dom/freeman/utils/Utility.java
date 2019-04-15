@@ -8,7 +8,7 @@ import java.util.TreeMap;
 import com.dom.freeman.components.AbstractInventoryTable;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
-import com.dom.freeman.obj.User;
+import com.dom.freeman.obj.users.User;
 
 public enum Utility {
 
@@ -77,7 +77,4 @@ public enum Utility {
 		return types;
 	}
 	
-	public void permissionTest() {
-		System.out.println("Hello!");
-	}
 }

@@ -1,8 +1,8 @@
 package com.dom.freeman.components.tags.dialog;
 
-import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
+import com.dom.freeman.obj.users.UserOperations;
 import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.EmptySpace;
@@ -19,7 +19,7 @@ public class ItemTagSummaryDialog extends DialogWindow {
 
 	private Boolean result;
 
-	public ItemTagSummaryDialog(String title, FileOperation op, ItemTag tag) {
+	public ItemTagSummaryDialog(String title, UserOperations op, ItemTag tag) {
 		super(title);
 		this.configureContent(op, tag);
 	}
@@ -31,7 +31,7 @@ public class ItemTagSummaryDialog extends DialogWindow {
 		return result;
 	}
 
-	private void configureContent(FileOperation op, ItemTag tag) {
+	private void configureContent(UserOperations op, ItemTag tag) {
 		Panel mainPanel = new Panel(new GridLayout(5));
 
 		// Description
@@ -69,7 +69,7 @@ public class ItemTagSummaryDialog extends DialogWindow {
 		mainPanel.addComponent(this.dialogSpacer(5));
 
 		Panel buttons = new Panel(new GridLayout(2));
-		if (op.equals(FileOperation.NONE)) {
+		if (op.equals(UserOperations.VIEW)) {
 			buttons.addComponent(this.dialogSpacer(1));
 			buttons.addComponent(new Button(LocalizedString.Close.toString(), new Runnable() {
 				@Override
@@ -121,17 +121,17 @@ public class ItemTagSummaryDialog extends DialogWindow {
 		return new EmptySpace().setLayoutData(GridLayout.createHorizontallyFilledLayoutData(gridSize));
 	}
 
-	private String labelMessage(FileOperation op) {
+	private String labelMessage(UserOperations op) {
 		String msg;
 		switch (op) {
-		case NONE:
+		case VIEW:
 			msg = "Summary for selected item tag";
 			break;
-		case REMOVE:
+		case REMOVE_ITEM_TAG:
 			msg = "Please carefully review item tag details. Removing an item CANNOT BE UNDONE.\nAssociated items WILL NOT be removed.";
 			break;
-		case ADD:
-		case EDIT:
+		case ADD_ITEM_TAG:
+		case EDIT_ITEM_TAG:
 		default:
 			msg = "Please carefully review item tag details before saving it.";
 		}
