@@ -1,4 +1,4 @@
-package com.dom.freeman;
+package com.dom.freeman.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,5 +75,9 @@ public enum Utility {
 		}
 
 		return types;
+	}
+	
+	public void permissionTest() {
+		System.out.println("Hello!");
 	}
 }

@@ -1,9 +1,9 @@
 package com.dom.freeman.components.tags.dialog;
 
-import com.dom.freeman.Utility;
 import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
+import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.EmptySpace;
 import com.googlecode.lanterna.gui2.GridLayout;

@@ -2,10 +2,10 @@ package com.dom.freeman.obj;
 
 import java.time.LocalDate;
 
-import com.dom.freeman.Global;
 import com.dom.freeman.obj.converter.FreezerConverter;
 import com.dom.freeman.obj.converter.LocalDateConverter;
 import com.dom.freeman.obj.converter.UnitConverter;
+import com.dom.freeman.utils.Global;
 import com.opencsv.bean.CsvBindByPosition;
 import com.opencsv.bean.CsvCustomBindByPosition;
 

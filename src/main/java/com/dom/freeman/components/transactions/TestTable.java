@@ -1,10 +1,10 @@
 package com.dom.freeman.components.transactions;
 
-import com.dom.freeman.Global;
 import com.dom.freeman.components.AbstractInventoryTable;
 import com.dom.freeman.components.inventory.InventorySortMode;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.SortMode;
+import com.dom.freeman.utils.Global;
 import com.googlecode.lanterna.gui2.table.TableModel;
 
 public class TestTable<V> extends AbstractInventoryTable<V> {

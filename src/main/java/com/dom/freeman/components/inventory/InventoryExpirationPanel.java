@@ -3,14 +3,14 @@ package com.dom.freeman.components.inventory;
 import java.util.Arrays;
 import java.util.List;
 
-import com.dom.freeman.FileIO;
-import com.dom.freeman.Global;
-import com.dom.freeman.Utility;
 import com.dom.freeman.components.inventory.dialog.EditItemDialog;
 import com.dom.freeman.components.inventory.dialog.ModifyItemSummaryDialog;
 import com.dom.freeman.components.inventory.tables.InventoryExpirationTable;
 import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
+import com.dom.freeman.utils.FileIO;
+import com.dom.freeman.utils.Global;
+import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.LayoutManager;

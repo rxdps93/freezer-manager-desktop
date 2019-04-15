@@ -52,13 +52,17 @@ My intent is to develop a system comprised of four major components:
 
 ## Tentative Feature Timing
 #### Now
-- [ ] Ability to manage expired items
+- [x] Ability to manage expired items
+- [ ] Require users to log in
+- [ ] Give users a password
+- [ ] Allow switching users
 - [ ] Make permissions actually do something
+- [ ] If the current user does not have permissions, allow temporary permission for one specific action granted by someone with permission
 - [ ] Allow adding tags to items via the add/edit item dialog
+#### Near
 - [ ] Introduce concept of 'item type' as an object
 - [ ] Differentiate between permanent and instance(item) tags
 - [ ] Rework tag assignment/unassignment to account for tag types
-#### Near
 - [ ] Filter detailed inventory view by field
 - [ ] Filter detailed inventory view by tag
 - [ ] Keep logs of all CSV file transactions

@@ -1,4 +1,4 @@
-package com.dom.freeman;
+package com.dom.freeman.utils;
 
 import java.io.File;
 import java.io.FileWriter;

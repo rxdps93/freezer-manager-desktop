@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.io.IOException;
 
 import com.dom.freeman.components.MainWindow;
+import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.screen.Screen;

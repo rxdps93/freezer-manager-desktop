@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import com.dom.freeman.Global;
 import com.dom.freeman.components.dashboard.tables.DashboardTypeCountTable;
+import com.dom.freeman.utils.Global;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;

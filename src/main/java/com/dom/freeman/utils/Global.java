@@ -1,4 +1,4 @@
-package com.dom.freeman;
+package com.dom.freeman.utils;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -20,6 +20,8 @@ public enum Global {
 	private List<ItemTag> itemTags;
 	
 	private List<User> users;
+	
+	private User currentUser;
 	
 	private List<AbstractInventoryTable<?>> registeredTables = new ArrayList<>();
 	private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -46,6 +48,10 @@ public enum Global {
 		return this.users;
 	}
 	
+	public User getCurrentUser() {
+		return this.currentUser;
+	}
+	
 	public List<AbstractInventoryTable<?>> getRegisteredTables() {
 		return this.registeredTables;
 	}
@@ -64,6 +70,10 @@ public enum Global {
 	
 	public void setUsers(List<User> users) {
 		this.users = users;
+	}
+	
+	public void setCurrentUser(User user) {
+		this.currentUser = user;
 	}
 	
 	public void setItemTags(List<ItemTag> itemTags) {

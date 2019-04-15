@@ -3,10 +3,10 @@ package com.dom.freeman.components.inventory.dialog;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-import com.dom.freeman.FileIO;
-import com.dom.freeman.Utility;
 import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.Item;
+import com.dom.freeman.utils.FileIO;
+import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 

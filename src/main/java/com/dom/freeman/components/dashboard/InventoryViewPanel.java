@@ -5,9 +5,9 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 
-import com.dom.freeman.Global;
 import com.dom.freeman.components.dashboard.tables.DashboardInventoryTable;
 import com.dom.freeman.components.inventory.InventorySortMode;
+import com.dom.freeman.utils.Global;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.LayoutManager;

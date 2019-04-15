@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.dom.freeman.FileIO;
-import com.dom.freeman.Utility;
 import com.dom.freeman.obj.FileOperation;
 import com.dom.freeman.obj.User;
 import com.dom.freeman.obj.UserPermission;
+import com.dom.freeman.utils.FileIO;
+import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.CheckBoxList;

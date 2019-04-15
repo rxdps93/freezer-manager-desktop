@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 
-import com.dom.freeman.Global;
 import com.dom.freeman.components.AbstractInventoryTable;
 import com.dom.freeman.components.inventory.InventorySortMode;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.SortMode;
+import com.dom.freeman.utils.Global;
 import com.googlecode.lanterna.gui2.table.TableModel;
 
 public class InventoryExpirationTable<V> extends AbstractInventoryTable<V> {

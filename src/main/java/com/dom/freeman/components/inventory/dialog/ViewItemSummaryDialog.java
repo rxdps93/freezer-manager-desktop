@@ -2,9 +2,9 @@ package com.dom.freeman.components.inventory.dialog;
 
 import java.util.List;
 
-import com.dom.freeman.Utility;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
+import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Button;

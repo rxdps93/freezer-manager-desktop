@@ -3,8 +3,8 @@ package com.dom.freeman.components.transactions;
 import java.util.Arrays;
 import java.util.List;
 
-import com.dom.freeman.Global;
 import com.dom.freeman.components.ViewPanel;
+import com.dom.freeman.utils.Global;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.LayoutManager;
