@@ -1,23 +1,23 @@
 package com.dom.freeman.components.tags;
 
+import com.dom.freeman.components.MainWindow;
 import com.dom.freeman.components.ViewPanel;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.LayoutManager;
-import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.input.KeyType;
 
 public class TagPanel extends ViewPanel {
 
-	private final Window parent;
+	private final MainWindow parent;
 	private Interactable interactable;
 	
-	public TagPanel(Window parent) {
+	public TagPanel(MainWindow parent) {
 		super(KeyType.F3);
 		this.parent = parent;
 		configureContent();
 	}
 	
-	public TagPanel(LayoutManager layoutManager, Window parent) {
+	public TagPanel(LayoutManager layoutManager, MainWindow parent) {
 		super(layoutManager, KeyType.F3);
 		this.parent = parent;
 		configureContent();
@@ -31,7 +31,7 @@ public class TagPanel extends ViewPanel {
 		this.addComponent(new TagControlPanel(this.parent));
 	}
 	
-	public Window getParentWindow() {
+	public MainWindow getParentWindow() {
 		return this.parent;
 	}
 

@@ -24,6 +24,7 @@ public class MainPanel extends Panel {
 	private Panel actionPanel;
 	
 	private ViewPanel currentComponent;
+	private int activeView;
 
 	private final String[] actions = {
 			"DASHBOARD",
@@ -124,12 +125,14 @@ public class MainPanel extends Panel {
 		this.addComponent(this.componentPanel);
 		
 		this.currentComponent = component;
+		this.activeView = activeView;
 		
 		this.addComponent(this.actionPanel.withBorder(Borders.singleLine()));
 	}
 	
 	public void updateCurrentUser() {
 		this.configureHeaderPanel();
+		this.setView(this.getCurrentComponent(), this.activeView);
 	}
 	
 	public ViewPanel getCurrentComponent() {

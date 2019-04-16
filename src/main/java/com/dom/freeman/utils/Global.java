@@ -9,6 +9,7 @@ import com.dom.freeman.components.AbstractInventoryTable;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
 import com.dom.freeman.obj.users.User;
+import com.dom.freeman.obj.users.UserOperations;
 
 public enum Global {
 
@@ -25,6 +26,12 @@ public enum Global {
 	
 	private List<AbstractInventoryTable<?>> registeredTables = new ArrayList<>();
 	private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+	
+	// TODO: Delete later; for permissions testing
+	public User[] testUsers = {
+			new User("Admin", "Adminson", "rxdps93", "trump2020", UserOperations.values()),
+			new User("Item", "Itemson", "item_guy", "honk", UserOperations.ADD_ITEM, UserOperations.EDIT_ITEM, UserOperations.REMOVE_ITEM)
+	};
 	
 //	private final String origPath = "src/main/resources/contents.csv";
 //	private final String uuidPath = "src/main/resources/contents_uuid.csv";

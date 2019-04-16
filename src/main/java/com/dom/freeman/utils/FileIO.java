@@ -84,12 +84,12 @@ public enum FileIO {
 	 * > execute method
 	 * > ensure the failure reason is returned in the result object
 	 */
-
+	
 	public FileIOResult addNewItemToFile(Item item) {
 
 		if (!Global.OBJECTS.getCurrentUser().hasPermission(UserOperations.ADD_ITEM)) {
 			if (!this.allowTemporaryAccess()) {
-				return new FileIOResult(FileIOStatus.OPERATION_NOT_PERMITTED, "You do not have permission to perform this operation");
+				return new FileIOResult(FileIOStatus.OPERATION_NOT_PERMITTED);
 			}
 		}
 		
@@ -115,10 +115,21 @@ public enum FileIO {
 
 		return result;
 	}
+	
+	public FileIOResult addNewItemTagToFile(ItemTag tag) {
+		
+		if (!Global.OBJECTS.getCurrentUser().hasPermission(UserOperations.ADD_ITEM_TAG)) {
+			if (!this.allowTemporaryAccess()) {
+				return new FileIOResult(FileIOStatus.OPERATION_NOT_PERMITTED);
+			}
+		}
+		
+		return this.addItemTag(tag);
+	}
 
-	public boolean addNewItemTagToFile(ItemTag tag) {
+	private FileIOResult addItemTag(ItemTag tag) {
 
-		boolean success;
+		FileIOResult result;
 		try {
 			FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getItemTagPath()).toString()), true);
 			CSVWriter csv = new CSVWriter(writer);
@@ -127,12 +138,12 @@ public enum FileIO {
 
 			csv.close();
 			writer.close();
-			success = true;
+			result = new FileIOResult(FileIOStatus.OPERATION_SUCCESS, "Item tag successfully added to inventory!");
 		} catch (IOException e) {
-			success = false;
+			result = new FileIOResult(FileIOStatus.OPERATION_FAILURE, "Some error occurred and the item tag could not be saved. Please try again.");
 		}
 
-		return success;
+		return result;
 	}
 
 	public boolean addNewUserToFile(User user) {

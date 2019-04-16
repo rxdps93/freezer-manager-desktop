@@ -1,25 +1,25 @@
 package com.dom.freeman.components.inventory;
 
+import com.dom.freeman.components.MainWindow;
 import com.dom.freeman.components.ViewPanel;
 import com.googlecode.lanterna.gui2.Direction;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.LinearLayout;
-import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.input.KeyType;
 
 public class InventoryPanel extends ViewPanel {
 	
-	private final Window parent;
+	private final MainWindow parent;
 	private Interactable interactable;
 	
-	public InventoryPanel(Window parent) {
+	public InventoryPanel(MainWindow parent) {
 		super(KeyType.F2);
 		this.parent = parent;
 		configureContent();
 	}
 	
-	public InventoryPanel(LayoutManager layoutManager, Window parent) {
+	public InventoryPanel(LayoutManager layoutManager, MainWindow parent) {
 		super(layoutManager, KeyType.F2);
 		this.parent = parent;
 		configureContent();
@@ -34,7 +34,7 @@ public class InventoryPanel extends ViewPanel {
 		this.addComponent(new InventoryManagementControlPanel(new LinearLayout(Direction.VERTICAL), invManPanel, this.parent));
 	}
 	
-	public Window getParentWindow() {
+	public MainWindow getParentWindow() {
 		return this.parent;
 	}
 

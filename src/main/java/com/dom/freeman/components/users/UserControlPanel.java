@@ -2,29 +2,31 @@ package com.dom.freeman.components.users;
 
 import java.util.Arrays;
 
+import com.dom.freeman.components.MainWindow;
 import com.dom.freeman.components.users.dialog.AddUserDialog;
+import com.dom.freeman.utils.Global;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.GridLayout;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.RadioBoxList;
-import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.Window.Hint;
+import com.googlecode.lanterna.gui2.dialogs.ActionListDialogBuilder;
 
 public class UserControlPanel extends Panel {
 
 	private final UserViewPanel userPanel;
-	private Window parent;
+	private MainWindow parent;
 	
-	public UserControlPanel(Window parent, UserViewPanel userPanel) {
+	public UserControlPanel(MainWindow parent, UserViewPanel userPanel) {
 		super();
 		this.parent = parent;
 		this.userPanel = userPanel;
 		this.configureContent();
 	}
 	
-	public UserControlPanel(LayoutManager layoutManager, Window parent, UserViewPanel userPanel) {
+	public UserControlPanel(LayoutManager layoutManager, MainWindow parent, UserViewPanel userPanel) {
 		super(layoutManager);
 		this.parent = parent;
 		this.userPanel = userPanel;
@@ -71,7 +73,22 @@ public class UserControlPanel extends Panel {
 		options.addComponent(new Button("Switch Current User", new Runnable() {
 			@Override
 			public void run() {
-				// TODO: Future task
+				// TODO: SWITCH THROUGH TEST ACCOUNTS FOR PERMISSIONS TESTING, REMOVE EVENTUALLY
+				new ActionListDialogBuilder().setTitle("Switch Current User")
+				.addAction("Full Access: rxdps93" , new Runnable() {
+					@Override
+					public void run() {
+						Global.OBJECTS.setCurrentUser(Global.OBJECTS.testUsers[0]);
+						parent.getMainComponent().updateCurrentUser();
+					}
+				})
+				.addAction("Item Only: item_guy", new Runnable() {
+					@Override
+					public void run() {
+						Global.OBJECTS.setCurrentUser(Global.OBJECTS.testUsers[1]);
+						parent.getMainComponent().updateCurrentUser();
+					}
+				}).build().showDialog(parent.getTextGUI());
 			}
 		}));
 		

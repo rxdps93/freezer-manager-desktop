@@ -43,7 +43,7 @@ public class MainWindow extends BasicWindow {
 		this.configureContent();
 	}
 
-	private MainPanel getMainComponent() {
+	public MainPanel getMainComponent() {
 		return (MainPanel)this.getComponent();
 	}
 	

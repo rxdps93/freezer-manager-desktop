@@ -3,6 +3,7 @@ package com.dom.freeman.components.users;
 import java.util.Arrays;
 import java.util.List;
 
+import com.dom.freeman.components.MainWindow;
 import com.dom.freeman.components.users.dialog.EditUserDialog;
 import com.dom.freeman.components.users.dialog.ModifyUserPermissionsDialog;
 import com.dom.freeman.components.users.dialog.ModifyUserSummaryDialog;
@@ -17,7 +18,6 @@ import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
-import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.ActionListDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
@@ -25,16 +25,16 @@ import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 
 public class UserViewPanel extends Panel {
 
-	private Window parent;
+	private MainWindow parent;
 	private UserViewTable<String> userTable;
 	
-	public UserViewPanel(Window parent) {
+	public UserViewPanel(MainWindow parent) {
 		super();
 		this.parent = parent;
 		this.configureContent();
 	}
 	
-	public UserViewPanel(LayoutManager layoutManager, Window parent) {
+	public UserViewPanel(LayoutManager layoutManager, MainWindow parent) {
 		super(layoutManager);
 		this.parent = parent;
 		this.configureContent();
