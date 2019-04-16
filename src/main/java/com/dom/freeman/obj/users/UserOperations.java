@@ -21,8 +21,12 @@ public enum UserOperations {
 	EDIT_USER("Ability to edit an existing user"),
 	REMOVE_USER("Ability to remove an existing user"),
 	
-	GRANT_USER_PERMISSION("Ability to grant a user permissions"),
-	REVOKE_USER_PERMISSION("Ability to revoke permissions from a user"),
+	GRANT_USER_PERMISSION("Ability to grant a different user's permissions"),
+	REVOKE_USER_PERMISSION("Ability to revoke permissions from a different user"),
+	
+	MODIFY_SELF_PERMISSION("Ability to grant oneself permissions"),
+	
+	SUSPEND_VIEW_PERMISSION("Ability to suspend a user's ability to view the inventory"),
 	
 	VIEW_TRANSACTIONS_SELF("Ability to see a history of your actions in the system"),
 	VIEW_TRANSACTIONS_ALL("Ability to see a history of all users' actions in the system"),
