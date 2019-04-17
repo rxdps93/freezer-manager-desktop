@@ -93,8 +93,7 @@ public class User {
 				this.getLastName(),
 				this.getDisplayName(),
 				this.getId(),
-				this.group.toString(),
-				Boolean.toString(this.isSuspended())
+				this.group.toString()
 		};
 	}
 }

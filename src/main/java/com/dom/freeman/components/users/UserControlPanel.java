@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.dom.freeman.components.MainWindow;
 import com.dom.freeman.components.users.dialog.AddUserDialog;
 import com.dom.freeman.utils.Global;
+import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.GridLayout;
@@ -75,17 +76,17 @@ public class UserControlPanel extends Panel {
 			public void run() {
 				// TODO: SWITCH THROUGH TEST ACCOUNTS FOR PERMISSIONS TESTING, REMOVE EVENTUALLY
 				new ActionListDialogBuilder().setTitle("Switch Current User")
-				.addAction("Full Access: rxdps93" , new Runnable() {
+				.addAction("Developer: rxdps93" , new Runnable() {
 					@Override
 					public void run() {
-						Global.OBJECTS.setCurrentUser(Global.OBJECTS.testUsers[0]);
+						Global.OBJECTS.setCurrentUser(Utility.METHODS.getUserById("de6274bd-ad65-47b3-8e14-0c6f1c90504a"));
 						parent.getMainComponent().updateCurrentUser();
 					}
 				})
-				.addAction("Item Only: item_guy", new Runnable() {
+				.addAction("Administrator: mr. admin", new Runnable() {
 					@Override
 					public void run() {
-						Global.OBJECTS.setCurrentUser(Global.OBJECTS.testUsers[1]);
+						Global.OBJECTS.setCurrentUser(Utility.METHODS.getUserById("92d5b2a8-2712-4687-9c8c-558fb2111da3"));
 						parent.getMainComponent().updateCurrentUser();
 					}
 				}).build().showDialog(parent.getTextGUI());
