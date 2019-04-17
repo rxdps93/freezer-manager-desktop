@@ -3,7 +3,7 @@ package com.dom.freeman.components.users.dialog;
 import java.util.Arrays;
 
 import com.dom.freeman.obj.users.User;
-import com.dom.freeman.obj.users.UserOperations;
+import com.dom.freeman.obj.users.UserOperation;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
@@ -62,10 +62,11 @@ public class EditUserDialog extends AbstractModifyUserDialog {
 					this.getFirstNameEntry().getText(),
 					this.getLastNameEntry().getText(),
 					this.getDisplayNameEntry().getText(),
-					this.toEdit.getId());
+					this.toEdit.getId(),
+					this.toEdit.getUserGroup());
 			
 			ModifyUserSummaryDialog summary = new ModifyUserSummaryDialog(
-					"FINAL EDIT USER SUMMARY" , UserOperations.EDIT_USER, user, this.toEdit);
+					"FINAL EDIT USER SUMMARY" , UserOperation.EDIT_USER, user, this.toEdit);
 			summary.setHints(Arrays.asList(Hint.CENTERED));
 			
 			if (summary.showDialog(this.getTextGUI()))
@@ -75,7 +76,7 @@ public class EditUserDialog extends AbstractModifyUserDialog {
 	
 	private void saveUser(User user) {
 		
-		boolean write = FileIO.METHODS.modifyExistingUserInFile(UserOperations.EDIT_USER, user);
+		boolean write = FileIO.METHODS.modifyExistingUserInFile(UserOperation.EDIT_USER, user);
 		
 		if (write) {
 			new MessageDialogBuilder().setTitle("User Edited Successfully")

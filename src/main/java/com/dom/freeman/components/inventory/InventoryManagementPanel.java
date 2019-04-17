@@ -9,7 +9,7 @@ import com.dom.freeman.components.inventory.dialog.ModifyItemSummaryDialog;
 import com.dom.freeman.components.inventory.dialog.ViewItemSummaryDialog;
 import com.dom.freeman.components.inventory.tables.InventoryManagementTable;
 import com.dom.freeman.obj.Item;
-import com.dom.freeman.obj.users.UserOperations;
+import com.dom.freeman.obj.users.UserOperation;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Global;
 import com.dom.freeman.utils.Utility;
@@ -88,12 +88,12 @@ public class InventoryManagementPanel extends Panel {
 						List<String> data = inventory.getTableModel().getRow(inventory.getSelectedRow());
 						Item toRemove = Utility.METHODS.getItemById(data.get(6));
 
-						ModifyItemSummaryDialog summary = new ModifyItemSummaryDialog("Remove Item Final Summary", UserOperations.REMOVE_ITEM, toRemove);
+						ModifyItemSummaryDialog summary = new ModifyItemSummaryDialog("Remove Item Final Summary", UserOperation.REMOVE_ITEM, toRemove);
 						summary.setHints(Arrays.asList(Hint.CENTERED));
 
 						if (summary.showDialog(parent.getTextGUI())) {
 
-							boolean remove = FileIO.METHODS.modifyExistingItemInFile(toRemove, UserOperations.REMOVE_ITEM);
+							boolean remove = FileIO.METHODS.modifyExistingItemInFile(toRemove, UserOperation.REMOVE_ITEM);
 
 							if (remove) {
 								new MessageDialogBuilder().setTitle("Item Removed Successfully")

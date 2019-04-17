@@ -31,7 +31,7 @@ public class UserViewTable<V> extends AbstractInventoryTable<V> {
 			model.addRow((V)user.getLastName(),
 					(V)user.getFirstName(),
 					(V)user.getDisplayName(),
-					(V)Integer.valueOf(user.getUserPermissions().size()),
+					(V)user.getUserGroup().toString(),
 					(V)user.getId());
 		}
 		

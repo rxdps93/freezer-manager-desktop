@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.dom.freeman.obj.FileIOResult;
-import com.dom.freeman.obj.FileIOStatus;
+import com.dom.freeman.obj.OperationResult;
+import com.dom.freeman.obj.OperationStatus;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
 import com.dom.freeman.obj.users.User;
-import com.dom.freeman.obj.users.UserOperations;
+import com.dom.freeman.obj.users.UserOperation;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -85,20 +85,20 @@ public enum FileIO {
 	 * > ensure the failure reason is returned in the result object
 	 */
 	
-	public FileIOResult addNewItemToFile(Item item) {
+	public OperationResult addNewItemToFile(Item item) {
 
-		if (!Global.OBJECTS.getCurrentUser().hasPermission(UserOperations.ADD_ITEM)) {
+		if (!Global.OBJECTS.getCurrentUser().hasPermission(UserOperation.ADD_ITEM)) {
 			if (!this.allowTemporaryAccess()) {
-				return new FileIOResult(FileIOStatus.OPERATION_NOT_PERMITTED);
+				return new OperationResult(OperationStatus.OPERATION_NOT_PERMITTED);
 			}
 		}
 		
 		return this.addItem(item);
 	}
 
-	private FileIOResult addItem(Item item) {
+	private OperationResult addItem(Item item) {
 
-		FileIOResult result;
+		OperationResult result;
 		try {
 			FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getMainPath()).toString()), true);
 			CSVWriter csv = new CSVWriter(writer);
@@ -107,29 +107,29 @@ public enum FileIO {
 
 			csv.close();
 			writer.close();
-			result = new FileIOResult(FileIOStatus.OPERATION_SUCCESS, "Item successfully added to inventory!");
+			result = new OperationResult(OperationStatus.OPERATION_SUCCESS, "Item successfully added to inventory!");
 		} catch (IOException e) {
-			result = new FileIOResult(FileIOStatus.OPERATION_FAILURE, "Some error occurred and the item could not be added to the inventory. Please try again.");
+			result = new OperationResult(OperationStatus.OPERATION_FAILURE, "Some error occurred and the item could not be added to the inventory. Please try again.");
 			result.setCause(e);
 		}
 
 		return result;
 	}
 	
-	public FileIOResult addNewItemTagToFile(ItemTag tag) {
+	public OperationResult addNewItemTagToFile(ItemTag tag) {
 		
-		if (!Global.OBJECTS.getCurrentUser().hasPermission(UserOperations.ADD_ITEM_TAG)) {
+		if (!Global.OBJECTS.getCurrentUser().hasPermission(UserOperation.ADD_ITEM_TAG)) {
 			if (!this.allowTemporaryAccess()) {
-				return new FileIOResult(FileIOStatus.OPERATION_NOT_PERMITTED);
+				return new OperationResult(OperationStatus.OPERATION_NOT_PERMITTED);
 			}
 		}
 		
 		return this.addItemTag(tag);
 	}
 
-	private FileIOResult addItemTag(ItemTag tag) {
+	private OperationResult addItemTag(ItemTag tag) {
 
-		FileIOResult result;
+		OperationResult result;
 		try {
 			FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getItemTagPath()).toString()), true);
 			CSVWriter csv = new CSVWriter(writer);
@@ -138,9 +138,9 @@ public enum FileIO {
 
 			csv.close();
 			writer.close();
-			result = new FileIOResult(FileIOStatus.OPERATION_SUCCESS, "Item tag successfully added to inventory!");
+			result = new OperationResult(OperationStatus.OPERATION_SUCCESS, "Item tag successfully added to inventory!");
 		} catch (IOException e) {
-			result = new FileIOResult(FileIOStatus.OPERATION_FAILURE, "Some error occurred and the item tag could not be saved. Please try again.");
+			result = new OperationResult(OperationStatus.OPERATION_FAILURE, "Some error occurred and the item tag could not be saved. Please try again.");
 		}
 
 		return result;
@@ -165,7 +165,7 @@ public enum FileIO {
 		return success;
 	}
 
-	public boolean modifyExistingItemInFile(Item toModify, UserOperations op) {
+	public boolean modifyExistingItemInFile(Item toModify, UserOperation op) {
 
 		boolean success = false;
 
@@ -179,9 +179,9 @@ public enum FileIO {
 
 		if (index != -1) {
 
-			if (op.equals(UserOperations.EDIT_ITEM))
+			if (op.equals(UserOperation.EDIT_ITEM))
 				items.set(index, toModify);
-			else if (op.equals(UserOperations.REMOVE_ITEM)) {
+			else if (op.equals(UserOperation.REMOVE_ITEM)) {
 
 				ArrayList<ItemTag> tags = new ArrayList<>();
 				for (ItemTag tag : Global.OBJECTS.getItemTags()) {
@@ -192,7 +192,7 @@ public enum FileIO {
 				}
 				if (!tags.isEmpty()) {
 					ItemTag [] updatedTags = new ItemTag[tags.size()];
-					success = this.modifyExistingItemTagsInFile(UserOperations.EDIT_ITEM_TAG, tags.toArray(updatedTags));
+					success = this.modifyExistingItemTagsInFile(UserOperation.EDIT_ITEM_TAG, tags.toArray(updatedTags));
 				}
 
 				items.remove(index);
@@ -217,7 +217,7 @@ public enum FileIO {
 		return success;
 	}
 
-	public boolean modifyExistingUserInFile(UserOperations op, User toModify) {
+	public boolean modifyExistingUserInFile(UserOperation op, User toModify) {
 
 		boolean success = false;
 
@@ -231,9 +231,9 @@ public enum FileIO {
 
 		if (index != -1) {
 
-			if (op.equals(UserOperations.EDIT_USER)) {
+			if (op.equals(UserOperation.EDIT_USER)) {
 				users.set(index, toModify);
-			} else if (op.equals(UserOperations.REMOVE_USER)) {
+			} else if (op.equals(UserOperation.REMOVE_USER)) {
 				users.remove(index);
 			}
 
@@ -242,7 +242,7 @@ public enum FileIO {
 				CSVWriter csv = new CSVWriter(writer);
 
 				for (User user : users) {
-					csv.writeNext(user.toCsvString());
+					csv.writeNext(user.toCsvString(), false);
 				}
 
 				csv.close();
@@ -256,7 +256,7 @@ public enum FileIO {
 		return success;
 	}
 
-	public boolean modifyExistingItemTagsInFile(UserOperations op, ItemTag... toModify) {
+	public boolean modifyExistingItemTagsInFile(UserOperation op, ItemTag... toModify) {
 		boolean success = false;
 
 		List<ItemTag> itemTags = this.parseItemTagsFromFile();
@@ -273,9 +273,9 @@ public enum FileIO {
 		if (!index.isEmpty()) {
 
 			for (int i = 0; i < index.size(); i++) {
-				if (op.equals(UserOperations.EDIT_ITEM_TAG))
+				if (op.equals(UserOperation.EDIT_ITEM_TAG))
 					itemTags.set(index.get(i), toModify[i]);
-				else if (op.equals(UserOperations.REMOVE_ITEM_TAG))
+				else if (op.equals(UserOperation.REMOVE_ITEM_TAG))
 					itemTags.remove(index.get(i).intValue());
 			}
 

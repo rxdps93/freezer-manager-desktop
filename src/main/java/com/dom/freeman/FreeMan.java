@@ -33,7 +33,7 @@ public class FreeMan {
 		Utility.METHODS.updateInventory();
 		
 		// TODO: ASSIGNING ADMIN ACCOUNT; REMOVING EVENTUALLY
-		Global.OBJECTS.setCurrentUser(Global.OBJECTS.testUsers[0]);
+		Global.OBJECTS.setCurrentUser(Global.OBJECTS.testUsers[2]);
 		
 		gui.addWindowAndWait(new MainWindow("FREEZER INVENTORY MANAGEMENT SYSTEM"));
 	}

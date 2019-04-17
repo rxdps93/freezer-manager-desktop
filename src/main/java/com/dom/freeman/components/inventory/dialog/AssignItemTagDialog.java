@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
-import com.dom.freeman.obj.users.UserOperations;
+import com.dom.freeman.obj.users.UserOperation;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Global;
 import com.dom.freeman.utils.Utility;
@@ -85,7 +85,7 @@ public class AssignItemTagDialog extends DialogWindow {
 			toModify[i].associateItems(selectedItem);
 		}
 		
-		boolean write = FileIO.METHODS.modifyExistingItemTagsInFile(UserOperations.EDIT_ITEM, toModify);
+		boolean write = FileIO.METHODS.modifyExistingItemTagsInFile(UserOperation.EDIT_ITEM, toModify);
 		
 		if (write) {
 			new MessageDialogBuilder().setTitle("Item Tags Successfully Associated")

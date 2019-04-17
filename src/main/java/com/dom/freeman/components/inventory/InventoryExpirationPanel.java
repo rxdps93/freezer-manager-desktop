@@ -7,7 +7,7 @@ import com.dom.freeman.components.inventory.dialog.EditItemDialog;
 import com.dom.freeman.components.inventory.dialog.ModifyItemSummaryDialog;
 import com.dom.freeman.components.inventory.tables.InventoryExpirationTable;
 import com.dom.freeman.obj.Item;
-import com.dom.freeman.obj.users.UserOperations;
+import com.dom.freeman.obj.users.UserOperation;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Global;
 import com.dom.freeman.utils.Utility;
@@ -77,12 +77,12 @@ public class InventoryExpirationPanel extends Panel {
 				.addAction("Remove Item from Inventory", new Runnable() {
 					@Override
 					public void run() {
-						ModifyItemSummaryDialog summary = new ModifyItemSummaryDialog("Remove Expired Item Final Summary", UserOperations.REMOVE_ITEM, selectedItem);
+						ModifyItemSummaryDialog summary = new ModifyItemSummaryDialog("Remove Expired Item Final Summary", UserOperation.REMOVE_ITEM, selectedItem);
 						summary.setHints(Arrays.asList(Hint.CENTERED));
 
 						if (summary.showDialog(parent.getTextGUI())) {
 
-							boolean remove = FileIO.METHODS.modifyExistingItemInFile(selectedItem, UserOperations.REMOVE_ITEM);
+							boolean remove = FileIO.METHODS.modifyExistingItemInFile(selectedItem, UserOperation.REMOVE_ITEM);
 
 							if (remove) {
 								new MessageDialogBuilder().setTitle("Expired Item Removed Successfully")

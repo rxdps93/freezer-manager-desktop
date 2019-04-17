@@ -8,7 +8,11 @@ import java.util.TreeMap;
 import com.dom.freeman.components.AbstractInventoryTable;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
+import com.dom.freeman.obj.OperationResult;
+import com.dom.freeman.obj.OperationStatus;
 import com.dom.freeman.obj.users.User;
+import com.dom.freeman.obj.users.UserGroup;
+import com.dom.freeman.obj.users.UserOperation;
 
 public enum Utility {
 
@@ -77,4 +81,20 @@ public enum Utility {
 		return types;
 	}
 	
+	public OperationResult editPermissionAuth(User targetUser) {
+		
+		OperationStatus authorized = OperationStatus.OPERATION_NOT_PERMITTED;
+		
+		if (Global.OBJECTS.getCurrentUser().equals(targetUser)) {
+			if (Global.OBJECTS.getCurrentUser().hasPermission(UserOperation.MODIFY_SELF_PERMISSION))
+				authorized = OperationStatus.OPERATION_PERMITTED;
+		} else if (Global.OBJECTS.getCurrentUser().hasPermission(UserOperation.MODIFY_USER_PERMISSION)) {
+			
+			if (Global.OBJECTS.getCurrentUser().getUserGroup().compareTo(targetUser.getUserGroup()) < 0 || Global.OBJECTS.getCurrentUser().getUserGroup().equals(UserGroup.DEVELOPER)) {
+				authorized = OperationStatus.OPERATION_PERMITTED;
+			}
+		}
+		
+		return new OperationResult(authorized);
+	}
 }

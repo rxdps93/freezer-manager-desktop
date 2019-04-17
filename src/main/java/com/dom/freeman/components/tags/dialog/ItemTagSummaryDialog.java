@@ -2,7 +2,7 @@ package com.dom.freeman.components.tags.dialog;
 
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
-import com.dom.freeman.obj.users.UserOperations;
+import com.dom.freeman.obj.users.UserOperation;
 import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.EmptySpace;
@@ -19,7 +19,7 @@ public class ItemTagSummaryDialog extends DialogWindow {
 
 	private Boolean result;
 
-	public ItemTagSummaryDialog(String title, UserOperations op, ItemTag tag) {
+	public ItemTagSummaryDialog(String title, UserOperation op, ItemTag tag) {
 		super(title);
 		this.configureContent(op, tag);
 	}
@@ -31,7 +31,7 @@ public class ItemTagSummaryDialog extends DialogWindow {
 		return result;
 	}
 
-	private void configureContent(UserOperations op, ItemTag tag) {
+	private void configureContent(UserOperation op, ItemTag tag) {
 		Panel mainPanel = new Panel(new GridLayout(5));
 
 		// Description
@@ -69,7 +69,7 @@ public class ItemTagSummaryDialog extends DialogWindow {
 		mainPanel.addComponent(this.dialogSpacer(5));
 
 		Panel buttons = new Panel(new GridLayout(2));
-		if (op.equals(UserOperations.VIEW)) {
+		if (op.equals(UserOperation.VIEW)) {
 			buttons.addComponent(this.dialogSpacer(1));
 			buttons.addComponent(new Button(LocalizedString.Close.toString(), new Runnable() {
 				@Override
@@ -121,7 +121,7 @@ public class ItemTagSummaryDialog extends DialogWindow {
 		return new EmptySpace().setLayoutData(GridLayout.createHorizontallyFilledLayoutData(gridSize));
 	}
 
-	private String labelMessage(UserOperations op) {
+	private String labelMessage(UserOperation op) {
 		String msg;
 		switch (op) {
 		case VIEW:

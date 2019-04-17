@@ -9,7 +9,7 @@ import com.dom.freeman.components.AbstractInventoryTable;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
 import com.dom.freeman.obj.users.User;
-import com.dom.freeman.obj.users.UserOperations;
+import com.dom.freeman.obj.users.UserGroup;
 
 public enum Global {
 
@@ -29,8 +29,12 @@ public enum Global {
 	
 	// TODO: Delete later; for permissions testing
 	public User[] testUsers = {
-			new User("Admin", "Adminson", "rxdps93", "trump2020", UserOperations.values()),
-			new User("Item", "Itemson", "item_guy", "honk", UserOperations.ADD_ITEM, UserOperations.EDIT_ITEM, UserOperations.REMOVE_ITEM)
+			new User("Dev", "Devman", "rxdps93", "trump2020", UserGroup.DEVELOPER),
+			new User("Admin", "Adminson", "mr. admin", "honk", UserGroup.ADMINISTRATOR),
+			new User("Maint", "Mainter", "minty", "owo", UserGroup.MAINTAINER),
+			new User("Guy", "Fieri", "mayor of flavor town", "spicy", UserGroup.ENHANCED_USER),
+			new User("Usey", "Usio", "someguy", "nichijou", UserGroup.USER),
+			new User("Bad", "Evilson", "noview", "suspenders", UserGroup.SUSPENDED)
 	};
 	
 //	private final String origPath = "src/main/resources/contents.csv";

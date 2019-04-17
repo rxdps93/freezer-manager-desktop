@@ -1,10 +1,6 @@
 package com.dom.freeman.obj.users;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import com.dom.freeman.obj.converter.UserConverter;
+import com.dom.freeman.obj.converter.UserGroupConverter;
 import com.opencsv.bean.CsvBindByPosition;
 import com.opencsv.bean.CsvCustomBindByPosition;
 
@@ -22,18 +18,16 @@ public class User {
 	@CsvBindByPosition(position = 3)
 	private String id;
 	
-	@CsvCustomBindByPosition(position = 4, converter = UserConverter.class)
-	private List<UserOperations> grantedPermissions;
+	@CsvCustomBindByPosition(position = 4, converter = UserGroupConverter.class)
+	private UserGroup group;
 	
 	public User(String firstName, String lastName, String displayName,
-			String id, UserOperations... grantedPermissions) {
+			String id, UserGroup group) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.displayName = displayName;
 		this.id = id;
-		
-		this.grantedPermissions = new ArrayList<>();
-		this.grantedPermissions.addAll(Arrays.asList(grantedPermissions));
+		this.group = group;
 	}
 	
 	public User() {
@@ -56,8 +50,12 @@ public class User {
 		return this.id;
 	}
 	
-	public List<UserOperations> getUserPermissions() {
-		return this.grantedPermissions;
+	public UserGroup getUserGroup() {
+		return this.group;
+	}
+	
+	public boolean isSuspended() {
+		return this.getUserGroup().equals(UserGroup.SUSPENDED);
 	}
 	
 	public void setFirstName(String firstName) {
@@ -76,41 +74,27 @@ public class User {
 		this.id = id;
 	}
 	
-	public void setUserPermissions(List<UserOperations> permissions) {
-		this.grantedPermissions = permissions;
-	}
-	public boolean hasPermission(UserOperations permission) {
-		return this.grantedPermissions.contains(permission);
+	public void setUserGroup(UserGroup group) {
+		this.group = group;
 	}
 	
-	public boolean grantPermission(UserOperations grant) {
+	public boolean hasPermission(UserOperation permission) {
 		
-		if (!this.grantedPermissions.contains(grant)) {
-			this.grantedPermissions.add(grant);
-			return true;
-		}
-		return false;
-	}
-	
-	public boolean revokePermission(UserOperations revoke) {
-		return this.grantedPermissions.remove(revoke);
+		if (permission.equals(UserOperation.VIEW))
+			return this.group.hasPermission(permission) && !this.isSuspended();
+			
+		return this.group.hasPermission(permission);
 	}
 	
 	public String[] toCsvString() {
-		
-		StringBuilder permissions = new StringBuilder();
-		for (int i = 0; i < this.grantedPermissions.size(); i++) {
-			permissions.append(this.grantedPermissions.get(i));
-			if (i < this.grantedPermissions.size() - 1)
-				permissions.append(";");
-		}
 		
 		return new String[] {
 				this.getFirstName(),
 				this.getLastName(),
 				this.getDisplayName(),
 				this.getId(),
-				permissions.toString()
+				this.group.toString(),
+				Boolean.toString(this.isSuspended())
 		};
 	}
 }

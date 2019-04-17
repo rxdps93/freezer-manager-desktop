@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.UUID;
 
-import com.dom.freeman.obj.FileIOResult;
+import com.dom.freeman.obj.OperationResult;
 import com.dom.freeman.obj.Item;
-import com.dom.freeman.obj.users.UserOperations;
+import com.dom.freeman.obj.users.UserOperation;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
@@ -127,7 +127,7 @@ public class AddItemDialog extends AbstractModifyItemDialog {
 					this.getAddedEntry().getSelectedDate(),
 					this.getExpiresEntry().getSelectedDate(),
 					UUID.randomUUID().toString());
-			ModifyItemSummaryDialog summary = new ModifyItemSummaryDialog("Add Item Final Summary", UserOperations.ADD_ITEM, newItem);
+			ModifyItemSummaryDialog summary = new ModifyItemSummaryDialog("Add Item Final Summary", UserOperation.ADD_ITEM, newItem);
 			summary.setHints(Arrays.asList(Hint.CENTERED));
 			
 			if (summary.showDialog(this.getTextGUI())) {
@@ -138,7 +138,7 @@ public class AddItemDialog extends AbstractModifyItemDialog {
 	
 	private void saveItem(Item item) {
 		
-		FileIOResult write = FileIO.METHODS.addNewItemToFile(item);
+		OperationResult write = FileIO.METHODS.addNewItemToFile(item);
 		
 		new MessageDialogBuilder().setTitle("Add Item Results")
 		.setText(write.getMessage())

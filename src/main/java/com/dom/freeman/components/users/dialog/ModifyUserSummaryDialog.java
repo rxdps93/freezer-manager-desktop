@@ -2,7 +2,7 @@ package com.dom.freeman.components.users.dialog;
 
 import com.dom.freeman.obj.SummaryTableCellRenderer;
 import com.dom.freeman.obj.users.User;
-import com.dom.freeman.obj.users.UserOperations;
+import com.dom.freeman.obj.users.UserOperation;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.EmptySpace;
 import com.googlecode.lanterna.gui2.GridLayout;
@@ -17,18 +17,18 @@ import com.googlecode.lanterna.gui2.table.Table;
 public class ModifyUserSummaryDialog extends DialogWindow {
 
 	private Boolean result;
-	private UserOperations op;
+	private UserOperation op;
 	private User newUser = null;
 	private User oldUser = null;
 	
-	public ModifyUserSummaryDialog(String title, UserOperations op, User newUser) {
+	public ModifyUserSummaryDialog(String title, UserOperation op, User newUser) {
 		super(title);
 		this.op = op;
 		this.newUser = newUser;
 		this.configureContent(2);
 	}
 	
-	public ModifyUserSummaryDialog(String title, UserOperations op, User newUser, User oldUser) {
+	public ModifyUserSummaryDialog(String title, UserOperation op, User newUser, User oldUser) {
 		super(title);
 		this.op = op;
 		this.newUser = newUser;
@@ -88,7 +88,7 @@ public class ModifyUserSummaryDialog extends DialogWindow {
 	}
 	
 	private Table<String> addUserTable() {
-		Table<String> summary = new Table<>("User Field", this.op.equals(UserOperations.REMOVE_USER) ? "Selected Item" : "New Item");
+		Table<String> summary = new Table<>("User Field", this.op.equals(UserOperation.REMOVE_USER) ? "Selected Item" : "New Item");
 		
 		summary.getTableModel().addRow("First Name", this.newUser.getFirstName());
 		summary.getTableModel().addRow("Last Name", this.newUser.getLastName());

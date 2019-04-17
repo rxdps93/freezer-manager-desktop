@@ -4,7 +4,8 @@ import java.util.Arrays;
 import java.util.UUID;
 
 import com.dom.freeman.obj.users.User;
-import com.dom.freeman.obj.users.UserOperations;
+import com.dom.freeman.obj.users.UserGroup;
+import com.dom.freeman.obj.users.UserOperation;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
@@ -55,10 +56,11 @@ public class AddUserDialog extends AbstractModifyUserDialog {
 					this.getFirstNameEntry().getText(),
 					this.getLastNameEntry().getText(),
 					this.getDisplayNameEntry().getText(),
-					UUID.randomUUID().toString());
+					UUID.randomUUID().toString(),
+					UserGroup.USER);
 			
 			ModifyUserSummaryDialog summary = new ModifyUserSummaryDialog(
-					"FINAL ADD USER SUMMARY" , UserOperations.ADD_USER, user);
+					"FINAL ADD USER SUMMARY" , UserOperation.ADD_USER, user);
 			summary.setHints(Arrays.asList(Hint.CENTERED));
 			
 			if (summary.showDialog(this.getTextGUI()))

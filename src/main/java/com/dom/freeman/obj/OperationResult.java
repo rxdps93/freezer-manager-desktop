@@ -1,22 +1,22 @@
 package com.dom.freeman.obj;
 
-public class FileIOResult {
+public class OperationResult {
 
-	private final FileIOStatus status;
+	private final OperationStatus status;
 	private final String message;
 	private Exception cause;
 	
-	public FileIOResult(FileIOStatus status) {
+	public OperationResult(OperationStatus status) {
 		this.status = status;
 		this.message = status.getDefaultMessage();
 	}
 	
-	public FileIOResult(FileIOStatus status, String message) {
+	public OperationResult(OperationStatus status, String message) {
 		this.status = status;
 		this.message = message;
 	}
 	
-	public FileIOStatus getStatus() {
+	public OperationStatus getStatus() {
 		return this.status;
 	}
 	
@@ -33,6 +33,7 @@ public class FileIOResult {
 	}
 	
 	public boolean isSuccess() {
-		return this.status.equals(FileIOStatus.OPERATION_SUCCESS);
+		return this.status.equals(OperationStatus.OPERATION_SUCCESS) ||
+				this.status.equals(OperationStatus.OPERATION_PERMITTED);
 	}
 }
