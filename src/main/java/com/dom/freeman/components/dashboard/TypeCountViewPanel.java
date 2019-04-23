@@ -9,24 +9,19 @@ import com.dom.freeman.utils.Global;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
-import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 
-public class TypeCountViewPanel extends Panel{
+public class TypeCountViewPanel extends Panel {
 
-	private Window parent;
-
-	public TypeCountViewPanel(Window parent) {
+	public TypeCountViewPanel() {
 		super();
-		this.parent = parent;
 		this.configureContent();
 	}
 
-	public TypeCountViewPanel(LayoutManager layoutManager, Window parent) {
+	public TypeCountViewPanel(LayoutManager layoutManager) {
 		super(layoutManager);
-		this.parent = parent;
 		this.configureContent();
 	}
 
@@ -72,7 +67,7 @@ public class TypeCountViewPanel extends Panel{
 				new MessageDialogBuilder().setTitle("ITEM TYPE COUNT SUMMARY").setText(info.toString())
 				.addButton(MessageDialogButton.Close)
 				.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-				.build().showDialog(parent.getTextGUI());
+				.build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 			}
 		});
 

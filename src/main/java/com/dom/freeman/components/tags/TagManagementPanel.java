@@ -15,7 +15,6 @@ import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
-import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.ActionListDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
@@ -23,18 +22,15 @@ import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 
 public class TagManagementPanel extends Panel {
 
-	private Window parent;
 	private ItemTagViewTable<String> tagList;
 
-	public TagManagementPanel(Window parent) {
+	public TagManagementPanel() {
 		super();
-		this.parent = parent;
 		this.configureContent();
 	}
 
-	public TagManagementPanel(LayoutManager layoutManager, Window parent) {
+	public TagManagementPanel(LayoutManager layoutManager) {
 		super(layoutManager);
-		this.parent = parent;
 		this.configureContent();
 	}
 
@@ -59,7 +55,7 @@ public class TagManagementPanel extends Panel {
 						
 						ItemTagSummaryDialog summary = new ItemTagSummaryDialog("ITEM TAG SUMMARY", UserOperation.VIEW, tag);
 						summary.setHints(Arrays.asList(Hint.CENTERED));
-						summary.showDialog(parent.getTextGUI());
+						summary.showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 					}
 				})
 				.addAction("Edit Item Tag", new Runnable() {
@@ -68,7 +64,7 @@ public class TagManagementPanel extends Panel {
 						List<String> data = tagList.getTableModel().getRow(tagList.getSelectedRow());
 						EditItemTagDialog editItemTag = new EditItemTagDialog("EDIT ITEM TAG", Utility.METHODS.getItemTagByName(data.get(0)));
 						editItemTag.setHints(Arrays.asList(Hint.CENTERED));
-						editItemTag.showDialog(parent.getTextGUI());
+						editItemTag.showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 					}
 				})
 				.addAction("Remove Item Tag", new Runnable() {
@@ -80,26 +76,26 @@ public class TagManagementPanel extends Panel {
 						ItemTagSummaryDialog summary = new ItemTagSummaryDialog("Remove Item Tag Final Summary", UserOperation.REMOVE_ITEM_TAG, toRemove);
 						summary.setHints(Arrays.asList(Hint.CENTERED));
 						
-						if (summary.showDialog(parent.getTextGUI())) {
+						if (summary.showDialog(Global.OBJECTS.getMainWindow().getTextGUI())) {
 							boolean remove = FileIO.METHODS.modifyExistingItemTagsInFile(UserOperation.REMOVE_ITEM_TAG, toRemove);
 							
 							if (remove) {
 								new MessageDialogBuilder().setTitle("Item Tag Removed Successfully")
 								.setText("Item tag successfully removed!")
 								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-								.addButton(MessageDialogButton.OK).build().showDialog(parent.getTextGUI());
+								.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 								Utility.METHODS.updateInventory();
 								Utility.METHODS.refreshViews();
 							} else {
 								new MessageDialogBuilder().setTitle("Warning")
 								.setText("Some error occurred and the item tag could not be removed. Please try again.")
 								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-								.addButton(MessageDialogButton.OK).build().showDialog(parent.getTextGUI());
+								.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 							}
 						}
 					}
 				})
-				.build().showDialog(parent.getTextGUI());
+				.build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 			}
 		});
 

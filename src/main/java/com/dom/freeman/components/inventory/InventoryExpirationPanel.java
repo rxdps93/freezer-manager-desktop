@@ -15,7 +15,6 @@ import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
-import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.ActionListDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
@@ -23,18 +22,15 @@ import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 
 public class InventoryExpirationPanel extends Panel {
 
-	private Window parent;
 	private InventoryExpirationTable<String> expiredItems;
 	
-	public InventoryExpirationPanel(Window parent) {
+	public InventoryExpirationPanel() {
 		super();
-		this.parent = parent;
 		this.configureContent();
 	}
 	
-	public InventoryExpirationPanel(LayoutManager layoutManager, Window parent) {
+	public InventoryExpirationPanel(LayoutManager layoutManager) {
 		super(layoutManager);
-		this.parent = parent;
 		this.configureContent();
 	}
 	
@@ -71,7 +67,7 @@ public class InventoryExpirationPanel extends Panel {
 						
 						editItem.getExpiresEntry().setEnabled(true);
 						
-						editItem.showDialog(parent.getTextGUI());
+						editItem.showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 					}
 				})
 				.addAction("Remove Item from Inventory", new Runnable() {
@@ -80,7 +76,7 @@ public class InventoryExpirationPanel extends Panel {
 						ModifyItemSummaryDialog summary = new ModifyItemSummaryDialog("Remove Expired Item Final Summary", UserOperation.REMOVE_ITEM, selectedItem);
 						summary.setHints(Arrays.asList(Hint.CENTERED));
 
-						if (summary.showDialog(parent.getTextGUI())) {
+						if (summary.showDialog(Global.OBJECTS.getMainWindow().getTextGUI())) {
 
 							boolean remove = FileIO.METHODS.modifyExistingItemInFile(selectedItem, UserOperation.REMOVE_ITEM);
 
@@ -88,18 +84,18 @@ public class InventoryExpirationPanel extends Panel {
 								new MessageDialogBuilder().setTitle("Expired Item Removed Successfully")
 								.setText("Expired Item successfully removed from inventory!")
 								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-								.addButton(MessageDialogButton.OK).build().showDialog(parent.getTextGUI());
+								.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 								Utility.METHODS.updateInventory();
 								Utility.METHODS.refreshViews();
 							} else {
 								new MessageDialogBuilder().setTitle("Warning")
 								.setText("Some error occurred and the expired item could not be removed. Please try again.")
 								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-								.addButton(MessageDialogButton.OK).build().showDialog(parent.getTextGUI());
+								.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 							}
 						}
 					}
-				}).build().showDialog(parent.getTextGUI());
+				}).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 			}
 		});
 		

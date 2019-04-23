@@ -3,6 +3,7 @@ package com.dom.freeman.components.inventory;
 import java.util.Arrays;
 
 import com.dom.freeman.components.inventory.dialog.AddItemDialog;
+import com.dom.freeman.utils.Global;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.GridLayout;
@@ -10,25 +11,21 @@ import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.RadioBoxList;
-import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.Window.Hint;
 
 public class InventoryManagementControlPanel extends Panel {
 
 	private final InventoryManagementPanel invPanel;
-	private final Window parent;
 	
-	public InventoryManagementControlPanel(InventoryManagementPanel invPanel, Window parent) {
+	public InventoryManagementControlPanel(InventoryManagementPanel invPanel) {
 		super();
 		this.invPanel = invPanel;
-		this.parent = parent;
 		this.configureContent();
 	}
 	
-	public InventoryManagementControlPanel(LayoutManager layoutManager, InventoryManagementPanel invPanel, Window parent) {
+	public InventoryManagementControlPanel(LayoutManager layoutManager, InventoryManagementPanel invPanel) {
 		super(layoutManager);
 		this.invPanel = invPanel;
-		this.parent = parent;
 		this.configureContent();
 	}
 	
@@ -74,7 +71,7 @@ public class InventoryManagementControlPanel extends Panel {
 			public void run() {
 				AddItemDialog addItem = new AddItemDialog("ADD ITEM TO FREEZER");
 				addItem.setHints(Arrays.asList(Hint.CENTERED));
-				addItem.showDialog(parent.getTextGUI());
+				addItem.showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 			}
 		}));
 		return options;

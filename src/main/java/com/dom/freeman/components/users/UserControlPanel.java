@@ -2,7 +2,6 @@ package com.dom.freeman.components.users;
 
 import java.util.Arrays;
 
-import com.dom.freeman.components.MainWindow;
 import com.dom.freeman.components.users.dialog.AddUserDialog;
 import com.dom.freeman.utils.Global;
 import com.dom.freeman.utils.Utility;
@@ -18,18 +17,15 @@ import com.googlecode.lanterna.gui2.dialogs.ActionListDialogBuilder;
 public class UserControlPanel extends Panel {
 
 	private final UserViewPanel userPanel;
-	private MainWindow parent;
 	
-	public UserControlPanel(MainWindow parent, UserViewPanel userPanel) {
+	public UserControlPanel(UserViewPanel userPanel) {
 		super();
-		this.parent = parent;
 		this.userPanel = userPanel;
 		this.configureContent();
 	}
 	
-	public UserControlPanel(LayoutManager layoutManager, MainWindow parent, UserViewPanel userPanel) {
+	public UserControlPanel(LayoutManager layoutManager, UserViewPanel userPanel) {
 		super(layoutManager);
-		this.parent = parent;
 		this.userPanel = userPanel;
 		this.configureContent();
 	}
@@ -67,7 +63,7 @@ public class UserControlPanel extends Panel {
 			public void run() {
 				AddUserDialog addUser = new AddUserDialog("CREATE NEW USER");
 				addUser.setHints(Arrays.asList(Hint.CENTERED));
-				addUser.showDialog(parent.getTextGUI());
+				addUser.showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 			}
 		}));
 		
@@ -80,16 +76,16 @@ public class UserControlPanel extends Panel {
 					@Override
 					public void run() {
 						Global.OBJECTS.setCurrentUser(Utility.METHODS.getUserById("de6274bd-ad65-47b3-8e14-0c6f1c90504a"));
-						parent.getMainComponent().updateCurrentUser();
+						Global.OBJECTS.getMainWindow().getMainComponent().updateCurrentUser();
 					}
 				})
 				.addAction("Administrator: mr. admin", new Runnable() {
 					@Override
 					public void run() {
 						Global.OBJECTS.setCurrentUser(Utility.METHODS.getUserById("92d5b2a8-2712-4687-9c8c-558fb2111da3"));
-						parent.getMainComponent().updateCurrentUser();
+						Global.OBJECTS.getMainWindow().getMainComponent().updateCurrentUser();
 					}
-				}).build().showDialog(parent.getTextGUI());
+				}).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 			}
 		}));
 		

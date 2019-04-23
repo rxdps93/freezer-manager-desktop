@@ -17,7 +17,6 @@ import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
-import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.ActionListDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
@@ -25,18 +24,15 @@ import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 
 public class InventoryManagementPanel extends Panel {
 
-	private Window parent;
 	private InventoryManagementTable<String> inventory;
 
-	public InventoryManagementPanel(Window parent) {
+	public InventoryManagementPanel() {
 		super();
-		this.parent = parent;
 		this.configureContent();
 	}
 
-	public InventoryManagementPanel(LayoutManager layoutManager, Window parent) {
+	public InventoryManagementPanel(LayoutManager layoutManager) {
 		super(layoutManager);
-		this.parent = parent;
 		this.configureContent();
 	}
 
@@ -61,7 +57,7 @@ public class InventoryManagementPanel extends Panel {
 						List<String> data = inventory.getTableModel().getRow(inventory.getSelectedRow());
 						ViewItemSummaryDialog summary = new ViewItemSummaryDialog("Item Summary", Utility.METHODS.getItemById(data.get(6)));
 						summary.setHints(Arrays.asList(Hint.CENTERED));
-						summary.showDialog(parent.getTextGUI());
+						summary.showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 					}
 				})
 				.addAction("Assign Item Tags", new Runnable() {
@@ -70,7 +66,7 @@ public class InventoryManagementPanel extends Panel {
 						List<String> data = inventory.getTableModel().getRow(inventory.getSelectedRow());
 						AssignItemTagDialog assignTags = new AssignItemTagDialog("Assign Item Tags", Utility.METHODS.getItemById(data.get(6)));
 						assignTags.setHints(Arrays.asList(Hint.CENTERED));
-						assignTags.showDialog(parent.getTextGUI());
+						assignTags.showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 					}
 				})
 				.addAction("Edit this item", new Runnable() {
@@ -79,7 +75,7 @@ public class InventoryManagementPanel extends Panel {
 						List<String> data = inventory.getTableModel().getRow(inventory.getSelectedRow());
 						EditItemDialog editItem = new EditItemDialog("EDIT ITEM", Utility.METHODS.getItemById(data.get(6)));
 						editItem.setHints(Arrays.asList(Hint.CENTERED));
-						editItem.showDialog(parent.getTextGUI());
+						editItem.showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 					}
 				})
 				.addAction("Delete this item", new Runnable() {
@@ -91,7 +87,7 @@ public class InventoryManagementPanel extends Panel {
 						ModifyItemSummaryDialog summary = new ModifyItemSummaryDialog("Remove Item Final Summary", UserOperation.REMOVE_ITEM, toRemove);
 						summary.setHints(Arrays.asList(Hint.CENTERED));
 
-						if (summary.showDialog(parent.getTextGUI())) {
+						if (summary.showDialog(Global.OBJECTS.getMainWindow().getTextGUI())) {
 
 							boolean remove = FileIO.METHODS.modifyExistingItemInFile(toRemove, UserOperation.REMOVE_ITEM);
 
@@ -99,19 +95,19 @@ public class InventoryManagementPanel extends Panel {
 								new MessageDialogBuilder().setTitle("Item Removed Successfully")
 								.setText("Item successfully removed from inventory!")
 								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-								.addButton(MessageDialogButton.OK).build().showDialog(parent.getTextGUI());
+								.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 								Utility.METHODS.updateInventory();
 								Utility.METHODS.refreshViews();
 							} else {
 								new MessageDialogBuilder().setTitle("Warning")
 								.setText("Some error occurred and the item could not be removed. Please try again.")
 								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-								.addButton(MessageDialogButton.OK).build().showDialog(parent.getTextGUI());
+								.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 							}
 						}
 					}
 				})
-				.build().showDialog(parent.getTextGUI());
+				.build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 			}
 		});
 

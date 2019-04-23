@@ -17,8 +17,6 @@ import com.googlecode.lanterna.gui2.Panel;
 
 public class MainPanel extends Panel {
 	
-	private final String header;
-	
 	private Panel headerPanel;
 	private Panel componentPanel;
 	private Panel actionPanel;
@@ -44,15 +42,13 @@ public class MainPanel extends Panel {
 			"F6"
 	};
 
-	public MainPanel(ViewPanel initialComponent, String header) {
+	public MainPanel(ViewPanel initialComponent) {
 		super();
-		this.header = header;
 		this.initialConfiguration(initialComponent);
 	}
 	
-	public MainPanel(LayoutManager layoutManager, ViewPanel initialComponent, String header) {
+	public MainPanel(LayoutManager layoutManager, ViewPanel initialComponent) {
 		super(layoutManager);
-		this.header = header;
 		this.initialConfiguration(initialComponent);
 	}
 	
@@ -79,7 +75,7 @@ public class MainPanel extends Panel {
 	
 	private void configureHeaderPanel() {
 
-		Label headerLabel = new Label(this.header + "\n" + StringUtils.center("Current User: " + Global.OBJECTS.getCurrentUser().getDisplayName(), this.header.length()));
+		Label headerLabel = new Label(Global.OBJECTS.getMainHeader() + "\n" + StringUtils.center("Current User: " + Global.OBJECTS.getCurrentUser().getDisplayName(), Global.OBJECTS.getMainHeader().length()));
 
 		this.headerPanel = new Panel(new LinearLayout());
 		this.headerPanel.setLayoutData(BorderLayout.Location.TOP);

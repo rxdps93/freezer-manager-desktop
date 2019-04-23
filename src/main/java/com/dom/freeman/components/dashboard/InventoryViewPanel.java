@@ -12,25 +12,21 @@ import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
-import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 
 public class InventoryViewPanel extends Panel {
 
-	private Window parent;
 	private DashboardInventoryTable<String> inventory;
 
-	public InventoryViewPanel(Window parent) {
+	public InventoryViewPanel() {
 		super();
-		this.parent = parent;
 		this.configureContent();
 	}
 
-	public InventoryViewPanel(LayoutManager layoutManager, Window parent) {
+	public InventoryViewPanel(LayoutManager layoutManager) {
 		super(layoutManager);
-		this.parent = parent;
 		this.configureContent();
 	}
 
@@ -70,7 +66,7 @@ public class InventoryViewPanel extends Panel {
 				new MessageDialogBuilder().setTitle("ITEM SUMMARY").setText(info.toString())
 				.addButton(MessageDialogButton.Close)
 				.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-				.build().showDialog(parent.getTextGUI());
+				.build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 			}
 		});
 

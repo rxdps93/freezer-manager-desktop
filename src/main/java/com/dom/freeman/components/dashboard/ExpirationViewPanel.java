@@ -11,24 +11,19 @@ import com.dom.freeman.utils.Global;
 import com.googlecode.lanterna.gui2.Borders;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Panel;
-import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 
 public class ExpirationViewPanel extends Panel {
 
-	private Window parent;
-
-	public ExpirationViewPanel(Window parent) {
+	public ExpirationViewPanel() {
 		super();
-		this.parent = parent;
 		this.configureContent();
 	}
 
-	public ExpirationViewPanel(LayoutManager layoutManager, Window parent) {
+	public ExpirationViewPanel(LayoutManager layoutManager) {
 		super(layoutManager);
-		this.parent = parent;
 		this.configureContent();
 	}
 
@@ -65,7 +60,7 @@ public class ExpirationViewPanel extends Panel {
 				new MessageDialogBuilder().setTitle("ITEM EXPIRATION SUMMARY").setText(info.toString())
 				.addButton(MessageDialogButton.Close)
 				.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-				.build().showDialog(parent.getTextGUI());
+				.build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 			}
 		});
 

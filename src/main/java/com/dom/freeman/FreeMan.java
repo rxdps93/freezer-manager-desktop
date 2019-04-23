@@ -3,7 +3,6 @@ package com.dom.freeman;
 import java.awt.Font;
 import java.io.IOException;
 
-import com.dom.freeman.components.MainWindow;
 import com.dom.freeman.utils.Global;
 import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.TerminalSize;
@@ -35,6 +34,7 @@ public class FreeMan {
 		// TODO: ASSIGNING ADMIN ACCOUNT; REMOVING EVENTUALLY
 		Global.OBJECTS.setCurrentUser(Global.OBJECTS.getUsers().get(0));
 		
-		gui.addWindowAndWait(new MainWindow("FREEZER INVENTORY MANAGEMENT SYSTEM"));
+		gui.addWindowAndWait(Global.OBJECTS.getInitialWindow());
+		gui.addWindowAndWait(Global.OBJECTS.getMainWindow());
 	}
 }

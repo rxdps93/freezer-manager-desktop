@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.dom.freeman.components.AbstractInventoryTable;
+import com.dom.freeman.components.InitialWindow;
+import com.dom.freeman.components.MainWindow;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
 import com.dom.freeman.obj.users.User;
@@ -26,11 +28,33 @@ public enum Global {
 	private List<AbstractInventoryTable<?>> registeredTables = new ArrayList<>();
 	private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 	
+	private final String mainHeader = "FREEZER INVENTORY MANAGEMENT SYSTEM";
+	private MainWindow mainWindow;
+	private InitialWindow initialWindow;
+	
 //	private final String origPath = "src/main/resources/contents.csv";
 //	private final String uuidPath = "src/main/resources/contents_uuid.csv";
 	private final String frzrPath = "src/main/resources/contents_location.csv";
 	private final String userPath = "src/main/resources/users.csv";
 	private final String itemTagPath = "src/main/resources/item_tags.csv";
+	
+	public String getMainHeader() {
+		return this.mainHeader;
+	}
+	
+	public MainWindow getMainWindow() {
+		if (this.mainWindow == null)
+			this.mainWindow = new MainWindow();
+		
+		return this.mainWindow;
+	}
+	
+	public InitialWindow getInitialWindow() {
+		if (this.initialWindow == null)
+			this.initialWindow = new InitialWindow();
+		
+		return this.initialWindow;
+	}
 	
 	public List<Item> getInventory() {
 		return this.inventory;
@@ -58,6 +82,14 @@ public enum Global {
 	
 	public DateTimeFormatter getDateFormat() {
 		return this.dateFormat;
+	}
+	
+	public void setMainWindow(MainWindow mainWindow) {
+		this.mainWindow = mainWindow;
+	}
+	
+	public void setInitialWindow(InitialWindow initialWindow) {
+		this.initialWindow = initialWindow;
 	}
 	
 	public void setInventory(List<Item> items) {

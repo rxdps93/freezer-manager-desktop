@@ -3,7 +3,6 @@ package com.dom.freeman.components.users;
 import java.util.Arrays;
 import java.util.List;
 
-import com.dom.freeman.components.MainWindow;
 import com.dom.freeman.components.users.dialog.EditUserDialog;
 import com.dom.freeman.components.users.dialog.ModifyUserPermissionsDialog;
 import com.dom.freeman.components.users.dialog.ModifyUserSummaryDialog;
@@ -26,18 +25,15 @@ import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 
 public class UserViewPanel extends Panel {
 
-	private MainWindow parent;
 	private UserViewTable<String> userTable;
 	
-	public UserViewPanel(MainWindow parent) {
+	public UserViewPanel() {
 		super();
-		this.parent = parent;
 		this.configureContent();
 	}
 	
-	public UserViewPanel(LayoutManager layoutManager, MainWindow parent) {
+	public UserViewPanel(LayoutManager layoutManager) {
 		super(layoutManager);
-		this.parent = parent;
 		this.configureContent();
 	}
 	
@@ -65,7 +61,7 @@ public class UserViewPanel extends Panel {
 						ViewUserSummaryDialog viewUser = new ViewUserSummaryDialog("USER SUMMARY",
 								selectedUser);
 						viewUser.setHints(Arrays.asList(Hint.CENTERED));
-						viewUser.showDialog(parent.getTextGUI());
+						viewUser.showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 					}
 				})
 				.addAction("Edit User Details", new Runnable() {
@@ -73,7 +69,7 @@ public class UserViewPanel extends Panel {
 					public void run() {
 						EditUserDialog editUser = new EditUserDialog("EDIT USER", selectedUser);
 						editUser.setHints(Arrays.asList(Hint.CENTERED));
-						editUser.showDialog(parent.getTextGUI());
+						editUser.showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 					}
 				})
 				.addAction("Edit User Permissions", new Runnable() {
@@ -82,12 +78,12 @@ public class UserViewPanel extends Panel {
 						if (Utility.METHODS.editPermissionAuth(selectedUser).isSuccess()) {
 							ModifyUserPermissionsDialog userPermissions = new ModifyUserPermissionsDialog("USER PERMISSIONS", selectedUser);
 							userPermissions.setHints(Arrays.asList(Hint.CENTERED));
-							userPermissions.showDialog(parent.getTextGUI());
+							userPermissions.showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 						} else {
 							new MessageDialogBuilder().setTitle("Not authorized")
 							.setText(OperationStatus.OPERATION_NOT_PERMITTED.getDefaultMessage())
 							.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-							.addButton(MessageDialogButton.OK).build().showDialog(parent.getTextGUI());
+							.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 						}
 					}
 				})
@@ -98,25 +94,25 @@ public class UserViewPanel extends Panel {
 								UserOperation.REMOVE_USER, selectedUser);
 						summary.setHints(Arrays.asList(Hint.CENTERED));
 						
-						if (summary.showDialog(parent.getTextGUI())) {
+						if (summary.showDialog(Global.OBJECTS.getMainWindow().getTextGUI())) {
 							boolean remove = FileIO.METHODS.modifyExistingUserInFile(UserOperation.REMOVE_USER, selectedUser);
 							
 							if (remove) {
 								new MessageDialogBuilder().setTitle("User Removed Successfully")
 								.setText("User successfully removed!")
 								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-								.addButton(MessageDialogButton.OK).build().showDialog(parent.getTextGUI());
+								.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 								Utility.METHODS.updateInventory();
 								Utility.METHODS.refreshViews();
 							} else {
 								new MessageDialogBuilder().setTitle("Warning")
 								.setText("Some error occurred and the user could not be removed. Please try again.")
 								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-								.addButton(MessageDialogButton.OK).build().showDialog(parent.getTextGUI());
+								.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 							}
 						}
 					}
-				}).build().showDialog(parent.getTextGUI());
+				}).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 			}
 		});
 		

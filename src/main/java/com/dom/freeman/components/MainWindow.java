@@ -21,8 +21,6 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
 public class MainWindow extends BasicWindow {
-
-	private final String header;
 	
 	private ViewPanel dashboardPanel;
 	private ViewPanel inventoryPanel;
@@ -31,15 +29,13 @@ public class MainWindow extends BasicWindow {
 	private ViewPanel userPanel;
 	private ViewPanel transactionPanel;
 
-	public MainWindow(String header) {
+	public MainWindow() {
 		super();
-		this.header = header;
 		this.configureContent();
 	}
 
-	public MainWindow(String title, String header) { 
+	public MainWindow(String title) { 
 		super(title);
-		this.header = header;
 		this.configureContent();
 	}
 
@@ -49,14 +45,14 @@ public class MainWindow extends BasicWindow {
 	
 	private void configureContent() {
 
-		this.dashboardPanel = new DashboardPanel(new GridLayout(3), this);
-		this.inventoryPanel = new InventoryPanel(new GridLayout(3), this);
-		this.tagPanel = new TagPanel(new GridLayout(2), this);
+		this.dashboardPanel = new DashboardPanel(new GridLayout(3));
+		this.inventoryPanel = new InventoryPanel(new GridLayout(3));
+		this.tagPanel = new TagPanel(new GridLayout(2));
 		this.typePanel = new TypePanel(new LinearLayout());
-		this.userPanel = new UserPanel(new GridLayout(3), this);
-		this.transactionPanel = new TransactionPanel(new LinearLayout(), this);
+		this.userPanel = new UserPanel(new GridLayout(3));
+		this.transactionPanel = new TransactionPanel(new LinearLayout());
 		
-		this.setComponent(new MainPanel(new BorderLayout(), this.dashboardPanel, this.header));
+		this.setComponent(new MainPanel(new BorderLayout(), this.dashboardPanel));
 		this.setHints(Arrays.asList(Hint.EXPANDED, Hint.FIXED_POSITION));
 		this.setPosition(new TerminalPosition(1, 2));
 
