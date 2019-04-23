@@ -46,6 +46,14 @@ public enum Utility {
 		}
 		return null;
 	}
+	
+	public User getUserByDisplayName(String displayName) {
+		for (User user : Global.OBJECTS.getUsers()) {
+			if (user.getDisplayName().equals(displayName))
+				return user;
+		}
+		return null;
+	}
 
 	public ItemTag getItemTagByName(String name) {
 		for (ItemTag tag : Global.OBJECTS.getItemTags()) {

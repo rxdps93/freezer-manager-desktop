@@ -20,6 +20,8 @@ public class EditUserDialog extends AbstractModifyUserDialog {
 		this.getFirstNameEntry().setText(this.toEdit.getFirstName());
 		this.getLastNameEntry().setText(this.toEdit.getLastName());
 		this.getDisplayNameEntry().setText(this.toEdit.getDisplayName());
+		this.getPasswordEntry().setValidationPattern(null).setMask('*')
+		.setText("password").setEnabled(false);
 	}
 
 	@Override
@@ -62,6 +64,7 @@ public class EditUserDialog extends AbstractModifyUserDialog {
 					this.getFirstNameEntry().getText(),
 					this.getLastNameEntry().getText(),
 					this.getDisplayNameEntry().getText(),
+					this.toEdit.getPassword(),
 					this.toEdit.getId(),
 					this.toEdit.getUserGroup());
 			

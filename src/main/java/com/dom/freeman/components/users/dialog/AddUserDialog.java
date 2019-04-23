@@ -56,6 +56,7 @@ public class AddUserDialog extends AbstractModifyUserDialog {
 					this.getFirstNameEntry().getText(),
 					this.getLastNameEntry().getText(),
 					this.getDisplayNameEntry().getText(),
+					this.getPasswordEntry().getText(),
 					UUID.randomUUID().toString(),
 					UserGroup.USER);
 			

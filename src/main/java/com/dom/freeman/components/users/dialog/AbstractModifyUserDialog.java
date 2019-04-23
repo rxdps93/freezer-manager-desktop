@@ -1,5 +1,7 @@
 package com.dom.freeman.components.users.dialog;
 
+import java.util.regex.Pattern;
+
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.EmptySpace;
@@ -16,6 +18,7 @@ public abstract class AbstractModifyUserDialog extends DialogWindow {
 	private TextBox firstNameEntry;
 	private TextBox lastNameEntry;
 	private TextBox displayNameEntry;
+	private TextBox passwordEntry;
 	
 	protected AbstractModifyUserDialog(String title) {
 		super(title);
@@ -60,6 +63,13 @@ public abstract class AbstractModifyUserDialog extends DialogWindow {
 		this.displayNameEntry = new TextBox(new TerminalSize(30, 1));
 		mainPanel.addComponent(this.displayNameEntry);
 		
+		// Password
+		mainPanel.addComponent(this.dialogSpacer());
+		mainPanel.addComponent(new Label("Password (Only letters and numbers)"));
+		this.passwordEntry = new TextBox(new TerminalSize(30, 1)).setValidationPattern(
+				Pattern.compile("[A-Za-z0-9]*"));
+		mainPanel.addComponent(this.passwordEntry);
+		
 		mainPanel.addComponent(this.dialogSpacer());
 		buttonPanel.setLayoutData(GridLayout.createLayoutData(
 				Alignment.END, Alignment.CENTER,
@@ -83,6 +93,10 @@ public abstract class AbstractModifyUserDialog extends DialogWindow {
 	
 	public TextBox getDisplayNameEntry() {
 		return this.displayNameEntry;
+	}
+	
+	public TextBox getPasswordEntry() {
+		return this.passwordEntry;
 	}
 	
 	public abstract boolean validateUser();

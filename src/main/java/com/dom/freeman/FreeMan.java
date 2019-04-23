@@ -31,10 +31,9 @@ public class FreeMan {
 		
 		Utility.METHODS.updateInventory();
 		
-		// TODO: ASSIGNING ADMIN ACCOUNT; REMOVING EVENTUALLY
-		Global.OBJECTS.setCurrentUser(Global.OBJECTS.getUsers().get(0));
-		
 		gui.addWindowAndWait(Global.OBJECTS.getInitialWindow());
-		gui.addWindowAndWait(Global.OBJECTS.getMainWindow());
+		
+		if (Global.OBJECTS.getCurrentUser() != null)
+			gui.addWindowAndWait(Global.OBJECTS.getMainWindow());
 	}
 }

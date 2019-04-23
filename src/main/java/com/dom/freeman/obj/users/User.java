@@ -16,16 +16,20 @@ public class User {
 	private String displayName;
 	
 	@CsvBindByPosition(position = 3)
+	private String password;
+	
+	@CsvBindByPosition(position = 4)
 	private String id;
 	
-	@CsvCustomBindByPosition(position = 4, converter = UserGroupConverter.class)
+	@CsvCustomBindByPosition(position = 5, converter = UserGroupConverter.class)
 	private UserGroup group;
 	
 	public User(String firstName, String lastName, String displayName,
-			String id, UserGroup group) {
+			String password, String id, UserGroup group) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.displayName = displayName;
+		this.password = password;
 		this.id = id;
 		this.group = group;
 	}
@@ -44,6 +48,10 @@ public class User {
 	
 	public String getDisplayName() {
 		return this.displayName;
+	}
+	
+	public String getPassword() {
+		return this.password;
 	}
 	
 	public String getId() {
@@ -70,6 +78,10 @@ public class User {
 		this.displayName = displayName;
 	}
 	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -92,6 +104,7 @@ public class User {
 				this.getFirstName(),
 				this.getLastName(),
 				this.getDisplayName(),
+				this.getPassword(),
 				this.getId(),
 				this.group.toString()
 		};

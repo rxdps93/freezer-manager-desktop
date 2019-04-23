@@ -1,6 +1,6 @@
-Dev,Devman,rxdps93,de6274bd-ad65-47b3-8e14-0c6f1c90504a,DEVELOPER
-Admin,Adminson,mr. admin,92d5b2a8-2712-4687-9c8c-558fb2111da3,ADMINISTRATOR
-Maint,Mainter,minty,151153da-f9f9-4ebd-9a2f-cdf61e0c3d30,MAINTAINER
-Guy,Fieri,mayor of flavor town,e681eead-5bab-40b9-bf60-4ae379a67c67,ENHANCED_USER
-Usey,Usio,someguy,628d652e-7f5f-42d6-a06b-39195f5a300f,USER
-Bad,Evilson,noview,9ba5955c-bb7d-41df-85e8-be257747c5c5,SUSPENDED
+Dev,Devman,rxdps93,thedev,de6274bd-ad65-47b3-8e14-0c6f1c90504a,DEVELOPER
+Admin,Adminson,mr. admin,password,92d5b2a8-2712-4687-9c8c-558fb2111da3,ADMINISTRATOR
+Maint,Mainter,minty,trident,151153da-f9f9-4ebd-9a2f-cdf61e0c3d30,MAINTAINER
+Guy,Fieri,mayor of flavor town,yowza,e681eead-5bab-40b9-bf60-4ae379a67c67,ENHANCED_USER
+Usey,Usio,someguy,bland,628d652e-7f5f-42d6-a06b-39195f5a300f,USER
+Bad,Evilson,noview,desu,9ba5955c-bb7d-41df-85e8-be257747c5c5,SUSPENDED
