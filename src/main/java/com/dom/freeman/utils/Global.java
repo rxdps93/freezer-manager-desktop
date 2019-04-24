@@ -31,6 +31,7 @@ public enum Global {
 	private final String mainHeader = "FREEZER INVENTORY MANAGEMENT SYSTEM";
 	private MainWindow mainWindow;
 	private InitialWindow initialWindow;
+	private boolean exitFlag = false;
 	
 //	private final String origPath = "src/main/resources/contents.csv";
 //	private final String uuidPath = "src/main/resources/contents_uuid.csv";
@@ -58,6 +59,10 @@ public enum Global {
 	
 	public List<Item> getInventory() {
 		return this.inventory;
+	}
+	
+	public boolean getExitFlag() {
+		return this.exitFlag;
 	}
 	
 	public Map<String, Integer> getTypes() {
@@ -94,6 +99,10 @@ public enum Global {
 	
 	public void setInventory(List<Item> items) {
 		this.inventory = items;
+	}
+	
+	public void setExitFlag(boolean exitFlag) {
+		this.exitFlag = exitFlag;
 	}
 	
 	public void setTypes(Map<String, Integer> types) {

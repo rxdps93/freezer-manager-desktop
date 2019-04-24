@@ -55,7 +55,7 @@ My intent is to develop a system comprised of four major components:
 - [x] Ability to manage expired items
 - [x] Require users to log in
 - [x] Give users a password
-- [ ] Allow switching users
+- [x] Allow switching users
 - [ ] Make permissions actually do something
 - [ ] If the current user does not have permissions, allow temporary permission for one specific action granted by someone with permission
 - [ ] Allow adding tags to items via the add/edit item dialog

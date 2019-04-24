@@ -16,24 +16,26 @@ import com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration;
 public class FreeMan {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
-		
+
 		SwingTerminalFontConfiguration stfc = SwingTerminalFontConfiguration.newInstance(new Font("Courier New", Font.PLAIN, 12));
 		Terminal terminal = new DefaultTerminalFactory()
 				.setTerminalEmulatorTitle("Freezer Inventory Management System")
 				.setTerminalEmulatorFontConfiguration(stfc)
 				.setInitialTerminalSize(new TerminalSize(200, 75))
 				.createTerminal();
-		
+
 		Screen screen = new TerminalScreen(terminal);
 		screen.startScreen();
-		
+
 		final MultiWindowTextGUI gui = new MultiWindowTextGUI(screen);
-		
+
 		Utility.METHODS.updateInventory();
-		
-		gui.addWindowAndWait(Global.OBJECTS.getInitialWindow());
-		
-		if (Global.OBJECTS.getCurrentUser() != null)
+
+		do {
+			gui.addWindowAndWait(Global.OBJECTS.getInitialWindow());
 			gui.addWindowAndWait(Global.OBJECTS.getMainWindow());
+		} while (!Global.OBJECTS.getExitFlag());
+		
+		System.exit(0);
 	}
 }
