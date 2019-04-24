@@ -73,6 +73,11 @@ public enum Utility {
 
 		return tags;
 	}
+	
+	public boolean validateUser(String enteredPassword, String displayName) {
+		
+		return enteredPassword.equals(this.getUserByDisplayName(displayName).getPassword());
+	}
 
 	public Map<String, Integer> itemTypeCount(List<Item> items) {
 

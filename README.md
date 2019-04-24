@@ -53,8 +53,8 @@ My intent is to develop a system comprised of four major components:
 ## Tentative Feature Timing
 #### Now
 - [x] Ability to manage expired items
-- [ ] Require users to log in
-- [ ] Give users a password
+- [x] Require users to log in
+- [x] Give users a password
 - [ ] Allow switching users
 - [ ] Make permissions actually do something
 - [ ] If the current user does not have permissions, allow temporary permission for one specific action granted by someone with permission

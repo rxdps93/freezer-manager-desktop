@@ -3,6 +3,7 @@ package com.dom.freeman.components;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.dom.freeman.components.admin.AdminPanel;
 import com.dom.freeman.components.dashboard.DashboardPanel;
 import com.dom.freeman.components.inventory.InventoryPanel;
 import com.dom.freeman.components.tags.TagPanel;
@@ -28,6 +29,7 @@ public class MainWindow extends BasicWindow {
 	private ViewPanel typePanel;
 	private ViewPanel userPanel;
 	private ViewPanel transactionPanel;
+	private ViewPanel adminPanel;
 
 	public MainWindow() {
 		super();
@@ -51,6 +53,7 @@ public class MainWindow extends BasicWindow {
 		this.typePanel = new TypePanel(new LinearLayout());
 		this.userPanel = new UserPanel(new GridLayout(3));
 		this.transactionPanel = new TransactionPanel(new LinearLayout());
+		this.adminPanel = new AdminPanel();
 		
 		this.setComponent(new MainPanel(new BorderLayout(), this.dashboardPanel));
 		this.setHints(Arrays.asList(Hint.EXPANDED, Hint.FIXED_POSITION));
@@ -96,6 +99,12 @@ public class MainWindow extends BasicWindow {
 					if (!getMainComponent().getCurrentComponent().getTrigger().equals(KeyType.F6)) {
 						getMainComponent().setView(transactionPanel, 5);
 						setFocusedInteractable(transactionPanel.getPrimaryInteractable());
+					}
+					break;
+				case F7:
+					if (!getMainComponent().getCurrentComponent().getTrigger().equals(KeyType.F7)) {
+						getMainComponent().setView(adminPanel, 6);
+						setFocusedInteractable(adminPanel.getPrimaryInteractable());
 					}
 					break;
 				default:

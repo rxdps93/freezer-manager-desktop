@@ -18,6 +18,8 @@ import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.TextBox;
 import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.WindowListener;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.gui2.GridLayout.Alignment;
 
@@ -66,11 +68,15 @@ public class InitialWindow extends BasicWindow {
 		buttonPanel.addComponent(new Button("Submit", new Runnable() {
 			@Override
 			public void run() {
-				if (pass.getText().equals(Utility.METHODS.getUserByDisplayName(users.getSelectedItem()).getPassword())) {
+				
+				if (Utility.METHODS.validateUser(pass.getText(), users.getSelectedItem())) {
 					Global.OBJECTS.setCurrentUser(Utility.METHODS.getUserByDisplayName(users.getSelectedItem()));
 					close();
 				} else {
-					System.out.println("INVALID");
+					new MessageDialogBuilder().setTitle("Unable to log in")
+					.setText("The entered password does not match the one stored for the selected user.")
+					.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+					.addButton(MessageDialogButton.OK).build().showDialog(getTextGUI());
 				}
 			}
 		}));

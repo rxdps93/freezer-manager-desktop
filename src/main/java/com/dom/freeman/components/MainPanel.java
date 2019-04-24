@@ -30,7 +30,8 @@ public class MainPanel extends Panel {
 			"MANAGE TAGS",
 			"MANAGE TYPES",
 			"MANAGE USERS",
-			"TRANSACTION LOGS"
+			"TRANSACTION LOGS",
+			"OTHER"
 	};
 
 	private final String[] buttons = {
@@ -39,7 +40,8 @@ public class MainPanel extends Panel {
 			"F3",
 			"F4",
 			"F5",
-			"F6"
+			"F6",
+			"F7"
 	};
 
 	public MainPanel(ViewPanel initialComponent) {
