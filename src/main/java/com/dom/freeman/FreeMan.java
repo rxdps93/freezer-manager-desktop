@@ -33,6 +33,10 @@ public class FreeMan {
 
 		do {
 			gui.addWindowAndWait(Global.OBJECTS.getInitialWindow());
+			
+			if (Global.OBJECTS.getCurrentUser() == null)
+				break;
+			
 			gui.addWindowAndWait(Global.OBJECTS.getMainWindow());
 		} while (!Global.OBJECTS.getExitFlag());
 		
