@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
 import com.dom.freeman.obj.users.User;
 import com.dom.freeman.obj.users.UserOperation;
+import com.googlecode.lanterna.gui2.Window.Hint;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -70,9 +72,11 @@ public enum FileIO {
 	}
 
 	// TODO: This method will eventually give the user the option to have an admin let them do an operation they don't have permission for
-	public boolean allowTemporaryAccess() {
+	public boolean allowTemporaryAccess(UserOperation requiredOp) {
 
-		return false;
+		PermissionDialog dialog = new PermissionDialog("Request Temporary Permission", requiredOp);
+		dialog.setHints(Arrays.asList(Hint.CENTERED));
+		return dialog.showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 	}
 
 	/*
@@ -88,7 +92,7 @@ public enum FileIO {
 	public OperationResult addNewItemToFile(Item item) {
 
 		if (!Global.OBJECTS.getCurrentUser().hasPermission(UserOperation.ADD_ITEM)) {
-			if (!this.allowTemporaryAccess()) {
+			if (!this.allowTemporaryAccess(UserOperation.ADD_ITEM)) {
 				return new OperationResult(OperationStatus.OPERATION_NOT_PERMITTED);
 			}
 		}
@@ -119,7 +123,7 @@ public enum FileIO {
 	public OperationResult addNewItemTagToFile(ItemTag tag) {
 		
 		if (!Global.OBJECTS.getCurrentUser().hasPermission(UserOperation.ADD_ITEM_TAG)) {
-			if (!this.allowTemporaryAccess()) {
+			if (!this.allowTemporaryAccess(UserOperation.ADD_ITEM_TAG)) {
 				return new OperationResult(OperationStatus.OPERATION_NOT_PERMITTED);
 			}
 		}
@@ -146,9 +150,21 @@ public enum FileIO {
 		return result;
 	}
 
-	public boolean addNewUserToFile(User user) {
+	
+	public OperationResult addNewUserToFile(User user) {
+		
+		if (!Global.OBJECTS.getCurrentUser().hasPermission(UserOperation.ADD_USER)) {
+			if (!this.allowTemporaryAccess(UserOperation.ADD_USER)) {
+				return new OperationResult(OperationStatus.OPERATION_NOT_PERMITTED);
+			}
+		}
+		
+		return this.addUser(user);
+	}
+	
+	private OperationResult addUser(User user) {
 
-		boolean success;
+		OperationResult result;
 		try {
 			FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getUserPath()).toString()), true);
 			CSVWriter csv = new CSVWriter(writer);
@@ -157,12 +173,12 @@ public enum FileIO {
 
 			csv.close();
 			writer.close();
-			success = true;
+			result = new OperationResult(OperationStatus.OPERATION_SUCCESS, "User successfully added to the system!");
 		} catch (IOException e) {
-			success = false;
+			result = new OperationResult(OperationStatus.OPERATION_FAILURE, "Some error occurred and the user could not be saved. Please try again.");
 		}
 
-		return success;
+		return result;
 	}
 
 	public boolean modifyExistingItemInFile(Item toModify, UserOperation op) {
