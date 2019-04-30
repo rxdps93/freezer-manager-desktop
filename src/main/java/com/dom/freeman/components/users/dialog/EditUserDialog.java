@@ -6,6 +6,7 @@ import com.dom.freeman.obj.OperationResult;
 import com.dom.freeman.obj.users.User;
 import com.dom.freeman.obj.users.UserOperation;
 import com.dom.freeman.utils.FileIO;
+import com.dom.freeman.utils.Global;
 import com.dom.freeman.utils.Utility;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
@@ -52,6 +53,17 @@ public class EditUserDialog extends AbstractModifyUserDialog {
 			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
 			.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
 			valid = false;
+		} else {
+			for (User user : Global.OBJECTS.getUsers()) {
+				if (user.getDisplayName().equalsIgnoreCase(this.getDisplayNameEntry().getText())) {
+					new MessageDialogBuilder().setTitle("Create User Validation")
+					.setText("That display name already exists. It must be unique.")
+					.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+					.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
+					valid = false;
+					break;
+				}
+			}
 		}
 		
 		return valid;
