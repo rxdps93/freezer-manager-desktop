@@ -71,7 +71,6 @@ public enum FileIO {
 		return users;
 	}
 
-	// TODO: This method will eventually give the user the option to have an admin let them do an operation they don't have permission for
 	public boolean allowTemporaryAccess(UserOperation requiredOp) {
 
 		PermissionDialog dialog = new PermissionDialog("Request Temporary Permission", requiredOp);
@@ -180,10 +179,21 @@ public enum FileIO {
 
 		return result;
 	}
+	
+	public OperationResult modifyExistingItemInFile(Item toModify, UserOperation op) {
+		
+		if (!Global.OBJECTS.getCurrentUser().hasPermission(op)) {
+			if (!this.allowTemporaryAccess(op)) {
+				return new OperationResult(OperationStatus.OPERATION_NOT_PERMITTED);
+			}
+		}
+		
+		return this.modifyItem(toModify, op);
+	}
 
-	public boolean modifyExistingItemInFile(Item toModify, UserOperation op) {
+	private OperationResult modifyItem(Item toModify, UserOperation op) {
 
-		boolean success = false;
+		OperationResult result;
 
 		List<Item> items = this.parseItemsFromFile();
 		int index = -1;
@@ -208,7 +218,7 @@ public enum FileIO {
 				}
 				if (!tags.isEmpty()) {
 					ItemTag [] updatedTags = new ItemTag[tags.size()];
-					success = this.modifyExistingItemTagsInFile(UserOperation.EDIT_ITEM_TAG, tags.toArray(updatedTags));
+					result = this.modifyItemTag(UserOperation.EDIT_ITEM_TAG, tags.toArray(updatedTags));
 				}
 
 				items.remove(index);
@@ -224,56 +234,30 @@ public enum FileIO {
 
 				csv.close();
 				writer.close();
-				success = true;
+				result = new OperationResult(OperationStatus.OPERATION_SUCCESS, op.equals(UserOperation.EDIT_ITEM) ? "The item was successfully modified." : "The item was successfully removed");
 			} catch(IOException e) {
-				success = false;
+				result = new OperationResult(OperationStatus.OPERATION_FAILURE, "Some error occurred and the changes could not be made. Please try again.");
 			}
+		} else {
+			result = new OperationResult(OperationStatus.OPERATION_FAILURE, "Some error occurred and the item could not be found. Please try again.");
 		}
 
-		return success;
+		return result;
 	}
-
-	public boolean modifyExistingUserInFile(UserOperation op, User toModify) {
-
-		boolean success = false;
-
-		List<User> users = this.parseUsersFromFile();
-		int index = -1;
-		for (User user : users) {
-			if (user.getId().equals(toModify.getId())) {
-				index = users.indexOf(user);
+	
+	public OperationResult modifyExistingItemTagsInFile(UserOperation op, ItemTag... toModify) {
+		
+		if (!Global.OBJECTS.getCurrentUser().hasPermission(op)) {
+			if (!this.allowTemporaryAccess(op)) {
+				return new OperationResult(OperationStatus.OPERATION_NOT_PERMITTED);
 			}
 		}
-
-		if (index != -1) {
-
-			if (op.equals(UserOperation.EDIT_USER)) {
-				users.set(index, toModify);
-			} else if (op.equals(UserOperation.REMOVE_USER)) {
-				users.remove(index);
-			}
-
-			try {
-				FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getUserPath()).toString()), false);
-				CSVWriter csv = new CSVWriter(writer);
-
-				for (User user : users) {
-					csv.writeNext(user.toCsvString(), false);
-				}
-
-				csv.close();
-				writer.close();
-				success = true;
-			} catch(IOException e) {
-				success = false;
-			}
-		}
-
-		return success;
+		
+		return this.modifyItemTag(op, toModify);
 	}
-
-	public boolean modifyExistingItemTagsInFile(UserOperation op, ItemTag... toModify) {
-		boolean success = false;
+	
+	private OperationResult modifyItemTag(UserOperation op, ItemTag... toModify) {
+		OperationResult result;
 
 		List<ItemTag> itemTags = this.parseItemTagsFromFile();
 		ArrayList<Integer> index = new ArrayList<>();
@@ -305,12 +289,66 @@ public enum FileIO {
 
 				csv.close();
 				writer.close();
-				success = true;
+				result = new OperationResult(OperationStatus.OPERATION_SUCCESS, op.equals(UserOperation.EDIT_ITEM) ? "The item tag was successfully modified." : "The item tag was successfully removed.");
 			} catch(IOException e) {
-				success = false;
+				result = new OperationResult(OperationStatus.OPERATION_FAILURE, "Some error occurred and the item tag could not be modified. Please try again.");
+			}
+		} else {
+			result = new OperationResult(OperationStatus.OPERATION_FAILURE, "Some error occurred and the item tag could not be modified. Please try again.");
+		}
+
+		return result;
+	}
+
+	public OperationResult modifyExistingUserInFile(UserOperation op, User toModify) { 
+		
+		if (!Global.OBJECTS.getCurrentUser().hasPermission(op)) {
+			if (!this.allowTemporaryAccess(op)) {
+				return new OperationResult(OperationStatus.OPERATION_NOT_PERMITTED);
+			}
+		}
+		
+		return this.modifyUser(op, toModify);
+	}
+	
+	private OperationResult modifyUser(UserOperation op, User toModify) {
+
+		OperationResult result;
+
+		List<User> users = this.parseUsersFromFile();
+		int index = -1;
+		for (User user : users) {
+			if (user.getId().equals(toModify.getId())) {
+				index = users.indexOf(user);
 			}
 		}
 
-		return success;
+		if (index != -1) {
+
+			if (op.equals(UserOperation.EDIT_USER)) {
+				users.set(index, toModify);
+			} else if (op.equals(UserOperation.REMOVE_USER)) {
+				users.remove(index);
+			}
+
+			try {
+				FileWriter writer = new FileWriter(new File(Paths.get(Global.OBJECTS.getUserPath()).toString()), false);
+				CSVWriter csv = new CSVWriter(writer);
+
+				for (User user : users) {
+					csv.writeNext(user.toCsvString(), false);
+				}
+
+				csv.close();
+				writer.close();
+				result = new OperationResult(OperationStatus.OPERATION_SUCCESS, op.equals(UserOperation.EDIT_USER) ? "The user has been successfully updated." : "The user has been successfully removed.");
+			} catch(IOException e) {
+				result = new OperationResult(OperationStatus.OPERATION_FAILURE, "Something went wrong and the changes to the user could not be saved. Please try again.");
+			}
+		} else {
+			result = new OperationResult(OperationStatus.OPERATION_FAILURE, "Something went wrong and the changes to the user could not be saved. Please try again.");
+		}
+
+		return result;
 	}
 }

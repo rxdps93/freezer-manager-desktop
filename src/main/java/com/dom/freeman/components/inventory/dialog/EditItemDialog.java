@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 import com.dom.freeman.obj.Item;
+import com.dom.freeman.obj.OperationResult;
 import com.dom.freeman.obj.users.UserOperation;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Utility;
@@ -77,21 +78,18 @@ public class EditItemDialog extends AbstractModifyItemDialog {
 	}
 	
 	private void saveItem(Item newItem) {
-		boolean write = FileIO.METHODS.modifyExistingItemInFile(newItem, UserOperation.EDIT_ITEM);
 		
-		if (write) {
-			new MessageDialogBuilder().setTitle("Item Edited Successfully")
-			.setText("Inventory item has been successfully updated!")
-			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-			.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
-			close();
+		OperationResult result = FileIO.METHODS.modifyExistingItemInFile(newItem, UserOperation.EDIT_ITEM);
+		
+		new MessageDialogBuilder().setTitle("Edit Item Results")
+		.setText(result.getMessage())
+		.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+		.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
+		
+		if (result.isSuccess()) {
+			this.close();
 			Utility.METHODS.updateInventory();
 			Utility.METHODS.refreshViews();
-		} else {
-			new MessageDialogBuilder().setTitle("Warning")
-			.setText("Some error occurred and the item could not be added. Please try again.")
-			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-			.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
 		}
 	}
 

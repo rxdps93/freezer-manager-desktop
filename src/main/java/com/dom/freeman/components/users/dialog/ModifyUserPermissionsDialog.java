@@ -2,6 +2,7 @@ package com.dom.freeman.components.users.dialog;
 
 import java.util.Arrays;
 
+import com.dom.freeman.obj.OperationResult;
 import com.dom.freeman.obj.users.User;
 import com.dom.freeman.obj.users.UserGroup;
 import com.dom.freeman.obj.users.UserOperation;
@@ -105,22 +106,19 @@ public class ModifyUserPermissionsDialog extends DialogWindow {
 		if (authCheck) {
 			selectedUser.setUserGroup(UserGroup.valueOf(this.userGroups.getCheckedItem()));
 
-			boolean write = FileIO.METHODS.modifyExistingUserInFile(UserOperation.EDIT_USER, selectedUser);
+			OperationResult result = FileIO.METHODS.modifyExistingUserInFile(UserOperation.EDIT_USER, selectedUser);
 
-			if (write) {
-				new MessageDialogBuilder().setTitle("User Permissions Successfully Updated")
-				.setText("User permissions have been successfully updated")
-				.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-				.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
+			new MessageDialogBuilder().setTitle("User Permission Modification Results")
+			.setText(result.getMessage())
+			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+			.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
+			
+			if (result.isSuccess()) {
 				this.close();
 				Utility.METHODS.updateInventory();
 				Utility.METHODS.refreshViews();
-			} else {
-				new MessageDialogBuilder().setTitle("Warning")
-				.setText("Some error occurred and the permissions could not be updated for this user. Please try again.")
-				.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-				.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
 			}
+			
 		}
 	}
 

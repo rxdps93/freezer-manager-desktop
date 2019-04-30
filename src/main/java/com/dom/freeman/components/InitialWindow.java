@@ -1,8 +1,11 @@
 package com.dom.freeman.components;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.dom.freeman.components.users.UserSortMode;
 import com.dom.freeman.obj.users.User;
 import com.dom.freeman.utils.Global;
 import com.dom.freeman.utils.Utility;
@@ -49,6 +52,10 @@ public class InitialWindow extends BasicWindow {
 				.setLayoutData(GridLayout.createHorizontallyFilledLayoutData(2)));
 		loginPanel.addComponent(new Label("Select your display name"));
 		ComboBox<String> users = new ComboBox<>();
+		
+		List<User> userTemp = Global.OBJECTS.getUsers();
+		Collections.sort(userTemp, UserSortMode.DISP_ASC.getSortMethod());
+		
 		for (User u : Global.OBJECTS.getUsers()) {
 			users.addItem(u.getDisplayName());
 		}

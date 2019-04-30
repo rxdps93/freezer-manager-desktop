@@ -7,6 +7,7 @@ import com.dom.freeman.components.inventory.dialog.EditItemDialog;
 import com.dom.freeman.components.inventory.dialog.ModifyItemSummaryDialog;
 import com.dom.freeman.components.inventory.tables.InventoryExpirationTable;
 import com.dom.freeman.obj.Item;
+import com.dom.freeman.obj.OperationResult;
 import com.dom.freeman.obj.users.UserOperation;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Global;
@@ -78,20 +79,16 @@ public class InventoryExpirationPanel extends Panel {
 
 						if (summary.showDialog(Global.OBJECTS.getMainWindow().getTextGUI())) {
 
-							boolean remove = FileIO.METHODS.modifyExistingItemInFile(selectedItem, UserOperation.REMOVE_ITEM);
-
-							if (remove) {
-								new MessageDialogBuilder().setTitle("Expired Item Removed Successfully")
-								.setText("Expired Item successfully removed from inventory!")
-								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-								.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
+							OperationResult result = FileIO.METHODS.modifyExistingItemInFile(selectedItem, UserOperation.REMOVE_ITEM);
+							
+							new MessageDialogBuilder().setTitle("Expired Item Removal Results")
+							.setText(result.getMessage())
+							.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+							.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
+							
+							if (result.isSuccess()) {
 								Utility.METHODS.updateInventory();
 								Utility.METHODS.refreshViews();
-							} else {
-								new MessageDialogBuilder().setTitle("Warning")
-								.setText("Some error occurred and the expired item could not be removed. Please try again.")
-								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-								.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 							}
 						}
 					}

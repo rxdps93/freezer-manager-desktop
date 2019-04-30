@@ -8,6 +8,7 @@ import com.dom.freeman.components.users.dialog.ModifyUserPermissionsDialog;
 import com.dom.freeman.components.users.dialog.ModifyUserSummaryDialog;
 import com.dom.freeman.components.users.dialog.ViewUserSummaryDialog;
 import com.dom.freeman.components.users.tables.UserViewTable;
+import com.dom.freeman.obj.OperationResult;
 import com.dom.freeman.obj.OperationStatus;
 import com.dom.freeman.obj.users.User;
 import com.dom.freeman.obj.users.UserOperation;
@@ -95,21 +96,19 @@ public class UserViewPanel extends Panel {
 						summary.setHints(Arrays.asList(Hint.CENTERED));
 						
 						if (summary.showDialog(Global.OBJECTS.getMainWindow().getTextGUI())) {
-							boolean remove = FileIO.METHODS.modifyExistingUserInFile(UserOperation.REMOVE_USER, selectedUser);
 							
-							if (remove) {
-								new MessageDialogBuilder().setTitle("User Removed Successfully")
-								.setText("User successfully removed!")
-								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-								.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
+							OperationResult result = FileIO.METHODS.modifyExistingUserInFile(UserOperation.REMOVE_USER, selectedUser);
+							
+							new MessageDialogBuilder().setTitle("Remove User Results")
+							.setText(result.getMessage())
+							.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+							.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
+							
+							if (result.isSuccess()) {
 								Utility.METHODS.updateInventory();
 								Utility.METHODS.refreshViews();
-							} else {
-								new MessageDialogBuilder().setTitle("Warning")
-								.setText("Some error occurred and the user could not be removed. Please try again.")
-								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-								.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 							}
+
 						}
 					}
 				}).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());

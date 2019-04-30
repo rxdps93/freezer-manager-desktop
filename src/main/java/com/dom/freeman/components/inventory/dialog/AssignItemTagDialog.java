@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
+import com.dom.freeman.obj.OperationResult;
 import com.dom.freeman.obj.users.UserOperation;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Global;
@@ -85,21 +86,17 @@ public class AssignItemTagDialog extends DialogWindow {
 			toModify[i].associateItems(selectedItem);
 		}
 		
-		boolean write = FileIO.METHODS.modifyExistingItemTagsInFile(UserOperation.EDIT_ITEM, toModify);
+		OperationResult result = FileIO.METHODS.modifyExistingItemTagsInFile(UserOperation.EDIT_ITEM_TAG, toModify);
 		
-		if (write) {
-			new MessageDialogBuilder().setTitle("Item Tags Successfully Associated")
-			.setText("Item tags have been successfully linked to the selected item")
-			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-			.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
+		new MessageDialogBuilder().setTitle("Item Tag Association Results")
+		.setText(result.getMessage())
+		.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+		.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
+		
+		if (result.isSuccess()) {
 			this.close();
 			Utility.METHODS.updateInventory();
 			Utility.METHODS.refreshViews();
-		} else {
-			new MessageDialogBuilder().setTitle("Warning")
-			.setText("Some error occurred and the item tags could not be associated to the item. Please try again.")
-			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-			.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
 		}
 	}
 	

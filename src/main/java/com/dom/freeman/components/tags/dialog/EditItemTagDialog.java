@@ -6,6 +6,7 @@ import java.util.List;
 import com.dom.freeman.components.inventory.InventorySortMode;
 import com.dom.freeman.obj.Item;
 import com.dom.freeman.obj.ItemTag;
+import com.dom.freeman.obj.OperationResult;
 import com.dom.freeman.obj.users.UserOperation;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Global;
@@ -84,22 +85,20 @@ public class EditItemTagDialog extends AbstractModifyTagDialog {
 	}
 	
 	private void saveItem(ItemTag tag) {
-		boolean write = FileIO.METHODS.modifyExistingItemTagsInFile(UserOperation.EDIT_ITEM_TAG, tag);
 		
-		if (write) {
-			new MessageDialogBuilder().setTitle("Item Tag Edited Successfully")
-			.setText("Item tag has been successfully updated")
-			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-			.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
+		OperationResult result = FileIO.METHODS.modifyExistingItemTagsInFile(UserOperation.EDIT_ITEM_TAG, tag);
+		
+		new MessageDialogBuilder().setTitle("Item Tag Edit Results")
+		.setText(result.getMessage())
+		.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+		.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
+		
+		if (result.isSuccess()) {
 			this.close();
 			Utility.METHODS.updateInventory();
 			Utility.METHODS.refreshViews();
-		} else {
-			new MessageDialogBuilder().setTitle("Warning")
-			.setText("Some error occurred and the item tag could not be added. Please try again.")
-			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-			.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
 		}
+
 	}
 
 	@Override

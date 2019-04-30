@@ -2,6 +2,7 @@ package com.dom.freeman.components.users.dialog;
 
 import java.util.Arrays;
 
+import com.dom.freeman.obj.OperationResult;
 import com.dom.freeman.obj.users.User;
 import com.dom.freeman.obj.users.UserOperation;
 import com.dom.freeman.utils.FileIO;
@@ -79,21 +80,17 @@ public class EditUserDialog extends AbstractModifyUserDialog {
 	
 	private void saveUser(User user) {
 		
-		boolean write = FileIO.METHODS.modifyExistingUserInFile(UserOperation.EDIT_USER, user);
+		OperationResult result = FileIO.METHODS.modifyExistingUserInFile(UserOperation.EDIT_USER, user);
 		
-		if (write) {
-			new MessageDialogBuilder().setTitle("User Edited Successfully")
-			.setText("User successfully updated.")
-			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-			.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
+		new MessageDialogBuilder().setTitle("Edit User Results")
+		.setText(result.getMessage())
+		.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+		.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
+		
+		if (result.isSuccess()) {
 			this.close();
 			Utility.METHODS.updateInventory();
 			Utility.METHODS.refreshViews();
-		} else {
-			new MessageDialogBuilder().setTitle("Warning")
-			.setText("Some error occurred and the user could not be updated. Please try again.")
-			.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-			.addButton(MessageDialogButton.OK).build().showDialog(this.getTextGUI());
 		}
 	}
 

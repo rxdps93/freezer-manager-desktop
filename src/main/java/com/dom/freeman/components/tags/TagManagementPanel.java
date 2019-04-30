@@ -7,6 +7,7 @@ import com.dom.freeman.components.tags.dialog.EditItemTagDialog;
 import com.dom.freeman.components.tags.dialog.ItemTagSummaryDialog;
 import com.dom.freeman.components.tags.tables.ItemTagViewTable;
 import com.dom.freeman.obj.ItemTag;
+import com.dom.freeman.obj.OperationResult;
 import com.dom.freeman.obj.users.UserOperation;
 import com.dom.freeman.utils.FileIO;
 import com.dom.freeman.utils.Global;
@@ -52,7 +53,7 @@ public class TagManagementPanel extends Panel {
 					public void run() {
 						List<String> data = tagList.getTableModel().getRow(tagList.getSelectedRow());
 						ItemTag tag = Utility.METHODS.getItemTagByName(data.get(0));
-						
+
 						ItemTagSummaryDialog summary = new ItemTagSummaryDialog("ITEM TAG SUMMARY", UserOperation.VIEW, tag);
 						summary.setHints(Arrays.asList(Hint.CENTERED));
 						summary.showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
@@ -72,25 +73,22 @@ public class TagManagementPanel extends Panel {
 					public void run() {
 						List<String> data = tagList.getTableModel().getRow(tagList.getSelectedRow());
 						ItemTag toRemove = Utility.METHODS.getItemTagByName(data.get(0));
-						
+
 						ItemTagSummaryDialog summary = new ItemTagSummaryDialog("Remove Item Tag Final Summary", UserOperation.REMOVE_ITEM_TAG, toRemove);
 						summary.setHints(Arrays.asList(Hint.CENTERED));
-						
+
 						if (summary.showDialog(Global.OBJECTS.getMainWindow().getTextGUI())) {
-							boolean remove = FileIO.METHODS.modifyExistingItemTagsInFile(UserOperation.REMOVE_ITEM_TAG, toRemove);
-							
-							if (remove) {
-								new MessageDialogBuilder().setTitle("Item Tag Removed Successfully")
-								.setText("Item tag successfully removed!")
-								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-								.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
+
+							OperationResult result = FileIO.METHODS.modifyExistingItemTagsInFile(UserOperation.REMOVE_ITEM_TAG, toRemove);
+
+							new MessageDialogBuilder().setTitle("Remove Item Results")
+							.setText(result.getMessage())
+							.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
+							.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
+
+							if (result.isSuccess()) {
 								Utility.METHODS.updateInventory();
 								Utility.METHODS.refreshViews();
-							} else {
-								new MessageDialogBuilder().setTitle("Warning")
-								.setText("Some error occurred and the item tag could not be removed. Please try again.")
-								.setExtraWindowHints(Arrays.asList(Hint.CENTERED))
-								.addButton(MessageDialogButton.OK).build().showDialog(Global.OBJECTS.getMainWindow().getTextGUI());
 							}
 						}
 					}
