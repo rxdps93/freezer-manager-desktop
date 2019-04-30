@@ -71,7 +71,7 @@ public class InitialWindow extends BasicWindow {
 		loginPanel.addComponent(pass);
 		
 		// Buttons
-		Panel buttonPanel = new Panel(new GridLayout(2));
+		Panel buttonPanel = new Panel(new GridLayout(3));
 		buttonPanel.addComponent(new Button("Submit", new Runnable() {
 			@Override
 			public void run() {
@@ -92,6 +92,13 @@ public class InitialWindow extends BasicWindow {
 			public void run() {
 				users.setSelectedIndex(0);
 				pass.setText("");
+			}
+		}));
+		buttonPanel.addComponent(new Button("Quit", new Runnable() {
+			@Override
+			public void run() {
+				Global.OBJECTS.setExitFlag(true);
+				close();
 			}
 		}));
 		loginPanel.addComponent(new EmptySpace()
