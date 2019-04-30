@@ -52,22 +52,15 @@ My intent is to develop a system comprised of four major components:
 
 ## Tentative Feature Timing
 #### Now
-- [x] Ability to manage expired items
-- [x] Require users to log in
-- [x] Give users a password
-- [x] Allow switching users
-- [ ] Make permissions actually do something
-- [ ] If the current user does not have permissions, allow temporary permission for one specific action granted by someone with permission
-- [ ] Allow adding tags to items via the add/edit item dialog
-#### Near
 - [ ] Introduce concept of 'item type' as an object
 - [ ] Differentiate between permanent and instance(item) tags
 - [ ] Rework tag assignment/unassignment to account for tag types
 - [ ] Filter detailed inventory view by field
 - [ ] Filter detailed inventory view by tag
 - [ ] Keep logs of all CSV file transactions
-#### Far
+#### Near
 - [ ] Ensure documentation is up to a reasonable standard
+#### Far
 - [ ] Interface with server application / database for inventory items
 - [ ] Interface with server application / database for users
 - [ ] Interface with server application / database for tags
@@ -105,3 +98,10 @@ This gets updated whenever the "Now" section above is completed. When that happe
 - [x] Sort user table **Completed 4/11/19**
 - [x] Assign permissions to a user **Completed 4/11/19**
 - [x] Unassign permissions from a user **Completed 4/11/19**
+####'Now' Priorities Iteration 3, Completed 4/30/19
+- [x] Ability to manage expired items **Completed 4/12/19**
+- [x] Require users to log in **Completed 4/23/19**
+- [x] Give users a password **Completed 4/23/19**
+- [x] Allow switching users **Completed 4/24/19**
+- [x] Make permissions actually do something **Completed 4/30/19**
+- [x] If the current user does not have permissions, allow temporary permission for one specific action granted by someone with permission **Completed 4/29/19**
